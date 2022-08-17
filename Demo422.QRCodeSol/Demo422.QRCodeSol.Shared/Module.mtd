@@ -1,0 +1,90 @@
+{
+  "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
+  "NameGuid": "52184f86-4f38-431a-92cb-0771fc0f7782",
+  "Name": "QRCodeSol",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "Demo422.QRCodeSol.Client",
+  "ClientBaseAssemblyName": "Demo422.QRCodeSol.ClientBase",
+  "ClientBaseNamespace": "Demo422.QRCodeSol.ClientBase",
+  "ClientNamespace": "Demo422.QRCodeSol.Client",
+  "Code": "QRCode2",
+  "CompanyCode": "Demo422",
+  "Cover": {
+    "NameGuid": "8989637c-011c-437a-a8b8-fe7c13b7768b",
+    "Actions": [],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "fac5bc06-c353-4cca-a090-78660274c4d5",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [],
+    "Header": {
+      "NameGuid": "77e46317-fcf3-423f-9578-92751586d587",
+      "BackgroundPosition": "Stretch"
+    }
+  },
+  "Dependencies": [
+    {
+      "Id": "a7deb08e-950c-4a28-9d93-09605c84a2ba",
+      "IsSolutionModule": true,
+      "MaxVersion": "",
+      "MinVersion": ""
+    }
+  ],
+  "IconResourcesKeys": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "Demo422.QRCodeSol",
+  "Libraries": [
+    {
+      "NameGuid": "1aea29a2-6346-4b37-b987-a1fd91f2f6cc",
+      "Name": "Drawing",
+      "Scope": "Both"
+    },
+    {
+      "NameGuid": "f1f86825-9a56-4401-b94d-69327024defb",
+      "Name": "QRCoder",
+      "Scope": "Both"
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "GetDocumentQRCode",
+      "Parameters": [
+        {
+          "Name": "docId",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "docTypeId",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "Demo422.QRCodeSol",
+  "ResourcesKeys": [],
+  "ServerAssemblyName": "Demo422.QRCodeSol.Server",
+  "ServerNamespace": "Demo422.QRCodeSol.Server",
+  "SharedAssemblyName": "Demo422.QRCodeSol.Shared",
+  "SharedNamespace": "Demo422.QRCodeSol.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.1",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "ModuleMetadata",
+      "Number": 6
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}
