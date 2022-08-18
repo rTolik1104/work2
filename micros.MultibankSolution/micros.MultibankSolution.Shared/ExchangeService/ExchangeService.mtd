@@ -1,0 +1,205 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "90447332-a1b1-4e37-973b-f76fe5088bbf",
+  "Name": "ExchangeService",
+  "BaseGuid": "d6c0fcaf-4ac9-4a6a-9e2c-8fed1e35c08a",
+  "CanBeNavigationPropertyType": true,
+  "CreationAreaMetadata": {
+    "NameGuid": "f7766750-eee2-4fcd-8003-5c06a90d1f44",
+    "Name": "CreationArea",
+    "Buttons": [],
+    "IsAncestorMetadata": true,
+    "Versions": []
+  },
+  "ExtraSearchProperties": [],
+  "FilterPanel": {
+    "NameGuid": "b0125fbd-3b91-4dbb-914a-689276216404",
+    "Name": "FilterPanel",
+    "Controls": [],
+    "IsAncestorMetadata": true,
+    "Versions": []
+  },
+  "IconResourcesKeys": [],
+  "LayeredFromGuid": "d6c0fcaf-4ac9-4a6a-9e2c-8fed1e35c08a",
+  "OperationsClass": "",
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "c6ef3a1e-71b9-45be-abd2-e6cc99ffe6b0",
+      "Name": "ExchangeProvider",
+      "DirectValues": [
+        {
+          "NameGuid": "804dfde0-8b25-4746-953d-7b8cdf159144",
+          "Name": "Multibank",
+          "Code": "Multibank"
+        },
+        {
+          "NameGuid": "b88d0d71-547f-45a2-b55c-386b078c9476",
+          "Name": "MultibankSTGmicros",
+          "Code": "MultibankStg"
+        }
+      ],
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "Values"
+      ],
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "e5b4286a-cddf-4a23-9661-c324717fc63a",
+      "Name": "SendInvoiceV2micros",
+      "Code": "SendInvoiceV2m",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "432cd13b-79d1-492f-ba61-280ef85bdc63"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "40d6adf7-3f51-4768-8d8f-fdee76a28bd3",
+      "Name": "GetPDFmicros",
+      "Code": "GetPDFmicros",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "e5b4286a-cddf-4a23-9661-c324717fc63a"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "4a4b661f-d3b7-4aa1-a677-4ea968a95eb2",
+      "Name": "GetTokenmicros",
+      "Code": "GetTokenmicros",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "40d6adf7-3f51-4768-8d8f-fdee76a28bd3"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "0dab388c-88ce-4408-ae56-0fdef530f354",
+      "Name": "GetUpdatedmicros",
+      "Code": "GetUpdatedmicr",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "4a4b661f-d3b7-4aa1-a677-4ea968a95eb2"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "e0167fa4-c7a8-4392-94ee-166c3afcc28d",
+      "Name": "RefreshTokenmicros",
+      "Code": "RefreshTokenmi",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "0dab388c-88ce-4408-ae56-0fdef530f354"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "38361433-3074-4df6-9f20-06ed077395f9",
+      "Name": "GetProfilemicros",
+      "Code": "GetProfilemicr",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "e0167fa4-c7a8-4392-94ee-166c3afcc28d"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "3d061d51-c5c4-4357-a4c9-0ecbc0c56aff",
+      "Name": "JoinProfilemicros",
+      "Code": "JoinProfilemic",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "38361433-3074-4df6-9f20-06ed077395f9"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "1680a562-41a6-4c58-a1f2-925139e678a4",
+      "Name": "GNKStringmicros",
+      "Code": "GNKStringmicro",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "3d061d51-c5c4-4357-a4c9-0ecbc0c56aff"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "fe599a79-0bfa-45ab-9c0d-a4e25595654f",
+      "Name": "MultibankAcceptmicros",
+      "Code": "MultibankAccep",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "1680a562-41a6-4c58-a1f2-925139e678a4"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "9cfa7458-5929-4900-9d81-243535dcec43",
+      "Name": "GetPublicDocmicros",
+      "Code": "GetPublicDocmi",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "fe599a79-0bfa-45ab-9c0d-a4e25595654f"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "5ae7f189-315a-48b7-9720-ca12f1dc6e25",
+      "Name": "Accountmicros",
+      "Code": "Accountmicros",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "9cfa7458-5929-4900-9d81-243535dcec43"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "9b2e56a2-9af0-4b80-a01f-9590f2ac8453",
+      "Name": "InvoiceURLmicros",
+      "Code": "InvoiceURLmicr",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "5ae7f189-315a-48b7-9720-ca12f1dc6e25"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "7ed92a6d-ec01-4ce8-9aa2-cdc3418f8529",
+      "Name": "GetSignaturesmicros",
+      "Code": "GetSignaturesm",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "9b2e56a2-9af0-4b80-a01f-9590f2ac8453"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [
+    "GetPDF",
+    "GetPDFStaging",
+    "GetProfile",
+    "GetProfileStaging",
+    "GetPublicDoc",
+    "GetPublicDocStaging",
+    "GetSignatures",
+    "GetSignaturesStaging",
+    "GetToken",
+    "GetTokenStaging",
+    "GetUpdatedToken",
+    "GetUpdatedTokenStaging",
+    "GNKString",
+    "GNKStringStaging",
+    "InvoiceURL",
+    "InvoiceURLStaging",
+    "JoinProfile",
+    "JoinProfileStaging",
+    "MultibankAccept",
+    "MultibankAcceptStaging",
+    "RefreshToken",
+    "RefreshTokenStaging",
+    "SendInvoiceV2",
+    "SendInvoiceV2Staging"
+  ],
+  "RibbonCardMetadata": {
+    "NameGuid": "6a2e9103-1a16-4582-805d-b0c46af69b8b",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "06d4fe76-a99d-4390-9a04-7255dfd4607b",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 11
+    }
+  ]
+}
