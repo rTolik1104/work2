@@ -1,0 +1,69 @@
+{
+  "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
+  "NameGuid": "81d6d1ae-db80-4bc9-9bb4-4ec24b7cb9f6",
+  "Name": "AGMKModule",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "micros.AGMKModule.Client",
+  "ClientBaseAssemblyName": "micros.AGMKModule.ClientBase",
+  "ClientBaseNamespace": "micros.AGMKModule.ClientBase",
+  "ClientNamespace": "micros.AGMKModule.Client",
+  "Code": "AGMKMod",
+  "CompanyCode": "micros",
+  "Cover": {
+    "NameGuid": "5282c45e-1591-4dc2-9858-ada3587c981a",
+    "Actions": [],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "5086743e-33df-49b0-8b56-688cb19255c5",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [],
+    "Header": {
+      "NameGuid": "1888d24b-96d0-4153-8dc5-9fa288f4e494",
+      "BackgroundPosition": "Stretch"
+    }
+  },
+  "Dependencies": [
+    {
+      "Id": "f5033c3a-6aa9-4598-a3ac-6ef1f5f4d76e",
+      "IsSolutionModule": true,
+      "MaxVersion": "",
+      "MinVersion": ""
+    },
+    {
+      "Id": "df83a2ea-8d43-4ec4-a34a-2e61863014df",
+      "MaxVersion": "",
+      "MinVersion": "4.3.25.0"
+    }
+  ],
+  "ExplorerTreeOrder": [
+    {
+      "ItemId": "edcf26f3-1426-40ff-aabd-bf4a4c6f36cc"
+    }
+  ],
+  "IconResourcesKeys": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "micros.AGMKModule",
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "micros.AGMKModule",
+  "ResourcesKeys": [],
+  "ServerAssemblyName": "micros.AGMKModule.Server",
+  "ServerNamespace": "micros.AGMKModule.Server",
+  "SharedAssemblyName": "micros.AGMKModule.Shared",
+  "SharedNamespace": "micros.AGMKModule.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.2",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "ModuleMetadata",
+      "Number": 6
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}

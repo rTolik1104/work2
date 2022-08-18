@@ -1,0 +1,57 @@
+{
+  "$type": "Sungero.Metadata.LayerModuleMetadata, Sungero.Metadata",
+  "NameGuid": "86544e97-7d32-44b8-9d3a-a30bd1e97e70",
+  "Name": "MeetingsUI",
+  "AssociatedGuid": "f5033c3a-6aa9-4598-a3ac-6ef1f5f4d76e",
+  "AsyncHandlers": [],
+  "BaseGuid": "6ea9a047-b597-42eb-8f90-da8c559dd057",
+  "ClientBaseAssemblyName": "micros.AGMKSolution.ClientBase",
+  "ClientBaseNamespace": "micros.AGMKSolution.Module.MeetingsUI.ClientBase",
+  "Code": "MeetUI",
+  "CompanyCode": "Sungero",
+  "Cover": {
+    "NameGuid": "fce72d75-7f1e-448a-8165-8836c6246ff9",
+    "Actions": [
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "da8e1569-7f25-4b5c-9fbe-2587c9ae1b19",
+        "Name": "ActionItemsExecutionReport",
+        "FunctionName": "OpenActionItemExecutionReportMicros",
+        "GroupId": "f835ecc9-a394-4ae3-aa36-40fee5802e1a",
+        "IsAncestorMetadata": true,
+        "Overridden": [
+          "FunctionName"
+        ],
+        "Versions": []
+      }
+    ],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Overridden": [
+      "Actions"
+    ],
+    "Versions": []
+  },
+  "ExplorerTreeOrder": [],
+  "IconResourcesKeys": [],
+  "Importance": "High",
+  "IsLicensed": true,
+  "LayeredFromGuid": "6ea9a047-b597-42eb-8f90-da8c559dd057",
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "micros.AGMKSolution.Module.MeetingsUI",
+  "ResourcesKeys": [],
+  "SpecialFolders": [],
+  "Version": "4.3.25.0",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "LayerModuleMetadata",
+      "Number": 6
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 6
+    }
+  ]
+}
