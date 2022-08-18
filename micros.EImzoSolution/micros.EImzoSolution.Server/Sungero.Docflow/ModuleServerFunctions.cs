@@ -92,7 +92,7 @@ namespace micros.EImzoSolution.Module.Docflow.Server
       
       //For QR code
       var docId=signature.Entity.Id;
-      var docTypeId=Sungero.Docflow.OfficialDocuments.GetAll(x=>x.Id==docId).First().DocumentKind.DocumentType.DocumentTypeGuid;
+      //var docTypeId=Sungero.Docflow.OfficialDocuments.GetAll(x=>x.Id==docId).First().DocumentKind.DocumentType.DocumentTypeGuid;
       
       var signatoryFullName = signature.SignatoryFullName;
       var signatoryId = signature.Signatory.Id;
@@ -108,7 +108,7 @@ namespace micros.EImzoSolution.Module.Docflow.Server
       html=html.Replace("{SignatoryFullName}",signatoryFullName);
       //html=html.Replace("{SignatoryType}",signatoryType);
       html=html.Replace("{SignatoryDate}",signature.SigningDate.AddHours(gmt).ToString("G"));
-      html=html.Replace("{ImageQR}",Demo422.QRCodeSol.PublicFunctions.Module.GetDocumentQRCode(docId.ToString(),docTypeId));
+      html=html.Replace("{ImageQR}",Demo422.QRCodeSol.PublicFunctions.Module.GetDocumentQRCode(docId));
       
       #region Tolkin
       //      var signatoryFullName=signature.SignatoryFullName;

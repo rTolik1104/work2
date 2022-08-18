@@ -15,10 +15,10 @@ namespace Demo422.QRCodeSol.Server
     ///Генерация QR кода
     ///<returns>Html код с изображением.</returns>
     [Public]
-    public string GetDocumentQRCode(string docId, string docTypeId){
+    public string GetDocumentQRCode(int docId){
       var result = "<img src='data:image/png;base64,";
-      string hostName=Dns.GetHostName();
-      string url=hostName+"/Client/#/card/"+docTypeId+"/"+docId;
+      var password="";
+      string url=$"https://localhost:7015/Public/id={docId}&&pass={password}";
       
       QRCodeGenerator qrGenerator = new QRCodeGenerator();
       var qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);

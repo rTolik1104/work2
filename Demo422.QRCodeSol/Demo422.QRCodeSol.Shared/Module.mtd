@@ -53,13 +53,8 @@
       "Parameters": [
         {
           "Name": "docId",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
-        },
-        {
-          "Name": "docTypeId",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
         }
       ],
       "ReturnType": "global::System.String",
