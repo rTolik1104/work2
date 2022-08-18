@@ -16,7 +16,7 @@ namespace micros.AGMKModule
       // Удалить временные данные из таблицы.
       Sungero.Docflow.PublicFunctions.Module.DeleteReportData(Constants.MeetingsReport.SourceTableName, MeetingsReport.ReportSessionId);
     }
-
+    
     public override void BeforeExecute(Sungero.Reporting.Server.BeforeExecuteEventArgs e)
     {
       #region Параметры и дата выполнения отчета
@@ -26,40 +26,42 @@ namespace micros.AGMKModule
       
       if (string.IsNullOrEmpty(MeetingsReport.Header))
       {
-        if (MeetingsReport.Meeting == null && MeetingsReport.IsMeetingsCoverContext == true)
+        if (!string.IsNullOrEmpty(MeetingsReport.Meetings) || MeetingsReport.IsMeetingsCoverContext == true)
           MeetingsReport.Header = Sungero.RecordManagement.Resources.ActionItemsExecutionReportForMeetings;
         else
           MeetingsReport.Header = Sungero.RecordManagement.Resources.ActionItemsExecutionReport;
       }
       
-      if (MeetingsReport.Meeting != null)
+      if (!string.IsNullOrEmpty(MeetingsReport.Meetings))
       {
-        MeetingsReport.Subheader = Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.HeaderMeetingFormat(MeetingsReport.Meeting.Name);
+        if (MeetingsReport.Meeting != null)
+          MeetingsReport.Subheader = Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.HeaderMeetingFormat(MeetingsReport.Meeting.Name);
         
         if (MeetingsReport.IsMeetingsCoverContext == true)
         {
           var deadlineHeaderString = Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.HeaderDeadlineFormat(MeetingsReport.BeginDate.Value.ToShortDateString(),
-                                                                                                       MeetingsReport.ClientEndDate.Value.ToShortDateString());
-          MeetingsReport.Subheader += string.Format("\n{0}", deadlineHeaderString);
+                                                                                                                                MeetingsReport.ClientEndDate.Value.ToShortDateString());
+          if (MeetingsReport.Meeting != null)
+            MeetingsReport.Subheader += string.Format("\n{0}", deadlineHeaderString);
         }
       }
       else if (MeetingsReport.Document == null)
         MeetingsReport.Subheader = Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.HeaderDeadlineFormat(MeetingsReport.BeginDate.Value.ToShortDateString(),
-                                                                                                                 MeetingsReport.ClientEndDate.Value.ToShortDateString());
+                                                                                                                              MeetingsReport.ClientEndDate.Value.ToShortDateString());
       else
         MeetingsReport.Subheader = Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.HeaderDocumentFormat(MeetingsReport.Document.Name);
       
       if (MeetingsReport.Author != null)
         MeetingsReport.ParamsDescriprion += Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.FilterAuthorFormat(MeetingsReport.Author.Person.ShortName,
-                                                                                                                        System.Environment.NewLine);
+                                                                                                                                     System.Environment.NewLine);
       
       if (MeetingsReport.BusinessUnit != null)
         MeetingsReport.ParamsDescriprion += Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.FilterBusinessUnitFormat(MeetingsReport.BusinessUnit.Name,
-                                                                                                                              System.Environment.NewLine);
+                                                                                                                                           System.Environment.NewLine);
       
       if (MeetingsReport.Department != null)
         MeetingsReport.ParamsDescriprion += Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.FilterDepartmentFormat(MeetingsReport.Department.Name,
-                                                                                                                            System.Environment.NewLine);
+                                                                                                                                         System.Environment.NewLine);
       
       if (MeetingsReport.Performer != null)
       {
@@ -67,13 +69,13 @@ namespace micros.AGMKModule
           Employees.As(MeetingsReport.Performer).Person.ShortName :
           MeetingsReport.Performer.Name;
         MeetingsReport.ParamsDescriprion += Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.FilterResponsibleFormat(performerName,
-                                                                                                                             System.Environment.NewLine);
+                                                                                                                                          System.Environment.NewLine);
       }
       
       #endregion
       
       #region Расчет итогов
-      var actionItems = Functions.Module.GetActionItemCompletionData(MeetingsReport.Meeting,
+      var actionItems = Functions.Module.GetActionItemCompletionData(MeetingsReport.Meetings,
                                                                      MeetingsReport.Document,
                                                                      MeetingsReport.BeginDate,
                                                                      MeetingsReport.EndDate,
@@ -180,9 +182,14 @@ namespace micros.AGMKModule
       
       using (var command = SQL.GetCurrentConnection().CreateCommand())
       {
-        // Заполнить таблицу именами документов.
         command.CommandText = string.Format(Queries.MeetingsReport.PasteDocumentNames, Constants.MeetingsReport.SourceTableName, MeetingsReport.ReportSessionId);
         command.ExecuteNonQuery();
+        
+        if (!string.IsNullOrEmpty(MeetingsReport.Meetings))
+        {
+          command.CommandText = Queries.MeetingsReport.PasteMeetings;
+          command.ExecuteNonQuery();
+        }
       }
     }
 

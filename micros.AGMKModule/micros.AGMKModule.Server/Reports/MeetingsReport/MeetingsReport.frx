@@ -47,6 +47,8 @@ namespace FastReport
         <Column Name="Hyperlink" DataType="System.String" PropName="Column"/>
         <Column Name="PlanDateSort" DataType="System.DateTime" PropName="Column"/>
         <Column Name="Texts" DataType="System.String" PropName="Column"/>
+        <Column Name="MeetingId" DataType="System.Int32" PropName="Column"/>
+        <Column Name="MeetingName" DataType="System.String" PropName="Column"/>
         <CommandParameter Name="ReportSessionId" DataType="16" IsDbType="true" Expression="[ReportSessionId]"/>
       </TableDataSource>
     </SungeroSqlDataConnection>
@@ -69,72 +71,81 @@ namespace FastReport
     <SungeroParameter Name="ReportSessionId" Id="2d77c6a8-2c75-4118-8fdc-ca4a6b559bf1" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
     <SungeroParameter Name="Document" Id="a8ff3edb-b86a-4ef0-a302-3427166ff496" IsRequired="false" IsCollection="false" InternalDataType="Sungero.Docflow.IOfficialDocument, Sungero.Domain.Interfaces" IsSimpleDataType="false" EntityTypeId="58cca102-1e97-4f07-b6ac-fd866a8b7cb1"/>
     <SungeroParameter Name="Subheader" Id="bd455313-a405-4a7e-a113-35117bcce8c1" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
-    <SungeroParameter Name="Meeting" Id="1a29e7c8-af0d-4c54-a3e0-ee707d215608" IsRequired="false" IsCollection="false" InternalDataType="Sungero.Meetings.IMeeting, Sungero.Domain.Interfaces" IsSimpleDataType="false" EntityTypeId="dbc0dd63-4d23-4f41-92ae-cab59bb70c8c"/>
+    <SungeroParameter Name="Meetings" Id="1a29e7c8-af0d-4c54-a3e0-ee707d215608" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
     <SungeroParameter Name="IsMeetingsCoverContext" Id="9b4eef0f-a7cb-49e5-8508-4738a263eb50" IsRequired="false" IsCollection="false" InternalDataType="System.Boolean" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
     <SungeroParameter Name="Header" Id="cb000121-19ea-425a-b441-239b2ed9e2e8" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
     <SungeroParameter Name="DocumentType" Id="66c551cf-9c1e-427d-897f-bdeea69f11e2" IsRequired="false" IsCollection="false" InternalDataType="Sungero.Docflow.IDocumentType, Sungero.Domain.Interfaces" IsSimpleDataType="false" EntityTypeId="0896aa80-e1da-4a1e-9485-d172f8e242bc"/>
     <SungeroParameter Name="ReportDate" Id="760f5af7-2adc-4610-9832-0caa4fefb067" IsRequired="false" IsCollection="false" InternalDataType="System.DateTime" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
     <SungeroParameter Name="ActiveText" Id="cd763794-0ae2-483a-a406-2af17004d5e0" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="Meeting" Id="59318754-e611-4fd4-b777-55055fffbb9d" IsRequired="false" IsCollection="false" InternalDataType="Sungero.Meetings.IMeeting, Sungero.Domain.Interfaces" IsSimpleDataType="false" EntityTypeId="dbc0dd63-4d23-4f41-92ae-cab59bb70c8c"/>
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" Watermark.Font="Arial, 60pt">
     <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="189">
       <TextObject Name="Text24" Width="529.2" Height="18.9" CanGrow="true" Text="[ParamsDescriprion]" Font="Arial, 10pt"/>
       <TextObject Name="Text25" Left="529.2" Width="519.75" Height="18.9" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.ReportDate] [ReportDate]" Format="Date" Format.Format="d" HorzAlign="Right" Font="Arial, 10pt"/>
       <TextObject Name="Text26" Top="18.9" Width="1048.95" Height="28.35" Text="[Header]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt, style=Bold"/>
-      <TextObject Name="Text27" Top="47.25" Width="1048.95" Height="18.9" CanGrow="true" Text="[Subheader]" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold">
-        <Formats>
-          <DateFormat/>
-          <DateFormat/>
-        </Formats>
-      </TextObject>
       <TextObject Name="Text28" Top="66.15" Width="170.1" Height="85.05" CanBreak="false" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Statistics]" VertAlign="Bottom" Font="Arial, 10pt"/>
       <TextObject Name="Text2" Left="189" Top="66.15" Width="47.25" Height="85.05" CanBreak="false" Text="[TotalCount]&#13;&#10;[Completed]&#13;&#10;[CompletedOverdue]&#13;&#10;[InProcess]&#13;&#10;[InProcessOverdue]" HorzAlign="Right" VertAlign="Bottom" Font="Arial, 10pt"/>
       <TextObject Name="Text4" Left="170.1" Top="66.15" Width="18.9" Height="85.05" CanBreak="false" Text="-&#13;&#10;-&#13;&#10;-&#13;&#10;-&#13;&#10;-" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 10pt"/>
       <TextObject Name="Text3" Top="151.2" Width="529.2" Height="28.35" CanBreak="false" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.DisciplinePercent] - [ExecutiveDisciplineLevel]" Font="Arial, 10pt"/>
-    </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="193" Width="1047.06" Height="37.8" Guides="37.8">
-      <TextObject Name="Text29" Width="37.8" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.RowNumber]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text30" Left="37.8" Width="47.25" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Id]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text31" Left="85.05" Width="113.4" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.ActionItem]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text32" Left="198.45" Width="113.4" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Author]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text33" Left="311.85" Width="85.05" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Status]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text34" Left="396.9" Width="85.05" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Deadline]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text35" Left="481.95" Width="85.05" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.ActualDate]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text36" Left="567" Width="75.6" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Overdue]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text37" Left="642.6" Width="122.85" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Assignee]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text38" Left="765.45" Width="122.85" Height="37.8" Border.Lines="All" Text="Результат выполнения" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text39" Left="888.3" Width="160.65" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Document]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-    </PageHeaderBand>
-    <DataBand Name="Data1" Top="234.8" Width="1047.06" Height="37.8" CanGrow="true" DataSource="Table">
-      <TextObject Name="Text45" Left="396.9" Width="85.05" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[string.IsNullOrEmpty([SourceTable.PlanDate]) ? Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.IndefiniteDeadline : [SourceTable.PlanDate]]" Format="Date" Format.Format="d" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text40" Width="37.8" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Row#]" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text41" Left="37.8" Width="47.25" Height="37.8" Border.Lines="All" Cursor="Hand" Hyperlink.Expression="[SourceTable.Hyperlink]" CanGrow="true" GrowToBottom="true" Text="[SourceTable.Id]" HorzAlign="Center" Font="Arial, 10pt, style=Underline" TextFill.Color="Blue"/>
-      <TextObject Name="Text42" Left="85.05" Width="113.4" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[SourceTable.ActionItemText]" Font="Arial, 10pt">
-        <Highlight>
-          <Condition Expression="[SourceTable.Overdue] &gt; 0 &amp;&amp; [SourceTable.ActualDate]==&quot;&quot;" Font="Arial, 10pt"/>
-        </Highlight>
-      </TextObject>
-      <TextObject Name="Text43" Left="198.45" Width="113.4" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[SourceTable.Author]" Font="Arial, 10pt"/>
-      <TextObject Name="Text44" Left="311.85" Width="85.05" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[SourceTable.State]" Font="Arial, 10pt">
-        <Highlight>
-          <Condition Expression="[SourceTable.Overdue] &gt; 0 &amp;&amp; [SourceTable.ActualDate] == &quot;&quot;" Font="Arial, 10pt"/>
-        </Highlight>
-      </TextObject>
-      <TextObject Name="Text46" Left="481.95" Width="85.05" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[SourceTable.ActualDate]" HorzAlign="Center" Font="Arial, 10pt">
+      <TextObject Name="Text51" Top="47.25" Width="1048.95" Height="18.9" CanGrow="true" CanShrink="true" Text="[Subheader]" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold">
         <Formats>
           <DateFormat/>
-          <GeneralFormat/>
+          <DateFormat/>
         </Formats>
-        <Highlight>
-          <Condition Expression="[SourceTable.Overdue] &gt; 0 &amp;&amp; [SourceTable.ActualDate] != &quot;&quot;" Font="Arial, 10pt"/>
-        </Highlight>
       </TextObject>
-      <TextObject Name="Text47" Left="567" Width="75.6" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[IIf([SourceTable.Overdue] == 0, &quot;&quot;, [SourceTable.Overdue] + &quot; &quot; + Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.WorkingDay)]" HorzAlign="Center" Font="Arial, 10pt" TextFill.Color="Red"/>
-      <TextObject Name="Text48" Left="642.6" Width="122.85" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[SourceTable.Assignee]" Font="Arial, 10pt"/>
-      <TextObject Name="Text49" Left="765.45" Width="122.85" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[SourceTable.Texts]" Font="Arial, 10pt"/>
-      <TextObject Name="Text50" Left="888.3" Width="160.65" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[SourceTable.DocumentInfo]" Font="Arial, 10pt"/>
-    </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="276.6" Width="1047.06" Height="28.35">
+    </ReportTitleBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="193" Width="1047.06" Height="37.8" CanShrink="true" Condition="[SourceTable.MeetingId]" SortOrder="None">
+      <TextObject Name="Text27" Width="1048.95" Height="37.8" CanGrow="true" CanShrink="true" Text="[SourceTable.MeetingName]" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold">
+        <Formats>
+          <DateFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <DataBand Name="Data1" Top="276.6" Width="1047.06" Height="37.8" CanGrow="true" DataSource="Table">
+        <TextObject Name="Text45" Left="396.9" Width="85.05" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[string.IsNullOrEmpty([SourceTable.PlanDate]) ? Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.IndefiniteDeadline : [SourceTable.PlanDate]]" Format="Date" Format.Format="d" HorzAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text40" Width="37.8" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Row#]" HorzAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text41" Left="37.8" Width="47.25" Height="37.8" Border.Lines="All" Cursor="Hand" Hyperlink.Expression="[SourceTable.Hyperlink]" CanGrow="true" GrowToBottom="true" Text="[SourceTable.Id]" HorzAlign="Center" Font="Arial, 10pt, style=Underline" TextFill.Color="Blue"/>
+        <TextObject Name="Text42" Left="85.05" Width="113.4" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[SourceTable.ActionItemText]" Font="Arial, 10pt">
+          <Highlight>
+            <Condition Expression="[SourceTable.Overdue] &gt; 0 &amp;&amp; [SourceTable.ActualDate]==&quot;&quot;" Font="Arial, 10pt"/>
+          </Highlight>
+        </TextObject>
+        <TextObject Name="Text43" Left="198.45" Width="113.4" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[SourceTable.Author]" Font="Arial, 10pt"/>
+        <TextObject Name="Text44" Left="311.85" Width="85.05" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[SourceTable.State]" Font="Arial, 10pt">
+          <Highlight>
+            <Condition Expression="[SourceTable.Overdue] &gt; 0 &amp;&amp; [SourceTable.ActualDate] == &quot;&quot;" Font="Arial, 10pt"/>
+          </Highlight>
+        </TextObject>
+        <TextObject Name="Text46" Left="481.95" Width="85.05" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[SourceTable.ActualDate]" HorzAlign="Center" Font="Arial, 10pt">
+          <Formats>
+            <DateFormat/>
+            <GeneralFormat/>
+          </Formats>
+          <Highlight>
+            <Condition Expression="[SourceTable.Overdue] &gt; 0 &amp;&amp; [SourceTable.ActualDate] != &quot;&quot;" Font="Arial, 10pt"/>
+          </Highlight>
+        </TextObject>
+        <TextObject Name="Text47" Left="567" Width="75.6" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[IIf([SourceTable.Overdue] == 0, &quot;&quot;, [SourceTable.Overdue] + &quot; &quot; + Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.WorkingDay)]" HorzAlign="Center" Font="Arial, 10pt" TextFill.Color="Red"/>
+        <TextObject Name="Text48" Left="642.6" Width="122.85" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[SourceTable.Assignee]" Font="Arial, 10pt"/>
+        <TextObject Name="Text49" Left="765.45" Width="122.85" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[SourceTable.Texts]" Font="Arial, 10pt"/>
+        <TextObject Name="Text50" Left="888.3" Width="160.65" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[SourceTable.DocumentInfo]" Font="Arial, 10pt"/>
+        <DataHeaderBand Name="DataHeader1" Top="234.8" Width="1047.06" Height="37.8" RepeatOnEveryPage="true">
+          <TextObject Name="Text29" Width="37.8" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.RowNumber]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TextObject Name="Text30" Left="37.8" Width="47.25" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Id]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TextObject Name="Text31" Left="85.05" Width="113.4" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.ActionItem]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TextObject Name="Text32" Left="198.45" Width="113.4" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Author]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TextObject Name="Text33" Left="311.85" Width="85.05" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Status]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TextObject Name="Text34" Left="396.9" Width="85.05" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Deadline]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TextObject Name="Text35" Left="481.95" Width="85.05" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.ActualDate]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TextObject Name="Text36" Left="567" Width="75.6" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Overdue]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TextObject Name="Text37" Left="642.6" Width="122.85" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Assignee]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TextObject Name="Text38" Left="765.45" Width="122.85" Height="37.8" Border.Lines="All" Text="Результат выполнения" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TextObject Name="Text39" Left="888.3" Width="160.65" Height="37.8" Border.Lines="All" Text="[Sungero.RecordManagement.Reports.Resources.ActionItemsExecutionReport.Document]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        </DataHeaderBand>
+      </DataBand>
+    </GroupHeaderBand>
+    <PageFooterBand Name="PageFooter1" Top="318.4" Width="1047.06" Height="28.35">
       <TextObject Name="Text1" Top="9.45" Width="94.5" Height="18.9" Text="[Page]" Font="Arial, 10pt"/>
     </PageFooterBand>
   </ReportPage>

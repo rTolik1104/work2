@@ -58,4 +58,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Meetings" xml:space="preserve">
+    <value>Meetings</value>
+  </data>
+  <data name="AddMeetings" xml:space="preserve">
+    <value>Add Meetings</value>
+  </data>
+  <data name="DeleteMeetings" xml:space="preserve">
+    <value>Delete Meetings</value>
+  </data>
+  <data name="ChooseMeetingsToAdd" xml:space="preserve">
+    <value>Choose meetings to add</value>
+  </data>
+  <data name="ChooseMeetingsToDelete" xml:space="preserve">
+    <value>Choose meetings to delete</value>
+  </data>
 </root>

@@ -24,6 +24,11 @@
     }
   },
   "DesktopViews": [],
+  "ExplorerTreeOrder": [
+    {
+      "ItemId": "e3c06184-73d5-4a24-84dd-3b22511c1fbf"
+    }
+  ],
   "IconResourcesKeys": [],
   "Importance": "Medium",
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
@@ -38,7 +43,7 @@
   "SharedAssemblyName": "micros.AGMKSolution.Shared",
   "SharedNamespace": "micros.AGMKSolution.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.2",
+  "Version": "0.0.1.14",
   "Widgets": [],
   "Versions": [
     {

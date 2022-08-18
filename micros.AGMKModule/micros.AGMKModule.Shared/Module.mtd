@@ -38,13 +38,110 @@
   ],
   "ExplorerTreeOrder": [
     {
-      "ItemId": "edcf26f3-1426-40ff-aabd-bf4a4c6f36cc"
+      "ItemId": "5f6fe278-c114-4650-a999-cd7d366ec215",
+      "PreviousItemId": "edcf26f3-1426-40ff-aabd-bf4a4c6f36cc"
+    },
+    {
+      "ItemId": "754da6bc-0463-4658-88ec-8c7b47d2025c",
+      "PreviousItemId": "5f6fe278-c114-4650-a999-cd7d366ec215"
+    },
+    {
+      "ItemId": "57b2f780-1299-4dbb-a11f-2633ee9fb37d",
+      "PreviousItemId": "754da6bc-0463-4658-88ec-8c7b47d2025c"
+    },
+    {
+      "ItemId": "fd2b3ade-3a1b-4c2d-a769-28bb3421f571",
+      "PreviousItemId": "57b2f780-1299-4dbb-a11f-2633ee9fb37d"
+    },
+    {
+      "ItemId": "3de46954-12ed-4c81-961d-42d17e538bf6",
+      "PreviousItemId": "fd2b3ade-3a1b-4c2d-a769-28bb3421f571"
+    },
+    {
+      "ItemId": "fdcf3962-e33a-429d-923a-1c25bda5e8ce",
+      "PreviousItemId": "3de46954-12ed-4c81-961d-42d17e538bf6"
+    },
+    {
+      "ItemId": "148a1ee5-b1de-4772-8e0c-a9ca477e2f4e",
+      "PreviousItemId": "fdcf3962-e33a-429d-923a-1c25bda5e8ce"
+    },
+    {
+      "ItemId": "878ce061-395e-46d9-8c8a-8ecc2173e41e",
+      "PreviousItemId": "148a1ee5-b1de-4772-8e0c-a9ca477e2f4e"
+    },
+    {
+      "ItemId": "0ea7c55a-28ad-444e-9b86-838009ab3585",
+      "PreviousItemId": "878ce061-395e-46d9-8c8a-8ecc2173e41e"
+    },
+    {
+      "ItemId": "edcf26f3-1426-40ff-aabd-bf4a4c6f36cc",
+      "PreviousItemId": "0ea7c55a-28ad-444e-9b86-838009ab3585"
     }
+  ],
+  "HandledEvents": [
+    "InitializingServer"
   ],
   "IconResourcesKeys": [],
   "Importance": "Medium",
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "InterfaceNamespace": "micros.AGMKModule",
+  "Libraries": [
+    {
+      "NameGuid": "b5878961-79a0-44c1-b8f6-93569fa217e6",
+      "Name": "Aspose",
+      "Scope": "Both"
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "GeneratePublicBodyWithSignatureMark",
+      "Parameters": [
+        {
+          "Name": "document",
+          "ParameterType": "global::Sungero.Docflow.IOfficialDocument",
+          "ParameterTypeFullName": "Sungero.Docflow.IOfficialDocument, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "versionId",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "signatureMark",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "GetMeetings",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::Sungero.Meetings.IMeeting>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetMinutesByMeetingIds",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "meetingIds",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "separator",
+          "ParameterType": "global::System.Char",
+          "ParameterTypeFullName": "System.Char"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::Sungero.Meetings.IMinutes>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    }
+  ],
   "PublicStructures": [],
   "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "ResourceInterfaceNamespace": "micros.AGMKModule",
@@ -54,7 +151,7 @@
   "SharedAssemblyName": "micros.AGMKModule.Shared",
   "SharedNamespace": "micros.AGMKModule.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.2",
+  "Version": "0.0.1.14",
   "Widgets": [],
   "Versions": [
     {

@@ -128,9 +128,8 @@
     },
     {
       "NameGuid": "1a29e7c8-af0d-4c54-a3e0-ee707d215608",
-      "Name": "Meeting",
-      "EntityType": "dbc0dd63-4d23-4f41-92ae-cab59bb70c8c",
-      "InternalDataTypeName": "Sungero.Meetings.IMeeting, Sungero.Domain.Interfaces"
+      "Name": "Meetings",
+      "InternalDataTypeName": "System.String"
     },
     {
       "NameGuid": "9b4eef0f-a7cb-49e5-8508-4738a263eb50",
@@ -159,9 +158,21 @@
       "NameGuid": "cd763794-0ae2-483a-a406-2af17004d5e0",
       "Name": "ActiveText",
       "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "59318754-e611-4fd4-b777-55055fffbb9d",
+      "Name": "Meeting",
+      "EntityType": "dbc0dd63-4d23-4f41-92ae-cab59bb70c8c",
+      "InternalDataTypeName": "Sungero.Meetings.IMeeting, Sungero.Domain.Interfaces"
     }
   ],
   "PublicStructures": [],
-  "ResourcesKeys": [],
+  "ResourcesKeys": [
+    "Meetings",
+    "AddMeetings",
+    "DeleteMeetings",
+    "ChooseMeetingsToAdd",
+    "ChooseMeetingsToDelete"
+  ],
   "Versions": []
 }

@@ -8,6 +8,36 @@ namespace micros.AGMKModule.Server
 {
   public class ModuleFunctions
   {
+    [Public, Remote(IsPure = true)]
+    public static IQueryable<Sungero.Meetings.IMeeting> GetMeetings()
+    {
+      return Sungero.Meetings.Meetings.GetAll().AsQueryable();
+    }
+    
+    [Public, Remote(IsPure = true)]
+    public static IQueryable<Sungero.Meetings.IMinutes> GetMinutesByMeetingIds(string meetingIds, char separator)
+    {
+      IQueryable<Sungero.Meetings.IMinutes> result = null;
+      List<int> ids = new List<int>();
+      if (!string.IsNullOrEmpty(meetingIds))
+      {
+        foreach (var idStr in meetingIds.Split(separator))
+        {
+          if(int.TryParse(idStr, out int id))
+            ids.Add(id);
+        }
+        
+        if (ids != null && ids.Any())
+        {
+          var idArray = ids.ToArray();
+          result = Sungero.Meetings.Minuteses.GetAll(m => m.Meeting != null && idArray.Contains(m.Meeting.Id));
+        }
+        else
+          result = Sungero.Meetings.Minuteses.GetAll(m => m.Meeting != null);
+      }
+      return result;
+    }
+    
     /// <summary>
     /// Получить краткую информацию по исполнению поручений в срок за период.
     /// </summary>
@@ -23,7 +53,7 @@ namespace micros.AGMKModule.Server
     /// <param name="isMeetingsCoverContext">Признак контекста вызова с обложки совещаний.</param>
     /// <param name="getCoAssignees">Признак необходимости получения соисполнителей.</param>
     /// <returns>Краткая информация по исполнению поручений в срок за период.</returns>
-    public virtual List<Structures.Module.LightActiomItem> GetActionItemCompletionData(Sungero.Meetings.IMeeting meeting,
+    public virtual List<Structures.Module.LightActiomItem> GetActionItemCompletionData(string meetingIds,
                                                                                        Sungero.Docflow.IOfficialDocument document,
                                                                                        DateTime? beginDate,
                                                                                        DateTime? endDate,
@@ -36,6 +66,8 @@ namespace micros.AGMKModule.Server
                                                                                        bool getCoAssignees)
     {
       List<Structures.Module.LightActiomItem> tasks = null;
+      
+      IQueryable<Sungero.Meetings.IMinutes> minutesList = GetMinutesByMeetingIds(meetingIds, ';');
       
       var isAdministratorOrAdvisor = Sungero.Docflow.PublicFunctions.Module.Remote.IsAdministratorOrAdvisor();
       var recipientsIds = Substitutions.ActiveSubstitutedUsers.Select(u => u.Id).ToList();
@@ -59,6 +91,8 @@ namespace micros.AGMKModule.Server
           // Guid группы вложений для документа в поручении.
           var documentsGroupGuid = Sungero.Docflow.PublicConstants.Module.TaskMainGroup.ActionItemExecutionTask;
           
+          query = query.Where(t => t.AttachmentDetails.Any(g => g.GroupId == documentsGroupGuid && minutesList.Any(m => m.Id == g.AttachmentId)));
+          
           if (documentType != null)
           {
             var documents = Sungero.Docflow.OfficialDocuments.GetAll(d => d.DocumentKind.DocumentType == documentType);
@@ -67,14 +101,7 @@ namespace micros.AGMKModule.Server
             query = query.Where(t => t.AttachmentDetails.Any(g => g.GroupId == documentsGroupGuid && documents.Any(m => m.Id == g.AttachmentId)));
           }
           
-          if (meeting != null && isMeetingsCoverContext != true)
-          {
-            var minutesList = Sungero.Meetings.Minuteses.GetAll(d => Equals(d.Meeting, meeting));
-            
-            // В Hibernate обращаться к группам вложений задачи можно только через метаданные.
-            query = query.Where(t => t.AttachmentDetails.Any(g => g.GroupId == documentsGroupGuid && minutesList.Any(m => m.Id == g.AttachmentId)));
-          }
-          else if (document != null)
+          if (document != null)
           {
             // В Hibernate обращаться к группам вложений задачи можно только через метаданные.
             query = query.Where(t => t.AttachmentDetails.Any(g => g.GroupId == documentsGroupGuid && g.AttachmentId == document.Id));
@@ -90,15 +117,6 @@ namespace micros.AGMKModule.Server
                                   t.ActualDate.Value.Date >= endDate && (t.Deadline.Value.Date == t.Deadline.Value ? t.Deadline <= beginDate.Value.Date : t.Deadline <= serverBeginDate))) ||
                                 t.Status == Sungero.Workflow.Task.Status.InProcess && t.Deadline.HasValue &&
                                 (t.Deadline.Value.Date == t.Deadline.Value ? t.Deadline <= endDate.Value.Date : t.Deadline <= serverEndDate));
-          }
-          
-          if (isMeetingsCoverContext == true)
-          {
-            var minutesList = meeting == null ?
-              Sungero.Meetings.Minuteses.GetAll(d => d.Meeting != null) :
-              Sungero.Meetings.Minuteses.GetAll(d => Equals(d.Meeting, meeting));
-            
-            query = query.Where(t => t.AttachmentDetails.Any(g => g.GroupId == documentsGroupGuid && minutesList.Any(m => m.Id == g.AttachmentId)));
           }
           
           // Dmitriev_IA: Проверка вынесена из Select для ускорения получения данных. Если занести проверку в Select, то проверка будет происходить для каждого t.
@@ -153,6 +171,45 @@ namespace micros.AGMKModule.Server
       var assignment = Sungero.RecordManagement.ActionItemExecutionAssignments.GetAll().Where(z => z.Task.Id == task.Id).FirstOrDefault();
       if(assignment != null) return assignment.ActiveText;
       else return string.Empty;
+    }
+    
+    /// <summary>
+    /// Сгенерировать PublicBody документа с отметкой об ЭП.
+    /// </summary>
+    /// <param name="document">Документ для преобразования.</param>
+    /// <param name="versionId">Id версии, для генерации.</param>
+    /// <param name="signatureMark">Отметка об ЭП (html).</param>
+    /// <returns>Информация о результате генерации PublicBody для версии документа.</returns>
+    [Public]
+    public virtual void GeneratePublicBodyWithSignatureMark(Sungero.Docflow.IOfficialDocument document, int versionId, string signatureMark)
+    {
+      var version = document.Versions.SingleOrDefault(v => v.Id == versionId);
+      System.IO.Stream pdfDocumentStream = null;
+      using (var inputStream = new System.IO.MemoryStream())
+      {
+        version.Body.Read().CopyTo(inputStream);
+        try
+        {
+          var pdfConverter = Sungero.AsposeExtensions.Converter.Create();
+          var extension = version.BodyAssociatedApplication.Extension;
+          pdfDocumentStream = pdfConverter.GeneratePdf(inputStream, extension);
+          var htmlStampString = signatureMark;
+          if (!string.IsNullOrEmpty(htmlStampString))
+          {
+            pdfDocumentStream = pdfConverter.AddSignatureMark(pdfDocumentStream, extension, htmlStampString, Sungero.Docflow.Resources.SignatureMarkAnchorSymbol, 5);
+          }
+        }
+        catch (Exception e)
+        {
+          if (e is Sungero.AsposeExtensions.PdfConvertException)
+            Logger.Error(Sungero.Docflow.Resources.PdfConvertErrorFormat(document.Id), e.InnerException);
+          else
+            Logger.Error(string.Format("{0} {1}", Sungero.Docflow.Resources.PdfConvertErrorFormat(document.Id), e.Message));
+        }
+      }
+      version.PublicBody.Write(pdfDocumentStream);
+      version.AssociatedApplication = Sungero.Content.AssociatedApplications.GetByExtension("pdf");
+      pdfDocumentStream.Close();
     }
   }
 }
