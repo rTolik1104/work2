@@ -32,7 +32,7 @@ namespace Demo422.QRCodeSol.Server
           var image = this.ImageToBase64(byteImage);
           result += image;
       }
-      
+      QRCodeSol
       result+="' style='width: 120px;padding-left: 50px;'/>";
       return result;
     }
