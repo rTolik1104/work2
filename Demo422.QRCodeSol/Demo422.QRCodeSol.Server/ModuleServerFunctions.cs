@@ -12,13 +12,21 @@ namespace Demo422.QRCodeSol.Server
 {
   public class ModuleFunctions
   {
-    ///Генерация QR кода
+    ///Генерация QR кода для публичной ссылки
     ///<returns>Html код с изображением.</returns>
     [Public]
-    public string GetDocumentQRCode(int docId){
+    public string GetDocumentQRCodePublic(int docId){
       var result = "<img src='data:image/png;base64,";
       var password="";
-      string url=$"https://localhost:7015/Public/id={docId}&&pass={password}";
+      
+      using (var command = SQL.GetCurrentConnection().CreateCommand())
+      {
+        command.CommandText = string.Format(Queries.Module.GetPassword, docId);
+        var obj=command.ExecuteScalar();
+        password=obj.ToString();
+      }
+      
+      string url=$"https://doc.agmk.uz:8443/Files/Public/id={docId}&&pass={password}";
       
       QRCodeGenerator qrGenerator = new QRCodeGenerator();
       var qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
@@ -32,8 +40,7 @@ namespace Demo422.QRCodeSol.Server
           var image = this.ImageToBase64(byteImage);
           result += image;
       }
-      QRCodeSol
-      result+="' style='width: 120px;padding-left: 50px;'/>";
+      result+="' style='width: 150px;'/>";
       return result;
     }
     
@@ -42,5 +49,29 @@ namespace Demo422.QRCodeSol.Server
       return Convert.ToBase64String(imageBytes);
     }
     
+    
+    ///Генерация QR кода для внутренних документов
+    ///<returns>Html код с изображением.</returns>
+    [Public]
+    public string GetDocumentQRCode(int docId, string docTypeId){
+      var result = "<img src='data:image/png;base64,";
+
+      string url=$"https://doc.agmk.uz/DrxWeb/#/card/{docTypeId}/{docId}";
+      
+      QRCodeGenerator qrGenerator = new QRCodeGenerator();
+      var qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
+      QRCoder.QRCode qrCode = new QRCoder.QRCode(qrCodeData);
+      Bitmap qrCodeImage = qrCode.GetGraphic(20);
+      
+      using (MemoryStream ms = new MemoryStream())
+      {
+          qrCodeImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+          byte[] byteImage = ms.ToArray();
+          var image = this.ImageToBase64(byteImage);
+          result += image;
+      }
+      result+="' style='width: 150px;'/>";
+      return result;
+    }
   }
 }

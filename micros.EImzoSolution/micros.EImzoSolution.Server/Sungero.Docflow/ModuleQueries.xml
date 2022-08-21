@@ -1,3 +1,13 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <queries>
+  <query key="SetPassword">
+    <postgres><![CDATA[update sungero_content_edocversion
+set public_password = '{0}'
+where edoc={1}]]></postgres>
+  </query>
+  <query key="SelectHashCode">
+    <postgres><![CDATA[select body_hash
+from  sungero_content_edocversion
+where edoc = {0}]]></postgres>
+  </query>
 </queries>

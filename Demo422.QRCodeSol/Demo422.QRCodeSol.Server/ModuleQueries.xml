@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <queries>
-  <query key="SetPassword">
-    <postgres><![CDATA[update sungero_content_edocversion set public_password=@password where edoc=@id]]></postgres>
-  </query>
   <query key="GetPassword">
-    <postgres><![CDATA[select public_password from sungero_content_edocversion where edoc=@id]]></postgres>
+    <postgres><![CDATA[select public_password
+from  sungero_content_edocversion
+where edoc = {0}]]></postgres>
   </query>
 </queries>

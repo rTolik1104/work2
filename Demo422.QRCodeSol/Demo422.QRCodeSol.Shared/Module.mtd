@@ -55,6 +55,23 @@
           "Name": "docId",
           "ParameterType": "global::System.Int32",
           "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "docTypeId",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetDocumentQRCodePublic",
+      "Parameters": [
+        {
+          "Name": "docId",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
         }
       ],
       "ReturnType": "global::System.String",
@@ -70,7 +87,7 @@
   "SharedAssemblyName": "Demo422.QRCodeSol.Shared",
   "SharedNamespace": "Demo422.QRCodeSol.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.1",
+  "Version": "0.0.1.4",
   "Widgets": [],
   "Versions": [
     {
