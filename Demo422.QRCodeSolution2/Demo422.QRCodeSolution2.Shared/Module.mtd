@@ -24,6 +24,11 @@
     }
   },
   "DesktopViews": [],
+  "ExplorerTreeOrder": [
+    {
+      "ItemId": "36c8473c-2519-478e-9ad3-08a75704e8a4"
+    }
+  ],
   "IconResourcesKeys": [],
   "Importance": "Medium",
   "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
@@ -38,7 +43,7 @@
   "SharedAssemblyName": "Demo422.QRCodeSolution2.Shared",
   "SharedNamespace": "Demo422.QRCodeSolution2.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.4",
+  "Version": "0.0.1.6",
   "Widgets": [],
   "Versions": [
     {

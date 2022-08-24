@@ -26,7 +26,8 @@ namespace Demo422.QRCodeSol.Server
         password=obj.ToString();
       }
       
-      string url=$"https://doc.agmk.uz:8443/Files/Public/id={docId}&&pass={password}";
+      //string url=$"https://doc.agmk.uz:8443/Files/Public/id={docId}&&pass={password}";
+      string url=$"https://localhost:7271//Files/Public/id={docId}&&pass={password}";
       
       QRCodeGenerator qrGenerator = new QRCodeGenerator();
       var qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);

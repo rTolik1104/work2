@@ -25,6 +25,10 @@ namespace micros.EImzoSolution.Module.Docflow.Server
       
       //For QR code
       var docId=signature.Entity.Id;
+      var signName=signature.SignCertificate.SubjectName;
+      var thumbprint=signature.SignCertificate.Thumbprint;
+      var signDate=signature.SigningDate;
+      
       var document=Sungero.Docflow.OfficialDocuments.GetAll(x=>x.Id==docId).First();
       if(document.DocumentKind.DocumentType.DocumentFlow.Value.ToString()=="Outgoing")
       {
@@ -35,10 +39,15 @@ namespace micros.EImzoSolution.Module.Docflow.Server
           var obj=command.ExecuteScalar();
           bodyHash=obj.ToString();
         }
-        
+        var password=bodyHash.Substring(0,bodyHash.Length-1);
         using (var command = SQL.GetCurrentConnection().CreateCommand())
         {
-          command.CommandText = string.Format(Queries.Module.SetPassword, bodyHash, docId);
+          command.CommandText = string.Format(Queries.Module.SetPassword, password, docId);
+          command.ExecuteNonQuery(); 
+        }
+        using (var command = SQL.GetCurrentConnection().CreateCommand())
+        {
+          command.CommandText = string.Format(Queries.Module.InsertEimzoData, docId, signName,thumbprint, signDate);
           command.ExecuteNonQuery(); 
         }
         string htmlT = EimzoModule.Resources.HtmlStampTemplateForCertificateCustom;

@@ -10,4 +10,9 @@ where edoc={1}]]></postgres>
 from  sungero_content_edocversion
 where edoc = {0}]]></postgres>
   </query>
+  <query key="InsertEimzoData">
+    <postgres><![CDATA[INSERT INTO eimzo_data(
+	edoc_id, signer_name, thumbprint, sign_date)
+	VALUES ({0}, '{1}', '{2}', '{3}');]]></postgres>
+  </query>
 </queries>
