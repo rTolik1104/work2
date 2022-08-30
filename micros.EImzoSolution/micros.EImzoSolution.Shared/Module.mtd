@@ -21,7 +21,8 @@
     "Header": {
       "NameGuid": "9ab90d5a-489d-4d72-ae0a-55768b0ed237",
       "BackgroundPosition": "Stretch"
-    }
+    },
+    "Tabs": []
   },
   "DesktopViews": [],
   "IconResourcesKeys": [],
@@ -38,16 +39,16 @@
   "SharedAssemblyName": "micros.EImzoSolution.Shared",
   "SharedNamespace": "micros.EImzoSolution.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.8",
+  "Version": "0.0.1.9",
   "Widgets": [],
   "Versions": [
     {
       "Type": "SolutionMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "ModuleMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "DomainApi",

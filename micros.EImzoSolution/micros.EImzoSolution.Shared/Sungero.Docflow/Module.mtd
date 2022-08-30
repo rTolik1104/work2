@@ -247,11 +247,11 @@
   "Versions": [
     {
       "Type": "LayerModuleMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "ModuleMetadata",
-      "Number": 6
+      "Number": 8
     }
   ]
 }

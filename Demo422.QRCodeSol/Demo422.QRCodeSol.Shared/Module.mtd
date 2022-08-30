@@ -21,7 +21,8 @@
     "Header": {
       "NameGuid": "77e46317-fcf3-423f-9578-92751586d587",
       "BackgroundPosition": "Stretch"
-    }
+    },
+    "Tabs": []
   },
   "Dependencies": [
     {
@@ -87,12 +88,12 @@
   "SharedAssemblyName": "Demo422.QRCodeSol.Shared",
   "SharedNamespace": "Demo422.QRCodeSol.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.6",
+  "Version": "0.0.1.7",
   "Widgets": [],
   "Versions": [
     {
       "Type": "ModuleMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "DomainApi",

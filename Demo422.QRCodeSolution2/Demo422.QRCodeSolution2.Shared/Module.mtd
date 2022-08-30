@@ -21,7 +21,8 @@
     "Header": {
       "NameGuid": "3b943af2-bfcd-4e0a-ab4d-423eba6bfb5d",
       "BackgroundPosition": "Stretch"
-    }
+    },
+    "Tabs": []
   },
   "DesktopViews": [],
   "ExplorerTreeOrder": [
@@ -43,16 +44,16 @@
   "SharedAssemblyName": "Demo422.QRCodeSolution2.Shared",
   "SharedNamespace": "Demo422.QRCodeSolution2.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.6",
+  "Version": "0.0.1.7",
   "Widgets": [],
   "Versions": [
     {
       "Type": "SolutionMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "ModuleMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "DomainApi",

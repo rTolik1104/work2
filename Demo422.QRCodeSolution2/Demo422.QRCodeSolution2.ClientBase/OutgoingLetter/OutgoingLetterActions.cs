@@ -11,10 +11,8 @@ namespace Demo422.QRCodeSolution2.Client
 {
   partial class OutgoingLetterActions
   {
-    public override void ConvertToPdf(Sungero.Domain.Client.ExecuteActionArgs e)
+    public virtual void PublicURIDEV(Sungero.Domain.Client.ExecuteActionArgs e)
     {
-      base.ConvertToPdf(e);
-      /*
       var documentID=_obj.Id;
       var path=@"\\DOC-QRCODE\files\";
       var bodyId=Demo422.QRCodeSolution2.Functions.OutgoingLetter.Remote.GetPublicBodyID(_obj);
@@ -27,7 +25,16 @@ namespace Demo422.QRCodeSolution2.Client
           bytes = memstream.ToArray();
       }
       File.WriteAllBytes(path,bytes);
-      */
+    }
+
+    public virtual bool CanPublicURIDEV(Sungero.Domain.Client.CanExecuteActionArgs e)
+    {
+      return true;
+    }
+
+    public override void ConvertToPdf(Sungero.Domain.Client.ExecuteActionArgs e)
+    {
+      base.ConvertToPdf(e);
     }
 
     public override bool CanConvertToPdf(Sungero.Domain.Client.CanExecuteActionArgs e)
