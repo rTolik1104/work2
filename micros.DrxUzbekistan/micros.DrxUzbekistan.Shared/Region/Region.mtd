@@ -1,0 +1,79 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "bad1151b-bf60-470c-9e01-4cc49d59f8f1",
+  "Name": "Region",
+  "BaseGuid": "4efe2fa9-b1d1-4b47-b366-4128fe0a391c",
+  "CanBeNavigationPropertyType": true,
+  "CreationAreaMetadata": {
+    "NameGuid": "7fe57a6d-3865-476b-b3a7-dfbdaef3b872",
+    "Name": "CreationArea",
+    "Buttons": [],
+    "IsAncestorMetadata": true,
+    "Versions": []
+  },
+  "ExtraSearchProperties": [],
+  "FilterPanel": {
+    "NameGuid": "b0125fbd-3b91-4dbb-914a-689276216404",
+    "Name": "FilterPanel",
+    "Controls": [],
+    "IsAncestorMetadata": true,
+    "Versions": []
+  },
+  "IconResourcesKeys": [],
+  "LayeredFromGuid": "4efe2fa9-b1d1-4b47-b366-4128fe0a391c",
+  "OperationsClass": "",
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "e952e6e0-804b-401a-bf15-1a593c858a31",
+      "Name": "Indexmicros",
+      "Code": "Indexmicros",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
+      "PreviousPropertyGuid": "30467ba8-f501-4605-8616-c8641102653d",
+      "Versions": []
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "CreateRegion",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::micros.DrxUzbekistan.IRegion",
+      "ReturnTypeFullName": "micros.DrxUzbekistan.IRegion, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "GetAllRegions",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::System.Collections.Generic.List<global::micros.DrxUzbekistan.IRegion>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [],
+  "RibbonCardMetadata": {
+    "NameGuid": "346bc5b9-b632-446d-a3d2-fa59e8b1862f",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "e643537f-a746-4628-83c1-fd707e84dfc0",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 11
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "671ef7b3-2bd7-4998-a664-a9d6636df79f",
+  "Name": "City",
+  "BaseGuid": "3a0c21f8-aa88-429c-891f-56c24d56fcef",
+  "CanBeNavigationPropertyType": true,
+  "CreationAreaMetadata": {
+    "NameGuid": "8ad2a621-2cad-47b5-910c-1ebb3f93231b",
+    "Name": "CreationArea",
+    "Buttons": [],
+    "IsAncestorMetadata": true,
+    "Versions": []
+  },
+  "ExtraSearchProperties": [],
+  "FilterPanel": {
+    "NameGuid": "b0125fbd-3b91-4dbb-914a-689276216404",
+    "Name": "FilterPanel",
+    "Controls": [],
+    "IsAncestorMetadata": true,
+    "Versions": []
+  },
+  "IconResourcesKeys": [],
+  "LayeredFromGuid": "3a0c21f8-aa88-429c-891f-56c24d56fcef",
+  "OperationsClass": "",
+  "PublicFunctions": [
+    {
+      "Name": "CreateCity",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::micros.DrxUzbekistan.ICity",
+      "ReturnTypeFullName": "micros.DrxUzbekistan.ICity, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "GetAllCities",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::System.Collections.Generic.List<global::micros.DrxUzbekistan.ICity>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [],
+  "RibbonCardMetadata": {
+    "NameGuid": "60380aad-280e-4344-a362-d9970b702ec1",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "0e6cd6fb-33a7-44b3-93f3-1e6ff24ee65f",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 11
+    }
+  ]
+}

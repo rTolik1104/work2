@@ -1,0 +1,100 @@
+{
+  "$type": "Sungero.Metadata.SolutionMetadata, Sungero.Metadata",
+  "NameGuid": "21e91944-b83a-4b42-beee-acfaac470cb4",
+  "Name": "DrxUzbekistan",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "micros.DrxUzbekistan.Client",
+  "ClientBaseAssemblyName": "micros.DrxUzbekistan.ClientBase",
+  "ClientBaseNamespace": "micros.DrxUzbekistan.ClientBase",
+  "ClientNamespace": "micros.DrxUzbekistan.Client",
+  "Code": "DrxUzbe",
+  "CompanyCode": "micros",
+  "Cover": {
+    "NameGuid": "f4c5900a-c84e-404a-9c71-054288c4e39f",
+    "Actions": [],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "03448829-91ba-47c2-ad67-abbce3ee078f",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [],
+    "Header": {
+      "NameGuid": "0cce4391-af33-4950-b557-c90214cad0cf",
+      "BackgroundPosition": "Stretch"
+    },
+    "Tabs": []
+  },
+  "DesktopViews": [],
+  "ExplorerTreeOrder": [
+    {
+      "ItemId": "ac1cdd33-22c5-4605-92bb-48056d96c8ef",
+      "PreviousItemId": "efc522bc-7619-45c4-afbd-2e66fd037ae7"
+    },
+    {
+      "ItemId": "0c657f3d-eb50-48dd-9187-f8df567028a8",
+      "PreviousItemId": "ac1cdd33-22c5-4605-92bb-48056d96c8ef"
+    },
+    {
+      "ItemId": "c021fa7a-12f6-4426-989d-410940e63ea2",
+      "PreviousItemId": "0c657f3d-eb50-48dd-9187-f8df567028a8"
+    },
+    {
+      "ItemId": "5dbab28a-e910-49ea-b110-af9c961bbf22",
+      "PreviousItemId": "c021fa7a-12f6-4426-989d-410940e63ea2"
+    },
+    {
+      "ItemId": "3f805bf4-9a4a-4e6c-905c-4ccceff54129",
+      "PreviousItemId": "5dbab28a-e910-49ea-b110-af9c961bbf22"
+    },
+    {
+      "ItemId": "671ef7b3-2bd7-4998-a664-a9d6636df79f",
+      "PreviousItemId": "3f805bf4-9a4a-4e6c-905c-4ccceff54129"
+    },
+    {
+      "ItemId": "bad1151b-bf60-470c-9e01-4cc49d59f8f1",
+      "PreviousItemId": "671ef7b3-2bd7-4998-a664-a9d6636df79f"
+    }
+  ],
+  "IconResourcesKeys": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "micros.DrxUzbekistan",
+  "Libraries": [
+    {
+      "NameGuid": "414a1017-ef4d-4c66-a362-bcd3a36b9ee7",
+      "Name": "Restsharp",
+      "Scope": "Both"
+    },
+    {
+      "NameGuid": "3ed4cf00-66e1-4f36-af35-09d28cdbf828",
+      "Name": "Newtonsoft",
+      "Scope": "Both"
+    }
+  ],
+  "OrderedSpecialFolders": [],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "micros.DrxUzbekistan",
+  "ResourcesKeys": [],
+  "ServerAssemblyName": "micros.DrxUzbekistan.Server",
+  "ServerNamespace": "micros.DrxUzbekistan.Server",
+  "SharedAssemblyName": "micros.DrxUzbekistan.Shared",
+  "SharedNamespace": "micros.DrxUzbekistan.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.3",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "SolutionMetadata",
+      "Number": 8
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 8
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}

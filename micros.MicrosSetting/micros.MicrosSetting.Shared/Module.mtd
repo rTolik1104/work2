@@ -1,0 +1,174 @@
+{
+  "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
+  "NameGuid": "f076e72a-b5c7-47bd-b4ac-a0aba7b2f22b",
+  "Name": "MicrosSetting",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "micros.MicrosSetting.Client",
+  "ClientBaseAssemblyName": "micros.MicrosSetting.ClientBase",
+  "ClientBaseNamespace": "micros.MicrosSetting.ClientBase",
+  "ClientNamespace": "micros.MicrosSetting.Client",
+  "Code": "MicrosS",
+  "CompanyCode": "micros",
+  "Cover": {
+    "NameGuid": "4306063a-1c65-42bb-9de9-e205863ee155",
+    "Actions": [
+      {
+        "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
+        "NameGuid": "099911ae-f5bc-4c23-86cc-0729620eeabc",
+        "Name": "ShowAuthInfo",
+        "EntityTypeId": "4763245b-f4c0-4cc4-9ed2-4370cbb35639",
+        "GroupId": "c389b937-fa9d-4070-8030-751b35fa9d70"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "0ec95c9a-3985-4dc6-aed7-0ba48514a24b",
+        "Name": "AddUzSettlements",
+        "FunctionName": "AddUzSettlements",
+        "GroupId": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "0fb6a623-7d88-446a-9fb6-25763b523706",
+        "Name": "AddMeasurment",
+        "FunctionName": "AddMeasurements",
+        "GroupId": "4b101514-44b6-4acb-8457-4577bbb5d974"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
+        "NameGuid": "338d7a86-9a69-492b-bc40-eac0de5a5739",
+        "Name": "Measurement",
+        "EntityTypeId": "e4ff7c6d-10bd-4f1c-851b-e375dd6d3101",
+        "GroupId": "4b101514-44b6-4acb-8457-4577bbb5d974",
+        "PreviousItemGuid": "0fb6a623-7d88-446a-9fb6-25763b523706"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "9d511501-f229-48f8-b24a-67526e75bda9",
+        "Name": "AddUzBanks",
+        "FunctionName": "AddUzBanks",
+        "GroupId": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510",
+        "PreviousItemGuid": "0ec95c9a-3985-4dc6-aed7-0ba48514a24b"
+      }
+    ],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "b4dd0f72-d3f5-4fdb-aa9d-34e327ba639f",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [
+      {
+        "NameGuid": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510",
+        "Name": "AddingInformation",
+        "BackgroundPosition": "Stretch",
+        "IconName": "GroupIconAddingInformation_ec6c0d3305fd4f5daa8da2908c5ea510.png",
+        "TabId": "0ee16872-bdfe-467e-b94b-77bcdc9ccfaa"
+      },
+      {
+        "NameGuid": "4b101514-44b6-4acb-8457-4577bbb5d974",
+        "Name": "Import",
+        "BackgroundPosition": "Stretch",
+        "IconName": "GroupIconImport_4b10151444b64acb84574577bbb5d974.png",
+        "PreviousItemGuid": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510",
+        "TabId": "0ee16872-bdfe-467e-b94b-77bcdc9ccfaa"
+      },
+      {
+        "NameGuid": "c389b937-fa9d-4070-8030-751b35fa9d70",
+        "Name": "Micros24IntegrationSettings",
+        "BackgroundPosition": "Stretch",
+        "IconName": "GroupIconMicros24IntegrationSettings_c389b937fa9d40708030751b35fa9d70.png",
+        "PreviousItemGuid": "4b101514-44b6-4acb-8457-4577bbb5d974",
+        "TabId": "0ee16872-bdfe-467e-b94b-77bcdc9ccfaa"
+      }
+    ],
+    "Header": {
+      "NameGuid": "3feaafd4-b653-4222-8fa1-52069f2962b9",
+      "BackgroundPosition": "Stretch"
+    },
+    "Tabs": [
+      {
+        "NameGuid": "0ee16872-bdfe-467e-b94b-77bcdc9ccfaa",
+        "Name": "Tab"
+      }
+    ]
+  },
+  "Dependencies": [
+    {
+      "Id": "21e91944-b83a-4b42-beee-acfaac470cb4",
+      "IsSolutionModule": true,
+      "MaxVersion": "",
+      "MinVersion": ""
+    }
+  ],
+  "ExplorerTreeOrder": [
+    {
+      "ItemId": "8fc7b0d0-9a7b-4376-87a1-0cdc9f62a38a"
+    },
+    {
+      "ItemId": "e4ff7c6d-10bd-4f1c-851b-e375dd6d3101",
+      "PreviousItemId": "8fc7b0d0-9a7b-4376-87a1-0cdc9f62a38a"
+    },
+    {
+      "ItemId": "04b1a50d-38e8-4508-b893-83d0bd1eba4c",
+      "PreviousItemId": "e4ff7c6d-10bd-4f1c-851b-e375dd6d3101"
+    },
+    {
+      "ItemId": "f65e5d60-870e-49a6-a9dd-f17c1b167fd2",
+      "PreviousItemId": "04b1a50d-38e8-4508-b893-83d0bd1eba4c"
+    },
+    {
+      "ItemId": "4763245b-f4c0-4cc4-9ed2-4370cbb35639",
+      "PreviousItemId": "f65e5d60-870e-49a6-a9dd-f17c1b167fd2"
+    }
+  ],
+  "IconResourcesKeys": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "micros.MicrosSetting",
+  "Libraries": [
+    {
+      "NameGuid": "9241c1c6-c937-4db4-97f6-d34950ed8955",
+      "Name": "DictionaryUZ",
+      "Scope": "Both"
+    },
+    {
+      "NameGuid": "ec781e9e-24eb-49c8-8324-4a11a016f228",
+      "Name": "System",
+      "Scope": "Both"
+    },
+    {
+      "NameGuid": "c23f1ba5-cdda-4154-99ff-b777f3be5207",
+      "Name": "NewtonJson",
+      "Scope": "Both"
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "AddProductAndService",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "micros.MicrosSetting",
+  "ResourcesKeys": [],
+  "ServerAssemblyName": "micros.MicrosSetting.Server",
+  "ServerNamespace": "micros.MicrosSetting.Server",
+  "SharedAssemblyName": "micros.MicrosSetting.Shared",
+  "SharedNamespace": "micros.MicrosSetting.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.2",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "ModuleMetadata",
+      "Number": 8
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}
