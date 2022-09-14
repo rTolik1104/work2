@@ -1,0 +1,58 @@
+{
+  "$type": "Sungero.Metadata.SolutionMetadata, Sungero.Metadata",
+  "NameGuid": "a0eb9414-0b31-40a2-95df-84fced4fd555",
+  "Name": "AlokabankSolution",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "micros.AlokabankSolution.Client",
+  "ClientBaseAssemblyName": "micros.AlokabankSolution.ClientBase",
+  "ClientBaseNamespace": "micros.AlokabankSolution.ClientBase",
+  "ClientNamespace": "micros.AlokabankSolution.Client",
+  "Code": "Alokaba",
+  "CompanyCode": "micros",
+  "Cover": {
+    "NameGuid": "d90b1d8c-0ba6-4bcb-89c7-ad6e3ad10fdb",
+    "Actions": [],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "37e42a76-8b7a-4dd2-88fb-805b2f5cfdd9",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [],
+    "Header": {
+      "NameGuid": "5886e5bd-ecbf-4898-b68d-398e3b5f8b06",
+      "BackgroundPosition": "Stretch"
+    },
+    "Tabs": []
+  },
+  "DesktopViews": [],
+  "IconResourcesKeys": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "micros.AlokabankSolution",
+  "OrderedSpecialFolders": [],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "micros.AlokabankSolution",
+  "ResourcesKeys": [],
+  "ServerAssemblyName": "micros.AlokabankSolution.Server",
+  "ServerNamespace": "micros.AlokabankSolution.Server",
+  "SharedAssemblyName": "micros.AlokabankSolution.Shared",
+  "SharedNamespace": "micros.AlokabankSolution.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.0",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "SolutionMetadata",
+      "Number": 8
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 8
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}
