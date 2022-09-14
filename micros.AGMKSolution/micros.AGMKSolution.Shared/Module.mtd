@@ -1,0 +1,63 @@
+{
+  "$type": "Sungero.Metadata.SolutionMetadata, Sungero.Metadata",
+  "NameGuid": "f5033c3a-6aa9-4598-a3ac-6ef1f5f4d76e",
+  "Name": "AGMKSolution",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "micros.AGMKSolution.Client",
+  "ClientBaseAssemblyName": "micros.AGMKSolution.ClientBase",
+  "ClientBaseNamespace": "micros.AGMKSolution.ClientBase",
+  "ClientNamespace": "micros.AGMKSolution.Client",
+  "Code": "AGMKSol",
+  "CompanyCode": "micros",
+  "Cover": {
+    "NameGuid": "0c2a4701-e047-4482-99c1-7380d50c2717",
+    "Actions": [],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "1759228d-2739-4967-9765-b0ef1c0e3cd6",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [],
+    "Header": {
+      "NameGuid": "b63e8990-4a87-4349-ab2b-876c8f60ddb9",
+      "BackgroundPosition": "Stretch"
+    },
+    "Tabs": []
+  },
+  "DesktopViews": [],
+  "ExplorerTreeOrder": [
+    {
+      "ItemId": "e3c06184-73d5-4a24-84dd-3b22511c1fbf"
+    }
+  ],
+  "IconResourcesKeys": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "micros.AGMKSolution",
+  "OrderedSpecialFolders": [],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "micros.AGMKSolution",
+  "ResourcesKeys": [],
+  "ServerAssemblyName": "micros.AGMKSolution.Server",
+  "ServerNamespace": "micros.AGMKSolution.Server",
+  "SharedAssemblyName": "micros.AGMKSolution.Shared",
+  "SharedNamespace": "micros.AGMKSolution.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.12",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "SolutionMetadata",
+      "Number": 8
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 8
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}
