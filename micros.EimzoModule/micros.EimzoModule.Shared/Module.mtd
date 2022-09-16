@@ -1,0 +1,101 @@
+{
+  "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
+  "NameGuid": "2ce312f4-fe72-4939-a0f9-54a76441f1fd",
+  "Name": "EimzoModule",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "micros.EimzoModule.Client",
+  "ClientBaseAssemblyName": "micros.EimzoModule.ClientBase",
+  "ClientBaseNamespace": "micros.EimzoModule.ClientBase",
+  "ClientNamespace": "micros.EimzoModule.Client",
+  "Code": "EimzoMo",
+  "CompanyCode": "micros",
+  "Cover": {
+    "NameGuid": "c3f1ed9a-94bf-4a42-aa53-5bb44fcd13cb",
+    "Actions": [
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "20f53808-bd6e-4417-9e86-bc3cad8314a0",
+        "Name": "CreateCertificate",
+        "FunctionName": "CreateCertificate",
+        "GroupId": "da5da6ad-67df-4bcb-b2f0-b9ae19f24e73"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "ab0d456f-a315-47ea-aa01-8393df1c1b8c",
+        "Name": "ShowAllCertificates",
+        "FunctionName": "ShowAllCertificates",
+        "GroupId": "da5da6ad-67df-4bcb-b2f0-b9ae19f24e73",
+        "PreviousItemGuid": "20f53808-bd6e-4417-9e86-bc3cad8314a0"
+      }
+    ],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "02af1054-1022-4527-922c-e7b02a943af3",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [
+      {
+        "NameGuid": "da5da6ad-67df-4bcb-b2f0-b9ae19f24e73",
+        "Name": "IntegrationsEImzo",
+        "BackgroundPosition": "Stretch",
+        "IconName": "GroupIconIntegrationsEImzo_da5da6ad67df4bcbb2f0b9ae19f24e73.png",
+        "TabId": "ebaac28a-3242-425d-a36c-52110abac1be"
+      }
+    ],
+    "Header": {
+      "NameGuid": "5a952767-52ec-4504-8ff9-331dad513956",
+      "BackgroundPosition": "Stretch"
+    },
+    "Tabs": [
+      {
+        "NameGuid": "ebaac28a-3242-425d-a36c-52110abac1be",
+        "Name": "Tab"
+      }
+    ]
+  },
+  "Dependencies": [
+    {
+      "Id": "83e18fdd-7713-4e0b-a4c0-9413ca6c3104",
+      "IsSolutionModule": true,
+      "MaxVersion": "",
+      "MinVersion": ""
+    }
+  ],
+  "ExplorerTreeOrder": [
+    {
+      "ItemId": "8ff2aa48-3079-4f78-a058-034bf087f01c",
+      "PreviousItemId": "c0b764a6-1d63-4f73-949c-118ac8f331db"
+    }
+  ],
+  "IconResourcesKeys": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "micros.EimzoModule",
+  "Overridden": [
+    "IsVisible"
+  ],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "micros.EimzoModule",
+  "ResourcesKeys": [
+    "HtmlStampTemplateForCertificateCustom",
+    "HtmlStampTemplateForSignatureCustom"
+  ],
+  "ServerAssemblyName": "micros.EimzoModule.Server",
+  "ServerNamespace": "micros.EimzoModule.Server",
+  "SharedAssemblyName": "micros.EimzoModule.Shared",
+  "SharedNamespace": "micros.EimzoModule.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.8",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "ModuleMetadata",
+      "Number": 8
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}
