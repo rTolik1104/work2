@@ -16,7 +16,7 @@ namespace Demo422.QRCodeSolution2.Client
       base.ConvertToPdf(e);
       
       var documentID=_obj.Id;
-      var path=@"\\DOC-QRCODE\files\";
+      var path=@"E:\C#\repos\DirectumRX_beta\DirectumRX_beta\wwwroot\files\";
       var bodyId=Demo422.QRCodeSolution2.Functions.OutgoingLetter.Remote.GetPublicBodyID(_obj);
       path+=bodyId+".pdf";
       StreamReader reader=new StreamReader(_obj.LastVersion.PublicBody.Read());
