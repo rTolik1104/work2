@@ -177,7 +177,7 @@
       &lt;br&gt;
       &lt;tr&gt;
         &lt;td colspan="2" &gt;
-          &lt;span class="tg1"&gt;Утверждено.&lt;/span&gt;
+          &lt;span class="tg1"&gt;{SignatoryType}.&lt;/span&gt;
           &lt;span class="tg1" style="padding-left: 50px;"&gt;{SignatoryDate}&lt;/span&gt;
         &lt;/td&gt;
         &lt;td colspan="2" style="margin-right: 20px;"&gt;
