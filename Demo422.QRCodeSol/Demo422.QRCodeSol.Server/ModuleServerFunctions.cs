@@ -26,7 +26,7 @@ namespace Demo422.QRCodeSol.Server
         password=obj.ToString();
       }
       
-      string url=$"https://localhost:7271/Files/Public/id={docId}&&pass={password}";
+      string url=$"https://doc.agmk.uz:8443/Files/Public/id={docId}&&pass={password}";
 
       QRCodeGenerator qrGenerator = new QRCodeGenerator();
       var qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
@@ -56,7 +56,7 @@ namespace Demo422.QRCodeSol.Server
     public string GetDocumentQRCode(int docId, string docTypeId){
       var result = "<img src='data:image/png;base64,";
 
-      string url=$"http://localhost/Client/#/card/{docTypeId}/{docId}";
+      string url=$"https://doc.agmk.uz/DrxWeb/#/card/{docTypeId}/{docId}";
       
       QRCodeGenerator qrGenerator = new QRCodeGenerator();
       var qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);

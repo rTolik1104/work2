@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
 using Sungero.CoreEntities;
+using System.Text;
+using System.Data;
 
 namespace micros.EImzoSolution.Module.Docflow.Server
 {
   partial class ModuleFunctions
   {
+    /// <summary>
+    /// Получить отметку об ЭЦП для сертификата из подписи.
+    /// </summary>
+    /// <param name="signature">Подпись.</param>
+    /// <returns>Изображение отметки об ЭЦП для сертификата в виде HTML.</returns>
+    /// <description>
+    /// Отметка изменена на QR код.
+    /// </description>
     public override string GetSignatureMarkForCertificateAsHtml(Sungero.Domain.Shared.ISignature signature)
     {
       if (signature == null)
@@ -52,6 +62,15 @@ namespace micros.EImzoSolution.Module.Docflow.Server
       return html;
     }
     
+    
+    /// <summary>
+    /// Получить отметку об ЭП для подписи.
+    /// </summary>
+    /// <param name="signature">Подпись.</param>
+    /// <returns>Изображение отметки об ЭП для подписи в виде HTML.</returns>
+    /// <description>
+    /// Отметка изменена на QR код.
+    /// </description>
     public override string GetSignatureMarkForSimpleSignatureAsHtml(Sungero.Domain.Shared.ISignature signature)
     {
       if (signature == null)

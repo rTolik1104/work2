@@ -1,6 +1,6 @@
 {
   "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
-  "NameGuid": "1474569b-7458-4f59-8cfa-2460ec14124a",
+  "NameGuid": "feefa6d5-fd27-4beb-9283-87de8eeec3f2",
   "Name": "OutgoingLetterTracking",
   "AccessRightsMode": "NoRight",
   "BaseGuid": "0a340145-d37f-43bc-9376-8a3196327b25",
@@ -24,7 +24,7 @@
       "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
       "NameGuid": "68863851-86ec-4a3d-aaa9-ac4d7fcbba89",
       "Name": "OfficialDocument",
-      "EntityGuid": "5f1e5d7d-cb9e-4056-8dc9-f3fc4326dd6b",
+      "EntityGuid": "36c8473c-2519-478e-9ad3-08a75704e8a4",
       "IsAncestorMetadata": true,
       "IsReferenceToRootEntity": true,
       "Overridden": [
