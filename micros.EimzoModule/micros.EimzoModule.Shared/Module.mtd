@@ -38,20 +38,13 @@
         "NameGuid": "da5da6ad-67df-4bcb-b2f0-b9ae19f24e73",
         "Name": "IntegrationsEImzo",
         "BackgroundPosition": "Stretch",
-        "IconName": "GroupIconIntegrationsEImzo_da5da6ad67df4bcbb2f0b9ae19f24e73.png",
-        "TabId": "ebaac28a-3242-425d-a36c-52110abac1be"
+        "IconName": "GroupIconIntegrationsEImzo_da5da6ad67df4bcbb2f0b9ae19f24e73.png"
       }
     ],
     "Header": {
       "NameGuid": "5a952767-52ec-4504-8ff9-331dad513956",
       "BackgroundPosition": "Stretch"
-    },
-    "Tabs": [
-      {
-        "NameGuid": "ebaac28a-3242-425d-a36c-52110abac1be",
-        "Name": "Tab"
-      }
-    ]
+    }
   },
   "Dependencies": [
     {
@@ -91,7 +84,7 @@
   "Versions": [
     {
       "Type": "ModuleMetadata",
-      "Number": 8
+      "Number": 6
     },
     {
       "Type": "DomainApi",
