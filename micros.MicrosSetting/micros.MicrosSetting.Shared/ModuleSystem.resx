@@ -109,4 +109,16 @@
   <data name="CoverTab_Tab" xml:space="preserve">
     <value>Tab</value>
   </data>
+  <data name="CoverGroup_Group" xml:space="preserve">
+    <value>Настройки QR кода</value>
+  </data>
+  <data name="CoverAction_Action" xml:space="preserve">
+    <value>Настроить параметры QR кода</value>
+  </data>
+  <data name="CoverDescription_Action" xml:space="preserve">
+    <value>Настройт парамтры для работы с QR кодом</value>
+  </data>
+  <data name="AsyncHandler_Description_2ced027a9c144571b04bd401a329fc5c" xml:space="preserve">
+    <value>CheckCity</value>
+  </data>
 </root>

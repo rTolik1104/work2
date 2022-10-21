@@ -1,3 +1,11 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <queries>
+  <query key="UpdateQRCodeData">
+    <postgres><![CDATA[update qr_code_data
+set public_host_address = '{0}', storage_path='{1}', active={2}, local_host_address='{3}'
+where id=1]]></postgres>
+  </query>
+  <query key="GetQrCodeData">
+    <postgres><![CDATA[SELECT * FROM qr_code_data]]></postgres>
+  </query>
 </queries>

@@ -147,5 +147,36 @@ namespace micros.MicrosSetting.Server
         return false;
       }
     }
+    
+    [Remote, Public]
+    public void UpdateQRCodeData(string publicHost, string storagePath, bool? isActive,string localHost)
+    {
+      using (var command = SQL.GetCurrentConnection().CreateCommand())
+      {
+        command.CommandText = string.Format(Queries.Module.UpdateQRCodeData, publicHost, storagePath, isActive, localHost);
+        command.ExecuteNonQuery();
+      }
+    }
+    
+    [Remote, Public]
+    public List<string> GetQRCodeData()
+    {
+      using (var command = SQL.GetCurrentConnection().CreateCommand())
+      {
+        command.CommandText = string.Format(Queries.Module.GetQrCodeData);
+        var rdr=command.ExecuteReader();
+        var data=new List<string>();
+        while(rdr.Read())
+        {
+          var publicHost=rdr["public_host_address"].ToString();
+          var storagePath=rdr["stprage_path"].ToString();
+          var isActive=rdr["active"].ToString();
+          data.Add(publicHost);
+          data.Add(storagePath);
+          data.Add(isActive);
+        }
+        return data;
+      }
+    }
   }
 }

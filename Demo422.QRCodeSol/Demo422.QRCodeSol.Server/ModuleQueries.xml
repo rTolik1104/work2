@@ -5,4 +5,35 @@
 from  sungero_content_edocversion
 where edoc = {0}]]></postgres>
   </query>
+  <query key="GetPublicHost">
+    <postgres><![CDATA[SELECT public_host_address FROM qr_code_data WHERE id=1]]></postgres>
+  </query>
+  <query key="CreateTable">
+    <postgres><![CDATA[CREATE TABLE IF NOT EXISTS qr_code_data(
+  id SERIAL PRIMARY KEY,
+  public_host_address VARCHAR(100),
+  local_host_address VARCHAR(100),
+  storage_path VARCHAR(100),
+  active BOOLEAN)]]></postgres>
+  </query>
+  <query key="SetFalaseToQRCodeData">
+    <postgres><![CDATA[INSERT INTO qr_code_data(active) VALUES(FALSE)]]></postgres>
+  </query>
+  <query key="CheckTable">
+    <postgres><![CDATA[SELECT COUNT(*) FROM qr_code_data;]]></postgres>
+  </query>
+  <query key="GetLocalHostAddress">
+    <postgres><![CDATA[SELECT local_host_address FROM qr_code_data WHERE id=1]]></postgres>
+  </query>
+  <query key="AddPasswordColumnToTable">
+    <postgres><![CDATA[ALTER TABLE sungero_content_edocversion ADD COLUMN IF NOT EXISTS public_password VARCHAR(100)]]></postgres>
+  </query>
+  <query key="CreateTableEIMZO">
+    <postgres><![CDATA[CREATE TABLE IF NOT EXISTS eimzo_data(
+  id SERIAL PRIMARY KEY,
+  signer_name VARCHAR(100),
+  edoc_id INT,
+  thumbprint VARCHAR(100),
+  sign_date VARCHAR(100))]]></postgres>
+  </query>
 </queries>

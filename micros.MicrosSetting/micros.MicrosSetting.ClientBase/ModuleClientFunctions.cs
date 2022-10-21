@@ -17,6 +17,20 @@ namespace micros.MicrosSetting.Client
 {
   public class ModuleFunctions
   {
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public virtual void Function2()
+    {
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public virtual void Function1()
+    {
+    }
     public virtual void ShowAllCertificates()
     {
       var listAllCertificates = Functions.Module.Remote.GetAllCertificates();
@@ -163,6 +177,7 @@ namespace micros.MicrosSetting.Client
           newCountry.Save();
         }
       }
+      Dialogs.NotifyMessage("Страна добавлена.");
     }
     
     public virtual void AddUzRegions()
@@ -183,25 +198,34 @@ namespace micros.MicrosSetting.Client
           newRegion.Save();
         }
       }
+      Dialogs.NotifyMessage("Регионны добавлены.");
     }
     
     public virtual void AddUzCities()
     {
-      var cityDataList = DirectoryCity.City.GetCityDataList();
-      var cityExist = micros.DrxUzbekistan.PublicFunctions.City.Remote.GetAllCities();
+      var asynvHandler=MicrosSetting.AsyncHandlers.CheckCity.Create();
+      asynvHandler.ExecuteAsync();
+      Dialogs.NotifyMessage("Города добавлены.");
+    }
+    
+    public virtual void ConfigureQrCode()
+    {
+      var dialog = Dialogs.CreateInputDialog("Настроить параметры QR кода");
       
-      foreach(var city in cityDataList)
-      {
-        var region = micros.DrxUzbekistan.PublicFunctions.Region.Remote.GetAllRegions().Where(r => r.Indexmicros == city.RegionIndex).FirstOrDefault();
-        var country = micros.DrxUzbekistan.PublicFunctions.Country.Remote.GetAllCountries().Where(c => c.Indexmicros == city.CountryIndex).FirstOrDefault();
-        if(cityExist.Where(c => c.Name == city.Name).Count() == 0 && country != null && region != null)
-        {
-          var newCity = micros.DrxUzbekistan.PublicFunctions.City.Remote.CreateCity();
-          newCity.Name = city.Name;
-          newCity.Status = micros.DrxUzbekistan.City.Status.Active;
-          newCity.Region = region;
-          newCity.Country = country;
-          newCity.Save();
+      //var data=MicrosSetting.Functions.Module.Remote.GetQRCodeData();
+      
+      var publicHost = dialog.AddString("Укажите адрес развернутого веб приложения:", false);
+      var localHost = dialog.AddString("Укажите адрес развернутого сервера директума:", false);
+      var storagePath=dialog.AddString("Укажите путь до папки развернутого веб приложения: ",false);
+      var isActive=dialog.AddBoolean("Активировать Qr код");
+      
+      if (dialog.Show() == DialogButtons.Ok){
+        try{
+          MicrosSetting.Functions.Module.Remote.UpdateQRCodeData(publicHost.Value,storagePath.Value,isActive.Value, localHost.Value);
+          Dialogs.ShowMessage("Изменеия сохранены", MessageType.Information);
+        }
+        catch(Exception ex){
+          Dialogs.ShowMessage(ex.Message, MessageType.Error);
         }
       }
     }

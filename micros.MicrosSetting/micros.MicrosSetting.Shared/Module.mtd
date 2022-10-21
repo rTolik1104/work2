@@ -2,7 +2,16 @@
   "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
   "NameGuid": "f076e72a-b5c7-47bd-b4ac-a0aba7b2f22b",
   "Name": "MicrosSetting",
-  "AsyncHandlers": [],
+  "AsyncHandlers": [
+    {
+      "NameGuid": "2ced027a-9c14-4571-b04b-d401a329fc5c",
+      "Name": "CheckCity",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsHandlerGenerated": true,
+      "Parameters": []
+    }
+  ],
   "ClientAssemblyName": "micros.MicrosSetting.Client",
   "ClientBaseAssemblyName": "micros.MicrosSetting.ClientBase",
   "ClientBaseNamespace": "micros.MicrosSetting.ClientBase",
@@ -43,6 +52,13 @@
       },
       {
         "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "6efebd38-2f47-451f-9671-e46c98b1c47b",
+        "Name": "Action",
+        "FunctionName": "ConfigureQrCode",
+        "GroupId": "0db62128-85f7-491c-b737-df619bb21b1f"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
         "NameGuid": "9d511501-f229-48f8-b24a-67526e75bda9",
         "Name": "AddUzBanks",
         "FunctionName": "AddUzBanks",
@@ -75,6 +91,13 @@
         "BackgroundPosition": "Stretch",
         "IconName": "GroupIconMicros24IntegrationSettings_c389b937fa9d40708030751b35fa9d70.png",
         "PreviousItemGuid": "4b101514-44b6-4acb-8457-4577bbb5d974"
+      },
+      {
+        "NameGuid": "0db62128-85f7-491c-b737-df619bb21b1f",
+        "Name": "Group",
+        "BackgroundPosition": "Stretch",
+        "IconName": "GroupIconGroup_0db6212885f7491cb737df619bb21b1f.png",
+        "PreviousItemGuid": "c389b937-fa9d-4070-8030-751b35fa9d70"
       }
     ],
     "Header": {
@@ -139,6 +162,42 @@
       "Placement": "Shared",
       "ReturnType": "global::System.Boolean",
       "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "GetQRCodeData",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::System.Collections.Generic.List<global::System.String>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "UpdateQRCodeData",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "publicHost",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "storagePath",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isActive",
+          "ParameterType": "global::System.Nullable<global::System.Boolean>",
+          "ParameterTypeFullName": "System.Nullable"
+        },
+        {
+          "Name": "localHost",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
     }
   ],
   "PublicStructures": [],
@@ -150,7 +209,7 @@
   "SharedAssemblyName": "micros.MicrosSetting.Shared",
   "SharedNamespace": "micros.MicrosSetting.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.2",
+  "Version": "0.0.1.6",
   "Widgets": [],
   "Versions": [
     {

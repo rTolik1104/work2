@@ -17,6 +17,7 @@ namespace Demo422.QRCodeSol.Server
     [Public]
     public string GetDocumentQRCodePublic(int docId){
       var result = "<img src='data:image/png;base64,";
+      var publicHost="";
       var password="";
       
       using (var command = SQL.GetCurrentConnection().CreateCommand())
@@ -25,8 +26,14 @@ namespace Demo422.QRCodeSol.Server
         var obj=command.ExecuteScalar();
         password=obj.ToString();
       }
+      using(var command=SQL.GetCurrentConnection().CreateCommand())
+      {
+        command.CommandText=string.Format(Queries.Module.GetPublicHost);
+        var obj=command.ExecuteScalar();
+        publicHost=obj.ToString();
+      }
       
-      string url=$"https://doc.agmk.uz:8443/Files/Public/id={docId}&&pass={password}";
+      string url=$"{publicHost}/Files/Public/id={docId}&&pass={password}";
 
       QRCodeGenerator qrGenerator = new QRCodeGenerator();
       var qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
@@ -55,8 +62,15 @@ namespace Demo422.QRCodeSol.Server
     [Public]
     public string GetDocumentQRCode(int docId, string docTypeId){
       var result = "<img src='data:image/png;base64,";
-
-      string url=$"https://doc.agmk.uz/DrxWeb/#/card/{docTypeId}/{docId}";
+      string localHost="";
+      
+      using(var command=SQL.GetCurrentConnection().CreateCommand())
+      {
+        command.CommandText=string.Format(Queries.Module.GetLocalHostAddress);
+        var obj=command.ExecuteScalar();
+        localHost=obj.ToString();
+      }
+      string url=$"{localHost}/#/card/{docTypeId}/{docId}";
       
       QRCodeGenerator qrGenerator = new QRCodeGenerator();
       var qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);

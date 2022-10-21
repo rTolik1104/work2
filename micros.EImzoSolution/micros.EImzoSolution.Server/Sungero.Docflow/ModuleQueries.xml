@@ -15,4 +15,13 @@ where edoc = {0}]]></postgres>
 	edoc_id, signer_name, thumbprint, sign_date)
 	VALUES ({0}, '{1}', '{2}', '{3}');]]></postgres>
   </query>
+  <query key="CheckActive">
+    <postgres><![CDATA[SELECT active FROM qr_code_data WHERE id=1;]]></postgres>
+  </query>
+  <query key="GetPath">
+    <postgres><![CDATA[SELECT storage_path FROM qr_code_data WHERE id=1;]]></postgres>
+  </query>
+  <query key="GetPublicBodyId">
+    <postgres><![CDATA[SELECT publicbody_id from sungero_content_edocversion where edoc={0}]]></postgres>
+  </query>
 </queries>
