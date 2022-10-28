@@ -1,0 +1,57 @@
+{
+  "$type": "Sungero.Metadata.SolutionMetadata, Sungero.Metadata",
+  "NameGuid": "95ec1a30-fc23-4879-b756-b933bee45343",
+  "Name": "Multibank",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "Micros.Multibank.Client",
+  "ClientBaseAssemblyName": "Micros.Multibank.ClientBase",
+  "ClientBaseNamespace": "Micros.Multibank.ClientBase",
+  "ClientNamespace": "Micros.Multibank.Client",
+  "Code": "Multiba",
+  "CompanyCode": "Micros",
+  "Cover": {
+    "NameGuid": "d623d83e-2c70-4091-a72a-e2fdd731917b",
+    "Actions": [],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "350ad233-22ab-4f54-a9f4-d15a0a9e2175",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [],
+    "Header": {
+      "NameGuid": "90b6dbbb-9d5b-4d2d-903d-1412d1fce67b",
+      "BackgroundPosition": "Stretch"
+    }
+  },
+  "DesktopViews": [],
+  "IconResourcesKeys": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "Micros.Multibank",
+  "OrderedSpecialFolders": [],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "Micros.Multibank",
+  "ResourcesKeys": [],
+  "ServerAssemblyName": "Micros.Multibank.Server",
+  "ServerNamespace": "Micros.Multibank.Server",
+  "SharedAssemblyName": "Micros.Multibank.Shared",
+  "SharedNamespace": "Micros.Multibank.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.0",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "SolutionMetadata",
+      "Number": 6
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 6
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "$type": "Sungero.Metadata.DocumentMetadata, Sungero.Content.Shared",
+  "NameGuid": "a41a3161-544c-4807-af15-7a32536730c6",
+  "Name": "ExchangeDocument",
+  "AccessRightsMode": "Both",
+  "Actions": [
+    {
+      "NameGuid": "4195d133-5d7d-4aa6-892a-87ab10bd886c",
+      "Name": "ImportAttachedSignature",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
+    },
+    {
+      "NameGuid": "481a9d89-3027-474b-a10d-a595e4a42024",
+      "Name": "ExportAttachedSignature",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
+    }
+  ],
+  "BaseGuid": "030d8d67-9b94-4f0d-bcc6-691016eb70f3",
+  "CanBeNavigationPropertyType": true,
+  "CreationAreaMetadata": {
+    "NameGuid": "36d029cc-0a51-4496-b426-a062c84117f7",
+    "Name": "CreationArea",
+    "Buttons": [],
+    "IsAncestorMetadata": true
+  },
+  "ExtraSearchProperties": [],
+  "FilterPanel": {
+    "NameGuid": "80d3ce1a-9a72-443a-8b6c-6c6eef0c8d0f",
+    "Name": "FilterPanel",
+    "Controls": [],
+    "IsAncestorMetadata": true
+  },
+  "IconResourcesKeys": [],
+  "OperationsClass": "",
+  "Overridden": [
+    "IsVisible"
+  ],
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "56cbe741-880f-4e6f-9567-343d08494b59",
+      "Name": "Versions",
+      "EntityGuid": "39c01025-021d-4460-9af0-c532de4ab1bb",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "EntityGuid"
+      ]
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [],
+  "RibbonCardMetadata": {
+    "NameGuid": "be5ec38b-a1d5-44a8-badc-25d28cab8de4",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "ef09387c-7cd5-4045-ad45-38418ebd9f21",
+        "Name": "ActionButton",
+        "ActionGuid": "4195d133-5d7d-4aa6-892a-87ab10bd886c",
+        "Index": 31,
+        "ParentGuid": "52099269-7fc8-4a2c-b6bf-20a19fb11d09"
+      },
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "d655eca5-58ab-4b9a-bfde-e451df6f45b2",
+        "Name": "ActionButton1",
+        "ActionGuid": "481a9d89-3027-474b-a10d-a595e4a42024",
+        "Index": 32,
+        "ParentGuid": "52099269-7fc8-4a2c-b6bf-20a19fb11d09"
+      }
+    ],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "86c6003f-714c-417b-aa55-6d1db6da1765",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "DocumentMetadata",
+      "Number": 2
+    },
+    {
+      "Type": "EntityMetadata",
+      "Number": 11
+    }
+  ]
+}
