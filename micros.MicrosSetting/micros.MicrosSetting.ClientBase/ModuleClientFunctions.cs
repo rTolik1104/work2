@@ -177,7 +177,6 @@ namespace micros.MicrosSetting.Client
           newCountry.Save();
         }
       }
-      Dialogs.NotifyMessage("Страна добавлена.");
     }
     
     public virtual void AddUzRegions()
@@ -198,14 +197,27 @@ namespace micros.MicrosSetting.Client
           newRegion.Save();
         }
       }
-      Dialogs.NotifyMessage("Регионны добавлены.");
     }
     
     public virtual void AddUzCities()
     {
-      var asynvHandler=MicrosSetting.AsyncHandlers.CheckCity.Create();
-      asynvHandler.ExecuteAsync();
-      Dialogs.NotifyMessage("Города добавлены.");
+      var cityDataList = DirectoryCity.City.GetCityDataList();
+      var cityExist = micros.DrxUzbekistan.PublicFunctions.City.Remote.GetAllCities();
+      
+      foreach(var city in cityDataList)
+      {
+        var region = micros.DrxUzbekistan.PublicFunctions.Region.Remote.GetAllRegions().Where(r => r.Indexmicros == city.RegionIndex).FirstOrDefault();
+        var country = micros.DrxUzbekistan.PublicFunctions.Country.Remote.GetAllCountries().Where(c => c.Indexmicros == city.CountryIndex).FirstOrDefault();
+        if(cityExist.Where(c => c.Name == city.Name).Count() == 0 && country != null && region != null)
+        {
+          var newCity = micros.DrxUzbekistan.PublicFunctions.City.Remote.CreateCity();
+          newCity.Name = city.Name;
+          newCity.Status = micros.DrxUzbekistan.City.Status.Active;
+          newCity.Region = region;
+          newCity.Country = country;
+          newCity.Save();
+        }
+      }
     }
     
     public virtual void ConfigureQrCode()

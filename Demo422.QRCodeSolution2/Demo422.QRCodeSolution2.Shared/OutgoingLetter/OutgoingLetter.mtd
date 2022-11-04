@@ -1,0 +1,149 @@
+{
+  "$type": "Sungero.Metadata.DocumentMetadata, Sungero.Content.Shared",
+  "NameGuid": "36c8473c-2519-478e-9ad3-08a75704e8a4",
+  "Name": "OutgoingLetter",
+  "AccessRightsMode": "Both",
+  "Actions": [
+    {
+      "NameGuid": "05fbe763-f698-4c36-a486-e2e53f0f0e7a",
+      "Name": "ConvertToPdf",
+      "GenerateHandler": true,
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "GenerateHandler"
+      ],
+      "Versions": []
+    }
+  ],
+  "BaseGuid": "d1d2a452-7732-4ba8-b199-0a4dc78898ac",
+  "CanBeNavigationPropertyType": true,
+  "CreationAreaMetadata": {
+    "NameGuid": "522184db-6f0d-4677-ae62-bc2702693977",
+    "Name": "CreationArea",
+    "Buttons": [],
+    "IsAncestorMetadata": true,
+    "Versions": []
+  },
+  "ExtraSearchProperties": [],
+  "FilterPanel": {
+    "NameGuid": "80d3ce1a-9a72-443a-8b6c-6c6eef0c8d0f",
+    "Name": "FilterPanel",
+    "Controls": [],
+    "IsAncestorMetadata": true,
+    "Versions": []
+  },
+  "IconResourcesKeys": [],
+  "LayeredFromGuid": "d1d2a452-7732-4ba8-b199-0a4dc78898ac",
+  "OpenCardByDefaultInCollection": true,
+  "OperationsClass": "",
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "56cbe741-880f-4e6f-9567-343d08494b59",
+      "Name": "Versions",
+      "EntityGuid": "3c79b77c-070a-4df2-b56e-cd49ddcd8224",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "EntityGuid"
+      ],
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "15280407-331e-42f6-b263-041a495b66cd",
+      "Name": "Tracking",
+      "EntityGuid": "feefa6d5-fd27-4beb-9283-87de8eeec3f2",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "EntityGuid"
+      ],
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "81792415-35a9-4703-b0db-265d17402e93",
+      "Name": "Addressees",
+      "EntityGuid": "6e2ad6b5-6096-4636-8c18-84eeb9272fc8",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "EntityGuid"
+      ],
+      "Versions": []
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "CheckActive",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "outgoingLetter",
+          "ParameterType": "global::Demo422.QRCodeSolution2.IOutgoingLetter",
+          "ParameterTypeFullName": "Demo422.QRCodeSolution2.IOutgoingLetter, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetPath",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "outgoingLetter",
+          "ParameterType": "global::Demo422.QRCodeSolution2.IOutgoingLetter",
+          "ParameterTypeFullName": "Demo422.QRCodeSolution2.IOutgoingLetter, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetPublicBodyID",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "outgoingLetter",
+          "ParameterType": "global::Demo422.QRCodeSolution2.IOutgoingLetter",
+          "ParameterTypeFullName": "Demo422.QRCodeSolution2.IOutgoingLetter, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [],
+  "RibbonCardMetadata": {
+    "NameGuid": "ca5aa20a-3426-49d0-985b-0b666c5e5b34",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "7f68fffb-7868-4a77-8d69-61b756bfdce3",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "DocumentMetadata",
+      "Number": 2
+    },
+    {
+      "Type": "EntityMetadata",
+      "Number": 11
+    }
+  ]
+}

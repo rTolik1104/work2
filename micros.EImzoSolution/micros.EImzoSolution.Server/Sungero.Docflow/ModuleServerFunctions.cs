@@ -23,7 +23,13 @@ namespace micros.EImzoSolution.Module.Docflow.Server
     {
       if (signature == null)
         return string.Empty;
-      var isActive=Convert.ToBoolean(CheckActive());
+      var isActive=false;
+      using(var command=SQL.GetCurrentConnection().CreateCommand())
+      {
+        command.CommandText=string.Format(Queries.Module.CheckActive);
+        var obj=command.ExecuteScalar();
+        isActive=Convert.ToBoolean(obj);
+      }
       
       if(isActive)
       {
@@ -43,20 +49,17 @@ namespace micros.EImzoSolution.Module.Docflow.Server
             var obj=command.ExecuteScalar();
             bodyHash=obj.ToString();
           }
-          
           var password=bodyHash.Substring(0,bodyHash.Length-1);
           using (var command = SQL.GetCurrentConnection().CreateCommand())
           {
             command.CommandText = string.Format(Queries.Module.SetPassword, password, docId);
             command.ExecuteNonQuery(); 
           }
-          
           using (var command = SQL.GetCurrentConnection().CreateCommand())
           {
             command.CommandText = string.Format(Queries.Module.InsertEimzoData, docId, signName,thumbprint, signDate);
             command.ExecuteNonQuery(); 
           }
-          
           string htmlT = EimzoModule.Resources.HtmlStampTemplateForCertificateCustom;
           htmlT=htmlT.Replace("{ImageQR}",Demo422.QRCodeSol.PublicFunctions.Module.GetDocumentQRCodePublic(docId));
           
@@ -83,7 +86,13 @@ namespace micros.EImzoSolution.Module.Docflow.Server
     {
       if (signature == null)
         return string.Empty;
-      var isActive=Convert.ToBoolean(CheckActive());
+      var isActive=false;
+      using(var command=SQL.GetCurrentConnection().CreateCommand())
+      {
+        command.CommandText=string.Format(Queries.Module.CheckActive);
+        var obj=command.ExecuteScalar();
+        isActive=Convert.ToBoolean(obj);
+      }
       if(isActive)
       {
         var docId=signature.Entity.Id;
@@ -101,21 +110,24 @@ namespace micros.EImzoSolution.Module.Docflow.Server
     {
       base.GeneratePublicBodyWithSignatureMark(document, versionId, signatureMark);
       var active=CheckActive();
-      if(active=="True" && document.DocumentKind.DocumentType.DocumentFlow.Value.ToString()=="Outgoing")
+      if(active=="True")
       {
         try{
-          var programmPath=GetPath();
-          var path=$@"{programmPath}\";
-          var bodyId=GetPublicBodyId(document);
-          path+=bodyId+".pdf";
-          StreamReader reader=new StreamReader(document.LastVersion.PublicBody.Read());
-          var bytes=default(byte[]);
-          using(var memstream=new MemoryStream())
+          if(document.DocumentKind.DocumentType.DocumentFlow.Value.ToString()=="Outgoing")
           {
-            reader.BaseStream.CopyTo(memstream);
-            bytes=memstream.ToArray();
+            var programmPath=GetPath();
+            var path=$@"{programmPath}\";
+            var bodyId=GetPublicBodyId(document);
+            path+=bodyId+".pdf";
+            StreamReader reader=new StreamReader(document.LastVersion.PublicBody.Read());
+            var bytes=default(byte[]);
+            using(var memstream=new MemoryStream())
+            {
+              reader.BaseStream.CopyTo(memstream);
+              bytes=memstream.ToArray();
+            }
+            File.WriteAllBytes(path,bytes);
           }
-          File.WriteAllBytes(path,bytes);
         }
         catch(Exception ex)
         {

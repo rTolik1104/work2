@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
 using Sungero.CoreEntities;
+using Demo422.QRCodeSolution2.OutgoingLetter;
 
-namespace micros.MicrosSetting.Server
+namespace Demo422.QRCodeSolution2.Client
 {
-  public class ModuleAsyncHandlers
+  partial class OutgoingLetterFunctions
   {
 
   }

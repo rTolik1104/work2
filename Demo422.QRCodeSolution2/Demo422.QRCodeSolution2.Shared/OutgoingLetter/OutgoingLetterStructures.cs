@@ -4,10 +4,7 @@ using System.Linq;
 using Sungero.Core;
 using Sungero.CoreEntities;
 
-namespace micros.MicrosSetting.Server
+namespace Demo422.QRCodeSolution2.Structures.RecordManagement.OutgoingLetter
 {
-  public class ModuleAsyncHandlers
-  {
 
-  }
 }

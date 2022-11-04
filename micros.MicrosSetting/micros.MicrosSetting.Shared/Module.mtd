@@ -2,16 +2,7 @@
   "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
   "NameGuid": "f076e72a-b5c7-47bd-b4ac-a0aba7b2f22b",
   "Name": "MicrosSetting",
-  "AsyncHandlers": [
-    {
-      "NameGuid": "2ced027a-9c14-4571-b04b-d401a329fc5c",
-      "Name": "CheckCity",
-      "DelayPeriod": 15,
-      "DelayStrategy": "RegularDelayStrategy",
-      "IsHandlerGenerated": true,
-      "Parameters": []
-    }
-  ],
+  "AsyncHandlers": [],
   "ClientAssemblyName": "micros.MicrosSetting.Client",
   "ClientBaseAssemblyName": "micros.MicrosSetting.ClientBase",
   "ClientBaseNamespace": "micros.MicrosSetting.ClientBase",
@@ -209,7 +200,7 @@
   "SharedAssemblyName": "micros.MicrosSetting.Shared",
   "SharedNamespace": "micros.MicrosSetting.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.8",
+  "Version": "0.0.1.4",
   "Widgets": [],
   "Versions": [
     {
