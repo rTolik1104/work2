@@ -47,7 +47,7 @@ namespace Demo422.QRCodeSol.Server
           var image = this.ImageToBase64(byteImage);
           result += image;
       }
-      result+="' style='width: 150px;'/>";
+      result+="' style='width: 120px;'/>";
       return result;
     }
     
