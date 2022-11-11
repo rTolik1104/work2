@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Core.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;Sungero.Domain.Shared&#13;&#10;Sungero.CoreEntities.Shared&#13;&#10;Sungero.Reporting.Shared&#13;&#10;CommonLibrary&#13;&#10;Sungero.Company.Shared&#13;&#10;Sungero.Company.Server&#13;&#10;Sungero.Domain.Interfaces&#13;&#10;micros.Report.Shared&#13;&#10;micros.Report.Server" ReportInfo.CreatorVersion="2020.2.12.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+using Sungero.Company;
+using micros.Report;
+using Sungero.Domain.Shared;
+using Sungero.CoreEntities;
+using Sungero.Core;
+using Resources = micros.Report.Reports.Resources;
+
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+  }
+}
+  </ScriptText>
+  <Dictionary>
+    <SungeroSqlDataConnection Name="Sungero_Connection" Restrictions="DontModify, DontEdit, DontDelete, HideAllProperties" ConnectionStringExpression="[SungeroConnectionString]"/>
+    <SungeroParameter Name="SungeroConnectionString" Restrictions="DontModify, DontEdit, DontDelete, HideAllProperties, DontShow" Id="8be43593-3617-4db3-9588-7a2bb7bbc65a" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="StartDate" Id="67272b8e-dbca-4884-92fa-919af5bedee0" IsRequired="true" IsCollection="false" InternalDataType="System.DateTime" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="EndDate" Id="7af7cd8f-6e6b-404a-8175-20ac8e15c6e2" IsRequired="true" IsCollection="false" InternalDataType="System.DateTime" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="Departments" Id="238ef54f-7fa5-4a26-93d6-977ab7ef6398" IsRequired="false" IsCollection="false" InternalDataType="Sungero.Company.IDepartment, Sungero.Domain.Interfaces" IsSimpleDataType="false" EntityTypeId="61b1c19f-26e2-49a5-b3d3-0d3618151e12"/>
+    <SungeroParameter Name="RegistrJournal" Id="145cfb67-8777-48dc-84fd-3e880ff02fd8" IsRequired="false" IsCollection="false" InternalDataType="micros.Report.IGroups, Sungero.Domain.Interfaces" IsSimpleDataType="false" EntityTypeId="b52bec2d-20a3-4d64-801a-56246308feae"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Guides="708.75" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
+      <TextObject Name="Text1" Left="9.45" Top="9.45" Width="623.7" Height="18.9" Text="Анализ исполнительской дисциплины сотрудников с [StartDate] по [EndDate]" Font="Arial, 10pt">
+        <Formats>
+          <DateFormat Format="dd.MM.yyyy"/>
+          <DateFormat Format="dd.MM.yyyy"/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="41.8" Width="718.2" Height="406.35">
+      <TextObject Name="Text2" Left="9.45" Top="9.45" Width="122.85" Height="47.25" Text="Структурное подразделение" Font="Arial, 10pt"/>
+      <TextObject Name="Text3" Left="141.75" Top="9.45" Width="113.4" Height="47.25" Text="Общие поступившие задания" Font="Arial, 10pt"/>
+    </DataBand>
+  </ReportPage>
+</Report>

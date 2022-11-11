@@ -1,0 +1,72 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "9857493d-8af2-4535-9c01-9fe2d2d34cd6",
+  "Name": "GroupsGroupRegistration",
+  "AccessRightsMode": "NoRight",
+  "BaseGuid": "a3d38bf5-0414-41f6-bb33-a4621d2e5a60",
+  "CanBeNavigationPropertyType": true,
+  "Code": "GroupsGroupReg",
+  "ExtraSearchProperties": [],
+  "IsChildEntity": true,
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "d7319199-3333-49cc-a7b9-8467617ccf20",
+      "Name": "Id",
+      "IsAncestorMetadata": true,
+      "IsIdentifier": true,
+      "IsUnique": true,
+      "Overridden": [
+        "IsShowedInList"
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "822d593a-8bda-44d4-b187-a64f705fb2e9",
+      "Name": "Groups",
+      "CanBeSearch": false,
+      "Code": "Groups",
+      "EntityGuid": "b52bec2d-20a3-4d64-801a-56246308feae",
+      "IsReferenceToRootEntity": true,
+      "IsShowedInList": false
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "69ab8b3b-3499-4c75-9299-ec4ad9fbb63c",
+      "Name": "GroupName",
+      "CanBeSearch": false,
+      "Code": "GroupName",
+      "EntityGuid": "d7800dd5-a9d2-41e9-bbc4-a39292ac1eeb",
+      "FlatListInStandaloneLookup": true,
+      "IsDisplayValue": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "822d593a-8bda-44d4-b187-a64f705fb2e9"
+    }
+  ],
+  "PublicStructures": [],
+  "RibbonCardMetadata": {
+    "NameGuid": "5db23cce-b738-4472-9f6b-e68b95db46ce",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "db4c0db4-1a9e-4d8d-af70-7638a9c41466",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 11
+    }
+  ]
+}

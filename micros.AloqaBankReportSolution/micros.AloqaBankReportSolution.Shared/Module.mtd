@@ -1,0 +1,57 @@
+{
+  "$type": "Sungero.Metadata.SolutionMetadata, Sungero.Metadata",
+  "NameGuid": "6e1241ed-d6e2-4cc3-8731-40581fd0263b",
+  "Name": "AloqaBankReportSolution",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "micros.AloqaBankReportSolution.Client",
+  "ClientBaseAssemblyName": "micros.AloqaBankReportSolution.ClientBase",
+  "ClientBaseNamespace": "micros.AloqaBankReportSolution.ClientBase",
+  "ClientNamespace": "micros.AloqaBankReportSolution.Client",
+  "Code": "AloqaBa",
+  "CompanyCode": "micros",
+  "Cover": {
+    "NameGuid": "d4f5771e-04a0-49e8-b369-04893a2baf25",
+    "Actions": [],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "27d74180-5da1-460a-b978-2adcac05c145",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [],
+    "Header": {
+      "NameGuid": "87de149f-c549-4c06-a61a-c4d4dc37eb30",
+      "BackgroundPosition": "Stretch"
+    }
+  },
+  "DesktopViews": [],
+  "IconResourcesKeys": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "micros.AloqaBankReportSolution",
+  "OrderedSpecialFolders": [],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "micros.AloqaBankReportSolution",
+  "ResourcesKeys": [],
+  "ServerAssemblyName": "micros.AloqaBankReportSolution.Server",
+  "ServerNamespace": "micros.AloqaBankReportSolution.Server",
+  "SharedAssemblyName": "micros.AloqaBankReportSolution.Shared",
+  "SharedNamespace": "micros.AloqaBankReportSolution.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.0",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "SolutionMetadata",
+      "Number": 6
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 6
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}

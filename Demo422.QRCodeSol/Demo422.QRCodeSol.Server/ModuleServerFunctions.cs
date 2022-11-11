@@ -26,6 +26,7 @@ namespace Demo422.QRCodeSol.Server
         var obj=command.ExecuteScalar();
         password=obj.ToString();
       }
+      
       using(var command=SQL.GetCurrentConnection().CreateCommand())
       {
         command.CommandText=string.Format(Queries.Module.GetPublicHost);
@@ -47,7 +48,7 @@ namespace Demo422.QRCodeSol.Server
           var image = this.ImageToBase64(byteImage);
           result += image;
       }
-      result+="' style='width: 150px;'/>";
+      result+="' style='width: 100px;'/>";
       return result;
     }
     
@@ -84,7 +85,7 @@ namespace Demo422.QRCodeSol.Server
           var image = this.ImageToBase64(byteImage);
           result += image;
       }
-      result+="' style='width: 150px;'/>";
+      result+="' style='width: 100px;'/>";
       return result;
     }
   }

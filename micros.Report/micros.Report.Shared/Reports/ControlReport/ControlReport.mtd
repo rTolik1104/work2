@@ -1,0 +1,57 @@
+{
+  "$type": "Sungero.Metadata.ReportMetadata, Sungero.Reporting.Shared",
+  "NameGuid": "5e4f38a0-5e47-4b72-9937-5fc9b1a445fa",
+  "Name": "ControlReport",
+  "AssociatedGuid": "95b02661-3e37-4ffd-9e19-7dd2656c0f87",
+  "BaseGuid": "cef9a810-3f30-4eca-9fe3-30992af0b818",
+  "DataSources": [],
+  "DefaultExportFormat": "Pdf",
+  "ExportFormats": [
+    "Pdf",
+    "Excel"
+  ],
+  "HandledEvents": [
+    "BeforeExecuteClient"
+  ],
+  "IconResourcesKeys": [],
+  "Overridden": [
+    "PublicConstants",
+    "PublicStructures",
+    "DisplayName",
+    "ExportFormats",
+    "DefaultExportFormat",
+    "Parameters",
+    "HandledEvents"
+  ],
+  "Parameters": [
+    {
+      "NameGuid": "67272b8e-dbca-4884-92fa-919af5bedee0",
+      "Name": "StartDate",
+      "InternalDataTypeName": "System.DateTime",
+      "IsRequired": true,
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "7af7cd8f-6e6b-404a-8175-20ac8e15c6e2",
+      "Name": "EndDate",
+      "InternalDataTypeName": "System.DateTime",
+      "IsRequired": true,
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "238ef54f-7fa5-4a26-93d6-977ab7ef6398",
+      "Name": "Departments",
+      "EntityType": "61b1c19f-26e2-49a5-b3d3-0d3618151e12",
+      "InternalDataTypeName": "Sungero.Company.IDepartment, Sungero.Domain.Interfaces"
+    },
+    {
+      "NameGuid": "145cfb67-8777-48dc-84fd-3e880ff02fd8",
+      "Name": "RegistrJournal",
+      "EntityType": "b52bec2d-20a3-4d64-801a-56246308feae",
+      "InternalDataTypeName": "micros.Report.IGroups, Sungero.Domain.Interfaces"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [],
+  "Versions": []
+}

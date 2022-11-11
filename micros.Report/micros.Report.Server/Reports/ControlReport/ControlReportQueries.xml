@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<queries>
+  <query key="GetTasksForReport">
+    <default><![CDATA[select * from sungero_wf_task
+where Created >= @startDate and Created <= @endDate]]></default>
+  </query>
+</queries>

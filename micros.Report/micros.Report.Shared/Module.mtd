@@ -1,0 +1,92 @@
+{
+  "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
+  "NameGuid": "95b02661-3e37-4ffd-9e19-7dd2656c0f87",
+  "Name": "Report",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "micros.Report.Client",
+  "ClientBaseAssemblyName": "micros.Report.ClientBase",
+  "ClientBaseNamespace": "micros.Report.ClientBase",
+  "ClientNamespace": "micros.Report.Client",
+  "Code": "Report",
+  "CompanyCode": "micros",
+  "Cover": {
+    "NameGuid": "a005da23-e44b-475c-9c2e-84382f4ce599",
+    "Actions": [
+      {
+        "$type": "Sungero.Metadata.CoverReportActionMetadata, Sungero.Reporting.Shared",
+        "NameGuid": "2bef8b74-69f9-4581-a0d4-a557d517830f",
+        "Name": "Action1",
+        "CoverActionPresenterTypeName": "Sungero.Reporting.Client.CoverReportActionPresenter, Sungero.Reporting.Client",
+        "GroupId": "891418e2-9224-41ab-8d56-f7975f8183df",
+        "PreviousItemGuid": "42d87226-8fa8-4462-bdf2-c609accfc4d1",
+        "ReportId": "5e4f38a0-5e47-4b72-9937-5fc9b1a445fa"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
+        "NameGuid": "42d87226-8fa8-4462-bdf2-c609accfc4d1",
+        "Name": "Action",
+        "EntityTypeId": "b52bec2d-20a3-4d64-801a-56246308feae",
+        "GroupId": "891418e2-9224-41ab-8d56-f7975f8183df"
+      }
+    ],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "4acf695e-e88f-44d9-9755-2943d72eff52",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [
+      {
+        "NameGuid": "891418e2-9224-41ab-8d56-f7975f8183df",
+        "Name": "Group",
+        "BackgroundPosition": "Stretch",
+        "IconName": "GroupIconGroup_891418e2922441ab8d56f7975f8183df.png"
+      }
+    ],
+    "Header": {
+      "NameGuid": "8706fc68-1810-4d86-ae14-963341b5cc68",
+      "BackgroundPosition": "Stretch"
+    }
+  },
+  "Dependencies": [
+    {
+      "Id": "6e1241ed-d6e2-4cc3-8731-40581fd0263b",
+      "IsSolutionModule": true,
+      "MaxVersion": "",
+      "MinVersion": ""
+    }
+  ],
+  "ExplorerTreeOrder": [
+    {
+      "ItemId": "b52bec2d-20a3-4d64-801a-56246308feae"
+    },
+    {
+      "ItemId": "5e4f38a0-5e47-4b72-9937-5fc9b1a445fa",
+      "PreviousItemId": "b52bec2d-20a3-4d64-801a-56246308feae"
+    }
+  ],
+  "IconResourcesKeys": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "micros.Report",
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "micros.Report",
+  "ResourcesKeys": [],
+  "ServerAssemblyName": "micros.Report.Server",
+  "ServerNamespace": "micros.Report.Server",
+  "SharedAssemblyName": "micros.Report.Shared",
+  "SharedNamespace": "micros.Report.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.0",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "ModuleMetadata",
+      "Number": 6
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}
