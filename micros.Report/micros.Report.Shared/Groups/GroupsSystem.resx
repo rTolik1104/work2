@@ -61,9 +61,6 @@
   <data name="Property_Name" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="Property_ReportGroups" xml:space="preserve">
-    <value>Groups</value>
-  </data>
   <data name="Property_GroupRegistration" xml:space="preserve">
     <value>Groups</value>
   </data>

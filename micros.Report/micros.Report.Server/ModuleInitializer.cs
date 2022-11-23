@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -9,15 +9,28 @@ namespace micros.Report.Server
 {
   public partial class ModuleInitializer
   {
-    
-    public virtual void Createdatabook()
+
+    public override void Initializing(Sungero.Domain.ModuleInitializingEventArgs e)
     {
-      var databooks=micros.Report.Groupses.GetAll();
-      if(databooks.Count()==0)
+      CreateTableForTasks();
+      CreateTableForDepartments();
+    }
+    
+    public static void CreateTableForTasks(){
+      InitializationLogger.DebugFormat("Init: Create table micros_report_aloqabank");
+      using(var command=SQL.GetCurrentConnection().CreateCommand())
       {
-        var databook = micros.Report.Groupses.Create();
-        databook.Name="Группы регистрации";
-        databook.Save();
+        command.CommandText=string.Format(Queries.Module.CreateReportTableForTasksCount);
+        command.ExecuteNonQuery();
+      }
+    }
+    
+    public static void CreateTableForDepartments(){
+      InitializationLogger.DebugFormat("Init: Create table department_tasks_count");
+      using(var command=SQL.GetCurrentConnection().CreateCommand())
+      {
+        command.CommandText=string.Format(Queries.Module.CreateTableForDepartmentsTasksCount);
+        command.ExecuteNonQuery();
       }
     }
   }

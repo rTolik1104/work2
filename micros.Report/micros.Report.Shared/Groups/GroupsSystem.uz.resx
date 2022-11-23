@@ -58,22 +58,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Property_ReportGroups" xml:space="preserve">
-    <value />
-  </data>
   <data name="Property_GroupRegistration" xml:space="preserve">
-    <value>Groups</value>
+    <value>Ro'yxatdan o'tish jurnallari</value>
   </data>
   <data name="AccusativeDisplayName" xml:space="preserve">
     <value>Ma'lumotlar kitobi</value>
   </data>
   <data name="ControlGroup_817a2f11aded4f84859ea080c63b4a37" xml:space="preserve">
-    <value />
+    <value>Ro'yxatga olish jurnallari</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
     <value>Ma'lumotlar kitobi</value>
   </data>
   <data name="CollectionDisplayName" xml:space="preserve">
     <value>Ma'lumotlar kitobi</value>
+  </data>
+  <data name="Property_Name" xml:space="preserve">
+    <value>Nomi</value>
   </data>
 </root>

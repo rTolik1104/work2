@@ -5,13 +5,15 @@
   "AssociatedGuid": "95b02661-3e37-4ffd-9e19-7dd2656c0f87",
   "BaseGuid": "cef9a810-3f30-4eca-9fe3-30992af0b818",
   "DataSources": [],
-  "DefaultExportFormat": "Pdf",
+  "DefaultExportFormat": "Excel",
   "ExportFormats": [
     "Pdf",
     "Excel"
   ],
   "HandledEvents": [
-    "BeforeExecuteClient"
+    "BeforeExecuteClient",
+    "AfterExecuteServer",
+    "BeforeExecuteServer"
   ],
   "IconResourcesKeys": [],
   "Overridden": [
@@ -21,7 +23,8 @@
     "ExportFormats",
     "DefaultExportFormat",
     "Parameters",
-    "HandledEvents"
+    "HandledEvents",
+    "DataSources"
   ],
   "Parameters": [
     {
@@ -42,13 +45,62 @@
       "NameGuid": "238ef54f-7fa5-4a26-93d6-977ab7ef6398",
       "Name": "Departments",
       "EntityType": "61b1c19f-26e2-49a5-b3d3-0d3618151e12",
-      "InternalDataTypeName": "Sungero.Company.IDepartment, Sungero.Domain.Interfaces"
+      "InternalDataTypeName": "Sungero.Company.IDepartment, Sungero.Domain.Interfaces",
+      "IsCollection": true
     },
     {
       "NameGuid": "145cfb67-8777-48dc-84fd-3e880ff02fd8",
       "Name": "RegistrJournal",
       "EntityType": "b52bec2d-20a3-4d64-801a-56246308feae",
       "InternalDataTypeName": "micros.Report.IGroups, Sungero.Domain.Interfaces"
+    },
+    {
+      "NameGuid": "fe5d4bf9-fc84-4420-9e63-2f1169dc430f",
+      "Name": "InProcess",
+      "InternalDataTypeName": "System.Int32",
+      "IsCollection": true,
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "e2193054-63a0-4711-818a-8d03752bfda3",
+      "Name": "Completed",
+      "InternalDataTypeName": "System.Int32",
+      "IsCollection": true,
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "62245a9d-8529-4ba2-be72-70dde5280fbe",
+      "Name": "WellDone",
+      "InternalDataTypeName": "System.Int32",
+      "IsCollection": true,
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "22772461-bfaa-4a2b-b783-64213e8103c8",
+      "Name": "BadDone",
+      "InternalDataTypeName": "System.Int32",
+      "IsCollection": true,
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "d1a67df9-8279-48df-9027-d792c0044013",
+      "Name": "Overdue",
+      "InternalDataTypeName": "System.Int32",
+      "IsCollection": true,
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "39dab8b3-a054-4f13-81e0-25b382a7c78d",
+      "Name": "AssigmentsCount",
+      "InternalDataTypeName": "System.Int32",
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "e9ca5b87-985d-4064-a6cc-df95f7bb47af",
+      "Name": "Employees",
+      "EntityType": "b7905516-2be5-4931-961c-cb38d5677565",
+      "InternalDataTypeName": "Sungero.Company.IEmployee, Sungero.Domain.Interfaces",
+      "IsCollection": true
     }
   ],
   "PublicStructures": [],

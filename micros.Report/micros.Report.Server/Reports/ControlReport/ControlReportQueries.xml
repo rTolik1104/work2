@@ -1,7 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <queries>
   <query key="GetTasksForReport">
-    <default><![CDATA[select * from sungero_wf_task
-where Created >= @startDate and Created <= @endDate]]></default>
+    <postgres><![CDATA[select * from micros_report_aloqabank]]></postgres>
+  </query>
+  <query key="GetEmplyees">
+    <postgres><![CDATA[select * from department_tasks_count]]></postgres>
+  </query>
+  <query key="GetData">
+    <postgres><![CDATA[SELECT t.id, t.emolyee_name, t.emolyee_department,t.completed, t.overdue, t.well_done, t.bad_done, t.in_process, d.taskscount
+	FROM public.micros_report_aloqabank t INNER JOIN department_tasks_count d ON d.department_id=t.department_id;]]></postgres>
   </query>
 </queries>

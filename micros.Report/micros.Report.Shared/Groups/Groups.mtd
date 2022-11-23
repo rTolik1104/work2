@@ -108,16 +108,6 @@
       "PreviousPropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1"
     },
     {
-      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
-      "NameGuid": "cf8d6d5a-bc17-459c-ba00-4ce458de8c52",
-      "Name": "ReportGroups",
-      "Code": "ReportGroups",
-      "EntityGuid": "d7800dd5-a9d2-41e9-bbc4-a39292ac1eeb",
-      "FlatListInStandaloneLookup": true,
-      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
-      "PreviousPropertyGuid": "2ff52651-756f-40a5-985b-16a1ec26d0c7"
-    },
-    {
       "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
       "NameGuid": "950f247c-b2ff-4ae8-b3f4-cffc1fce07db",
       "Name": "GroupRegistration",
@@ -128,7 +118,7 @@
         "DeletedShared"
       ],
       "IsShowedInList": false,
-      "PreviousPropertyGuid": "cf8d6d5a-bc17-459c-ba00-4ce458de8c52"
+      "PreviousPropertyGuid": "2ff52651-756f-40a5-985b-16a1ec26d0c7"
     }
   ],
   "PublicStructures": [],

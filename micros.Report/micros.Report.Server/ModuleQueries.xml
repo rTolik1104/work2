@@ -1,3 +1,64 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <queries>
+  <query key="CreateReportTableForTasksCount">
+    <mssql><![CDATA[if not exists (select * from sysobjects where name='micros_report_aloqabank' and xtype='U') 
+CREATE TABLE micros_report_aloqabank(
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  emolyee_name VARCHAR,
+  emolyee_department VARCHAR,
+  completed INT,
+  overdue INT,
+  well_done INT,
+  bad_done INT,
+  in_process INT,
+  department_id INT)]]></mssql>
+    <postgres><![CDATA[CREATE TABLE IF NOT EXISTS micros_report_aloqabank(
+  id SERIAL PRIMARY KEY,
+  emolyee_name VARCHAR,
+  emolyee_department VARCHAR,
+  completed INT,
+  overdue INT,
+  well_done INT,
+  bad_done INT,
+  in_process INT,
+  department_id INT)]]></postgres>
+  </query>
+  <query key="CreateTableForDepartmentsTasksCount">
+    <mssql><![CDATA[if not exists (select * from sysobjects where name='department_tasks_count' and xtype='U')
+CREATE TABLE department_tasks_count(
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  department VARCHAR,
+  tasksCount INT,
+  department_id INT)]]></mssql>
+    <postgres><![CDATA[CREATE TABLE IF NOT EXISTS department_tasks_count(
+  id SERIAL PRIMARY KEY,
+  department VARCHAR,
+  tasksCount INT,
+  department_id INT)]]></postgres>
+  </query>
+  <query key="SetDataToTasksTable">
+    <default><![CDATA[INSERT INTO micros_report_aloqabank(
+	emolyee_name,
+	emolyee_department,
+  completed,
+  overdue,
+  well_done,
+  bad_done ,
+  in_process,
+  department_id)
+	VALUES ('{0}', '{1}', {2}, {3}, {4}, {5},{6},{7});]]></default>
+  </query>
+  <query key="SetDataToDepartmentTable">
+    <default><![CDATA[INSERT INTO department_tasks_count(
+	department,
+  tasksCount,
+  department_id)
+	VALUES ('{0}', {1}, {2});]]></default>
+  </query>
+  <query key="ClearTasksTable">
+    <default><![CDATA[DELETE FROM micros_report_aloqabank]]></default>
+  </query>
+  <query key="ClearDepartmentsTable">
+    <default><![CDATA[DELETE FROM department_tasks_count]]></default>
+  </query>
 </queries>
