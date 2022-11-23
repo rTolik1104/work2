@@ -9,6 +9,8 @@ using System.Json;
 using System.Net;
 using System.IO;
 using System.Text;
+using RestSharp;
+using RestSharp.Authenticators;
 
 namespace micros.MicrosSetting.Server
 {
@@ -149,34 +151,56 @@ namespace micros.MicrosSetting.Server
     }
     
     [Remote, Public]
-    public void UpdateQRCodeData(string publicHost, string storagePath, bool? isActive,string localHost)
+    public void UpdateMultibankAuthorization(string login, string password)
     {
-      using (var command = SQL.GetCurrentConnection().CreateCommand())
+      using(var command=SQL.GetCurrentConnection().CreateCommand())
       {
-        command.CommandText = string.Format(Queries.Module.UpdateQRCodeData, publicHost, storagePath, isActive, localHost);
+        command.CommandText=string.Format(Queries.Module.UpdateMultibankData,login, password);
         command.ExecuteNonQuery();
       }
     }
     
     [Remote, Public]
-    public List<string> GetQRCodeData()
+    public List<string> GetMultibankAuthorizationData()
     {
-      using (var command = SQL.GetCurrentConnection().CreateCommand())
+      string login=string.Empty;
+      string password=string.Empty;
+      var dataList=new List<string>();
+      using(var command=SQL.GetCurrentConnection().CreateCommand())
       {
-        command.CommandText = string.Format(Queries.Module.GetQrCodeData);
-        var rdr=command.ExecuteReader();
-        var data=new List<string>();
-        while(rdr.Read())
+        command.CommandText= Queries.Module.SelectMultibankData;
+        var data=command.ExecuteReader();
+        
+        while(data.Read())
         {
-          var publicHost=rdr["public_host_address"].ToString();
-          var storagePath=rdr["stprage_path"].ToString();
-          var isActive=rdr["active"].ToString();
-          data.Add(publicHost);
-          data.Add(storagePath);
-          data.Add(isActive);
+          login=data.GetValue(1).ToString();
+          password=data.GetValue(2).ToString();
         }
-        return data;
       }
+      dataList.Add(login);
+      dataList.Add(password);
+      return dataList;
+    }
+    
+    [Remote, Public]
+    public bool CheckAuthorization(string login, string password)
+    {
+      try{
+        var client = new RestClient("https://api.multibank.uz/api/check_contragent/v1/external/gnk/" + 201788904 + "?refresh=1");
+        //client.Authenticator = new HttpBasicAuthenticator("Micros24", "~AGJcw@Fxwvh");
+        client.Authenticator = new HttpBasicAuthenticator(login, password);
+        var request = new RestRequest(Method.GET);
+        IRestResponse response = client.Execute(request);
+        if(response.StatusCode.ToString() != "Unauthorized")
+        {
+          return true;
+        }
+      }
+      catch(Exception ex)
+      {
+        Logger.Error(ex.Message);
+      }
+      return false;
     }
   }
-}
+}  
