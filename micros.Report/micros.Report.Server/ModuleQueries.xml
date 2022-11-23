@@ -37,7 +37,7 @@ CREATE TABLE department_tasks_count(
   department_id INT)]]></postgres>
   </query>
   <query key="SetDataToTasksTable">
-    <default><![CDATA[INSERT INTO micros_report_aloqabank(
+    <postgres><![CDATA[INSERT INTO micros_report_aloqabank(
 	emolyee_name,
 	emolyee_department,
   completed,
@@ -46,19 +46,19 @@ CREATE TABLE department_tasks_count(
   bad_done ,
   in_process,
   department_id)
-	VALUES ('{0}', '{1}', {2}, {3}, {4}, {5},{6},{7});]]></default>
+	VALUES ('{0}', '{1}', {2}, {3}, {4}, {5},{6},{7});]]></postgres>
   </query>
   <query key="SetDataToDepartmentTable">
-    <default><![CDATA[INSERT INTO department_tasks_count(
+    <postgres><![CDATA[INSERT INTO department_tasks_count(
 	department,
   tasksCount,
   department_id)
-	VALUES ('{0}', {1}, {2});]]></default>
+	VALUES ('{0}', {1}, {2});]]></postgres>
   </query>
   <query key="ClearTasksTable">
-    <default><![CDATA[DELETE FROM micros_report_aloqabank]]></default>
+    <postgres><![CDATA[DELETE FROM micros_report_aloqabank]]></postgres>
   </query>
   <query key="ClearDepartmentsTable">
-    <default><![CDATA[DELETE FROM department_tasks_count]]></default>
+    <postgres><![CDATA[DELETE FROM department_tasks_count]]></postgres>
   </query>
 </queries>
