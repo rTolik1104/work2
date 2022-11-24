@@ -38,13 +38,20 @@
         "NameGuid": "da5da6ad-67df-4bcb-b2f0-b9ae19f24e73",
         "Name": "IntegrationsEImzo",
         "BackgroundPosition": "Stretch",
-        "IconName": "GroupIconIntegrationsEImzo_da5da6ad67df4bcbb2f0b9ae19f24e73.png"
+        "IconName": "GroupIconIntegrationsEImzo_da5da6ad67df4bcbb2f0b9ae19f24e73.png",
+        "TabId": "36ddbee5-a2bd-416c-9932-1da7e501d632"
       }
     ],
     "Header": {
       "NameGuid": "5a952767-52ec-4504-8ff9-331dad513956",
       "BackgroundPosition": "Stretch"
-    }
+    },
+    "Tabs": [
+      {
+        "NameGuid": "36ddbee5-a2bd-416c-9932-1da7e501d632",
+        "Name": "Tab"
+      }
+    ]
   },
   "Dependencies": [
     {
@@ -79,12 +86,12 @@
   "SharedAssemblyName": "micros.EimzoModule.Shared",
   "SharedNamespace": "micros.EimzoModule.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.12",
+  "Version": "0.0.1.1",
   "Widgets": [],
   "Versions": [
     {
       "Type": "ModuleMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "DomainApi",
