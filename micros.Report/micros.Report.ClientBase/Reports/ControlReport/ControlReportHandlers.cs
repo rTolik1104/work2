@@ -13,7 +13,7 @@ namespace micros.Report
     {
       var dialog = Dialogs.CreateInputDialog("Параметры отчета");
       
-      var startDate=dialog.AddDate("Начальная дата",true,Calendar.Today.AddDays(-180));
+      var startDate=dialog.AddDate("Начальная дата",true,Calendar.Today.AddDays(-30));
       var endDate=dialog.AddDate("Конечная дата",true,Calendar.Today);
       var departments=dialog.AddSelectMany("Подразделения", true, Sungero.Company.Departments.Null);
       var registrJournal=dialog.AddSelect("Группа журналов", true, micros.Report.Groupses.Null);
@@ -33,17 +33,19 @@ namespace micros.Report
       foreach(var department in departments.Value)
       {
         var performersId = Sungero.Company.Employees.GetAll(x=>x.Department==department).Select(x=>x.Id);
-        var assignmentsCount = Sungero.Workflow.Assignments.GetAll(x => performersId.Contains(x.Performer.Id) && x.Created>=startDate.Value && x.Created<=endDate.Value && documents.Contains(x.Attachments.Select(a=>a.Id).First())).Count();
+        var a = Sungero.Workflow.Assignments.GetAll(x => performersId.Contains(x.Performer.Id));
+        var b = a.Where(c => c.Created>=startDate.Value && c.Created<=endDate.Value && c.Attachments.Count != 0);
+        var assignmentsCount = b.Where(v => v.AllAttachments.Any(d => documents.Contains(d.Id))).Count();
         Report.Functions.Module.Remote.SetDataToDepartment(department.Name, assignmentsCount, department.Id);
       }
 
       foreach(var performer in performers)
       {
         var compltete=Sungero.Workflow.Assignments.GetAll(x => x.Performer==performer).Where(s=>s.Status.Value.ToString()=="Completed").Count();
-        var process=Sungero.Workflow.Assignments.GetAll(x => x.Performer==performer).Where(s=>s.Status.Value.ToString()=="InProcess" && s.Deadline>=Calendar.Today && documents.Contains(s.Attachments.Select(a=>a.Id).First())).Count();
-        var overd=Sungero.Workflow.Assignments.GetAll(x => x.Performer==performer).Where(s=>s.Status.Value.ToString()=="InProcess" && s.Deadline<Calendar.Today && documents.Contains(s.Attachments.Select(a=>a.Id).First())).Count();
-        var well=Sungero.Workflow.Assignments.GetAll(x => x.Performer==performer).Where(s=>s.Status.Value.ToString()=="Completed" && s.Completed<=s.Deadline && documents.Contains(s.Attachments.Select(a=>a.Id).First())).Count();
-        var bad=Sungero.Workflow.Assignments.GetAll(x => x.Performer==performer).Where(s=>s.Status.Value.ToString()=="Completed" && s.Completed>s.Deadline && documents.Contains(s.Attachments.Select(a=>a.Id).First())).Count();
+        var process=Sungero.Workflow.Assignments.GetAll(x => x.Performer==performer).Where(s=>s.Status.Value.ToString()=="InProcess" && s.Deadline>=Calendar.Today && s.Attachments.Any() && documents.Contains(s.Attachments.First().Id)).Count();
+        var overd=Sungero.Workflow.Assignments.GetAll(x => x.Performer==performer).Where(s=>s.Status.Value.ToString()=="InProcess" && s.Deadline<Calendar.Today && s.Attachments.Any() && documents.Contains(s.Attachments.First().Id)).Count();
+        var well=Sungero.Workflow.Assignments.GetAll(x => x.Performer==performer).Where(s=>s.Status.Value.ToString()=="Completed" && s.Completed<=s.Deadline && s.Attachments.Any() && documents.Contains(s.Attachments.First().Id)).Count();
+        var bad=Sungero.Workflow.Assignments.GetAll(x => x.Performer==performer).Where(s=>s.Status.Value.ToString()=="Completed" && s.Completed>s.Deadline && s.Attachments.Any() && documents.Contains(s.Attachments.First().Id)).Count();
         
         Report.Functions.Module.Remote.SetDataToTasks(performer.Name,performer.Department.Name,compltete,overd,well,bad,process, performer.Department.Id);
       }
