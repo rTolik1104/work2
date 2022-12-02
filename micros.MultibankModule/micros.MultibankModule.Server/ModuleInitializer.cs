@@ -19,6 +19,24 @@ namespace micros.MultibankModule.Server
     {
       MultibankModule.SpecialFolders.ExchangeService.AccessRights.Grant(Roles.AllUsers, DefaultAccessRightsTypes.Change);
       MultibankModule.SpecialFolders.ExchangeService.AccessRights.Save();
+      
+      CreateDocumentTypes();
+      //CreateDocumentKinds();
+    }
+    
+    public static void CreateDocumentTypes()
+    {
+      Sungero.Docflow.PublicInitializationFunctions.Module.CreateDocumentType("Электронный договор", EContract.ClassTypeGuid, Sungero.Docflow.DocumentType.DocumentFlow.Contracts, true);
+    }
+    
+    public static void CreateDocumentKinds()
+    {
+      Sungero.Docflow.PublicInitializationFunctions.Module.CreateDocumentKind("Электронный договор", "Электронный договор",
+                                                                              Sungero.Docflow.DocumentKind.NumberingType.Registrable,
+                                                                              Sungero.Docflow.DocumentType.DocumentFlow.Contracts, false, false,
+                                                                              EContract.ClassTypeGuid,
+                                                                              new Sungero.Domain.Shared.IActionInfo[] { Sungero.Docflow.OfficialDocuments.Info.Actions.SendForApproval },
+                                                                              Constants.Module.ElectronicContract);
     }
   }
 

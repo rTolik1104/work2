@@ -64,7 +64,7 @@
   <data name="Property_Sign" xml:space="preserve">
     <value>Подпись</value>
   </data>
-  <data name="Property_ActionData" xml:space="preserve">
+  <data name="Property_Action" xml:space="preserve">
     <value>ActionData</value>
   </data>
   <data name="Property_IsIncoming" xml:space="preserve">

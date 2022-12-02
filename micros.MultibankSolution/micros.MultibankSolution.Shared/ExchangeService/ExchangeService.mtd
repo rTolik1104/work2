@@ -48,8 +48,8 @@
     {
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
       "NameGuid": "e5b4286a-cddf-4a23-9661-c324717fc63a",
-      "Name": "SendInvoiceV2micros",
-      "Code": "SendInvoiceV2m",
+      "Name": "SendDocumentmicros",
+      "Code": "SendDocumentmi",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "432cd13b-79d1-492f-ba61-280ef85bdc63"
     },
@@ -164,6 +164,22 @@
       "Code": "Rejectmicros",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "35498d4d-3b9c-4223-94e2-a91df43b8403"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "84ac8961-52c6-4fe0-878b-c129b52de2da",
+      "Name": "ActURLmicros",
+      "Code": "ActURLmicros",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "4554b4bd-e805-48da-92bd-d8c1ded55701"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "c347e783-ab66-4a15-8c4f-8f2fbc8f4842",
+      "Name": "ContractURLmicros",
+      "Code": "ContractURLmic",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "84ac8961-52c6-4fe0-878b-c129b52de2da"
     }
   ],
   "PublicStructures": [],
@@ -190,12 +206,16 @@
     "MultibankAcceptStaging",
     "RefreshToken",
     "RefreshTokenStaging",
-    "SendInvoiceV2",
-    "SendInvoiceV2Staging",
+    "SendDocument",
+    "SendDocumentStaging",
     "CancelStaging",
     "Cancel",
     "RejectStaging",
-    "Reject"
+    "Reject",
+    "ContractURL",
+    "ContractURLStaging",
+    "ActURL",
+    "ActURLStaging"
   ],
   "RibbonCardMetadata": {
     "NameGuid": "6a2e9103-1a16-4582-805d-b0c46af69b8b",

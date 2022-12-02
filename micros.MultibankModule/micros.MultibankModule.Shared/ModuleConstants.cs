@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Sungero.Core;
 
 namespace micros.MultibankModule.Constants
@@ -35,7 +35,7 @@ namespace micros.MultibankModule.Constants
     {
       /// <summary>Счёт-фактура новая</summary>
       public const string Invoice = "5dc512c3-bc0b-419f-9254-0fc00e2569ef";
-                
+      
       /// <summary>Товарно-транспортная накладная (ТТН)</summary>
       public const string TTH = "e6dc135c-33f8-4f49-b6f4-b3302db26b0a";
       
@@ -64,5 +64,8 @@ namespace micros.MultibankModule.Constants
     }
     
     #endregion
+    
+    //Уникальный идентификатор для вида «Электронный договор».
+    public static readonly Guid ElectronicContract = Guid.Parse("4fcf1e53-d29a-4a70-b44a-fabc55f83bcc");
   }
 }

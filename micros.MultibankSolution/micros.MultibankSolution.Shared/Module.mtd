@@ -21,7 +21,8 @@
     "Header": {
       "NameGuid": "ba5c35e4-0996-43fb-81e0-85244bff0cc3",
       "BackgroundPosition": "Stretch"
-    }
+    },
+    "Tabs": []
   },
   "DesktopViews": [],
   "ExplorerTreeOrder": [
@@ -75,16 +76,16 @@
   "SharedAssemblyName": "micros.MultibankSolution.Shared",
   "SharedNamespace": "micros.MultibankSolution.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.22",
+  "Version": "0.0.1.33",
   "Widgets": [],
   "Versions": [
     {
       "Type": "SolutionMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "ModuleMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "DomainApi",

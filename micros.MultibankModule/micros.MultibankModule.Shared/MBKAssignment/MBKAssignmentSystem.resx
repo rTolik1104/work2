@@ -169,9 +169,6 @@
   <data name="Action_UpdateFromMultibankConfirmationDescription" xml:space="preserve">
     <value />
   </data>
-  <data name="Ribbon_Service_0bd4d4b45712470f9a02ebe7c9ce1ce6" xml:space="preserve">
-    <value>Service</value>
-  </data>
   <data name="Enum_Result_SimpleFinish" xml:space="preserve">
     <value>SimpleFinish</value>
   </data>

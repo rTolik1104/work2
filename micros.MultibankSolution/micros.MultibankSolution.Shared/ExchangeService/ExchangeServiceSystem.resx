@@ -103,8 +103,8 @@
   <data name="Enum_ExchangeProvider_MultibankSTGmicros" xml:space="preserve">
     <value>Multibank (Staging)</value>
   </data>
-  <data name="Property_SendInvoiceV2micros" xml:space="preserve">
-    <value>SendInvoiceV2</value>
+  <data name="Property_SendDocumentmicros" xml:space="preserve">
+    <value>SendDocument</value>
   </data>
   <data name="Property_GetPDFmicros" xml:space="preserve">
     <value>GetPDF</value>
@@ -147,5 +147,11 @@
   </data>
   <data name="Property_Rejectmicros" xml:space="preserve">
     <value>Reject</value>
+  </data>
+  <data name="Property_ActURLmicros" xml:space="preserve">
+    <value>ActURL</value>
+  </data>
+  <data name="Property_ContractURLmicros" xml:space="preserve">
+    <value>ContractURL</value>
   </data>
 </root>

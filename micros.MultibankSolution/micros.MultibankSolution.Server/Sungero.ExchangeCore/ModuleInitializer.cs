@@ -51,14 +51,16 @@ namespace micros.MultibankSolution.Module.ExchangeCore.Server
         system.JoinProfilemicros = r.JoinProfileStaging;
         system.MultibankAcceptmicros = r.MultibankAcceptStaging;
         system.RefreshTokenmicros = r.RefreshTokenStaging;
-        system.SendInvoiceV2micros = r.SendInvoiceV2Staging;
+        system.SendDocumentmicros = r.SendDocumentStaging;
         system.GetPublicDocmicros = r.GetPublicDocStaging;
         system.InvoiceURLmicros = r.InvoiceURLStaging;
         system.GetSignaturesmicros = r.GetSignaturesStaging;
         system.Cancelmicros = r.CancelStaging;
         system.Rejectmicros = r.RejectStaging;
-        
-        system.Save();
+        system.ActURLmicros = r.ActURLStaging;
+        system.ContractURLmicros = r.ContractURLStaging;
+          
+          system.Save();
       }
       else
       {
@@ -70,13 +72,16 @@ namespace micros.MultibankSolution.Module.ExchangeCore.Server
         system.JoinProfilemicros = r.JoinProfile;
         system.MultibankAcceptmicros = r.MultibankAccept;
         system.RefreshTokenmicros = r.RefreshToken;
-        system.SendInvoiceV2micros = r.SendInvoiceV2;
+        system.SendDocumentmicros = r.SendDocument;
         system.GetPublicDocmicros = r.GetPublicDoc;
         system.InvoiceURLmicros = r.InvoiceURL;
         system.GetSignaturesmicros = r.GetSignatures;
         system.Cancelmicros = r.Cancel;
         system.Rejectmicros = r.Reject;
-        system.Save();
+        system.ActURLmicros = r.ActURL;
+        system.ContractURLmicros = r.ContractURL;
+          
+          system.Save();
       }
 
       system.Save();

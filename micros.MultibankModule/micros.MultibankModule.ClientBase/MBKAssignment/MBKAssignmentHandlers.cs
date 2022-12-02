@@ -25,12 +25,6 @@ namespace micros.MultibankModule
       _obj.State.Panels.AttachmentsPreviewPanel.Activate();
       e.HideAction(_obj.Info.Actions.Annul);
       e.HideAction(_obj.Info.Actions.UpdateFromMultibank);
-      if (_obj.MainTask.IntegrationDatabook.IsIncoming.Value) e.HideAction(_obj.Info.Actions.Annul);
-      else
-      {
-        e.HideAction(_obj.Info.Actions.Accept);
-        e.HideAction(_obj.Info.Actions.Reject);
-      }
     }
   }
 }

@@ -125,10 +125,10 @@
   <data name="RefreshTokenStaging" xml:space="preserve">
     <value>https://account-staging.multibank.uz/api/decrypt_refresh?refresh_token=</value>
   </data>
-  <data name="SendInvoiceV2" xml:space="preserve">
+  <data name="SendDocument" xml:space="preserve">
     <value>https://api.multibank.uz/api/v1/document</value>
   </data>
-  <data name="SendInvoiceV2Staging" xml:space="preserve">
+  <data name="SendDocumentStaging" xml:space="preserve">
     <value>https://api-staging.multibank.uz/api/v1/document</value>
   </data>
   <data name="CancelStaging" xml:space="preserve">
@@ -142,5 +142,17 @@
   </data>
   <data name="Reject" xml:space="preserve">
     <value>https://api.multibank.uz/api/v1/document/reject</value>
+  </data>
+  <data name="ContractURL" xml:space="preserve">
+    <value>https://app.multibank.uz/#edo/all/all_documents|edo/documents/contract_doc/{document_id}</value>
+  </data>
+  <data name="ContractURLStaging" xml:space="preserve">
+    <value>https://app-staging.multibank.uz/#edo/all/all_documents|edo/documents/contract_doc/{document_id}</value>
+  </data>
+  <data name="ActURL" xml:space="preserve">
+    <value>https://app.multibank.uz/#edo/all/all_documents|edo/documents/act/{document_id}</value>
+  </data>
+  <data name="ActURLStaging" xml:space="preserve">
+    <value>https://app-staging.multibank.uz/#edo/all/all_documents|edo/documents/act/{document_id}</value>
   </data>
 </root>

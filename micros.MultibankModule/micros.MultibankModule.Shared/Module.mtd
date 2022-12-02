@@ -30,14 +30,21 @@
         "NameGuid": "2970efa6-f945-4473-b949-994ae087c174",
         "Name": "ServiceDatabooks",
         "BackgroundPosition": "Stretch",
-        "IconName": "GroupIconServiceDatabooks_2970efa6f9454473b949994ae087c174.png"
+        "IconName": "GroupIconServiceDatabooks_2970efa6f9454473b949994ae087c174.png",
+        "TabId": "cd3b3902-2e32-402e-941b-8ff6c01eae4b"
       }
     ],
     "Header": {
       "NameGuid": "87f5ce7b-2e0d-4c75-9e95-44fb9b215f75",
       "BackgroundPosition": "Stretch",
       "IconName": "HeaderIcon_87f5ce7b2e0d4c759e9544fb9b215f75.png"
-    }
+    },
+    "Tabs": [
+      {
+        "NameGuid": "cd3b3902-2e32-402e-941b-8ff6c01eae4b",
+        "Name": "ServiceDatabooks"
+      }
+    ]
   },
   "Dependencies": [
     {
@@ -67,6 +74,10 @@
     {
       "ItemId": "041c9ad6-a7bb-458a-96eb-2a2743e06eec",
       "PreviousItemId": "bf5834b9-f7f9-46ce-991b-b5769e424085"
+    },
+    {
+      "ItemId": "a2080b5e-090b-4df7-bed9-bb65aed036ae",
+      "PreviousItemId": "041c9ad6-a7bb-458a-96eb-2a2743e06eec"
     }
   ],
   "HandledEvents": [
@@ -177,6 +188,20 @@
       "ReturnTypeFullName": "System.Void"
     },
     {
+      "Name": "EContractErrors",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "contract",
+          "ParameterType": "global::micros.MultibankModule.IEContract",
+          "ParameterTypeFullName": "micros.MultibankModule.IEContract, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
       "Name": "ExportAction",
       "IsRemote": true,
       "Parameters": [
@@ -184,6 +209,20 @@
           "Name": "databook",
           "ParameterType": "global::micros.MultibankModule.IIntegrationDatabook",
           "ParameterTypeFullName": "micros.MultibankModule.IIntegrationDatabook, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Sungero.Core.IZip",
+      "ReturnTypeFullName": "Sungero.Core.IZip, Sungero.Domain.Shared"
+    },
+    {
+      "Name": "ExportData",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "exportData",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
         }
       ],
       "Placement": "Shared",
@@ -217,6 +256,20 @@
       "Placement": "Shared",
       "ReturnType": "global::Sungero.Core.IZip",
       "ReturnTypeFullName": "Sungero.Core.IZip, Sungero.Domain.Shared"
+    },
+    {
+      "Name": "FillElectronicContract",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "contract",
+          "ParameterType": "global::micros.MultibankModule.IEContract",
+          "ParameterTypeFullName": "micros.MultibankModule.IEContract, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
     },
     {
       "Name": "FillInvoiceV2",
@@ -443,18 +496,25 @@
     },
     {
       "Name": "SendDocument",
+      "IsRemote": true,
       "Parameters": [
+        {
+          "Name": "docType",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
         {
           "Name": "jsonString",
           "ParameterType": "global::System.String",
           "ParameterTypeFullName": "System.String"
         },
         {
-          "Name": "token",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
+          "Name": "contract",
+          "ParameterType": "global::micros.MultibankModule.IEContract",
+          "ParameterTypeFullName": "micros.MultibankModule.IEContract, Sungero.Domain.Interfaces"
         }
       ],
+      "Placement": "Shared",
       "ReturnType": "global::System.String",
       "ReturnTypeFullName": "System.String"
     },
@@ -545,7 +605,325 @@
       "ReturnTypeFullName": "System.Void"
     }
   ],
-  "PublicStructures": [],
+  "PublicStructures": [
+    {
+      "Name": "ContractJson",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "contract_name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "place",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "expire_date",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "micros.MultibankModule.Structures.Module"
+    },
+    {
+      "Name": "EContractJson",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "сontract_name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "expire_date",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "place",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "document_number",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "document_date",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "has_vat",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "contract",
+          "IsNullable": true,
+          "TypeFullName": "global::micros.MultibankModule.Structures.Module.IContractJson"
+        },
+        {
+          "Name": "owner",
+          "IsNullable": true,
+          "TypeFullName": "global::micros.MultibankModule.Structures.Module.IOwnerJson"
+        },
+        {
+          "Name": "participants",
+          "IsList": true,
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.List<global::micros.MultibankModule.Structures.Module.IParticipantsJson>"
+        },
+        {
+          "Name": "terms",
+          "IsList": true,
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.List<global::micros.MultibankModule.Structures.Module.ITermJson>"
+        },
+        {
+          "Name": "goods",
+          "IsList": true,
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.List<global::micros.MultibankModule.Structures.Module.IGoodJson>"
+        }
+      ],
+      "StructureNamespace": "micros.MultibankModule.Structures.Module"
+    },
+    {
+      "Name": "GoodJson",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "good_series",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "catalog_code",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "catalog_name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "unit",
+          "TypeFullName": "global::System.Int32"
+        },
+        {
+          "Name": "qty",
+          "TypeFullName": "global::System.Int32"
+        },
+        {
+          "Name": "price",
+          "TypeFullName": "global::System.Double"
+        },
+        {
+          "Name": "amount",
+          "TypeFullName": "global::System.Double"
+        },
+        {
+          "Name": "vat_percent",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "vat_sum",
+          "TypeFullName": "global::System.Double"
+        },
+        {
+          "Name": "vat_total_sum",
+          "TypeFullName": "global::System.Double"
+        },
+        {
+          "Name": "no",
+          "TypeFullName": "global::System.Int32"
+        },
+        {
+          "Name": "total_sum",
+          "TypeFullName": "global::System.Double"
+        },
+        {
+          "Name": "without_vat",
+          "TypeFullName": "global::System.Boolean"
+        }
+      ],
+      "StructureNamespace": "micros.MultibankModule.Structures.Module"
+    },
+    {
+      "Name": "OwnerJson",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "ow_tin",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ow_name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ow_address",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ow_work_phone",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ow_mobile",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ow_fax",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ow_oked",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ow_account",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ow_bank_id",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ow_fiz_tin",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "ow_fio",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ow_branch_code",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ow_branch_name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "micros.MultibankModule.Structures.Module"
+    },
+    {
+      "Name": "ParticipantsJson",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "pt_tin",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "pt_name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "pt_address",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "pt_work_phone",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "pt_mobile",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "pt_fax",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "pt_oked",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "pt_account",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "pt_bank_id",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "pt_fiz_tin",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "pt_fio",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "pt_branch_code",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "pt_branch_name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "micros.MultibankModule.Structures.Module"
+    },
+    {
+      "Name": "TermJson",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "ord_no",
+          "TypeFullName": "global::System.Int32"
+        },
+        {
+          "Name": "term_title",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "term_text",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "micros.MultibankModule.Structures.Module"
+    }
+  ],
   "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
   "ResourceInterfaceNamespace": "micros.MultibankModule",
   "ResourcesKeys": [
@@ -578,12 +956,12 @@
       "ParentFolderId": "eb72a985-606c-4647-ba0c-1389928a4e17"
     }
   ],
-  "Version": "0.0.1.22",
+  "Version": "0.0.1.33",
   "Widgets": [],
   "Versions": [
     {
       "Type": "ModuleMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "DomainApi",

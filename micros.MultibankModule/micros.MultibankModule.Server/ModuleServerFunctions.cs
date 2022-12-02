@@ -157,22 +157,21 @@ namespace micros.MultibankModule.Server
       return response.IsSuccessful ? JObject.Parse(response.Content).SelectToken("data").ToString() : JObject.Parse(response.Content).SelectToken("success").ToString();
     }
     
-    /// <summary> Создание ЭСФ версии 2.0 в Мультибанке. </summary>
-    /// <param name="jsonString">Json для отправки(ЭСФ 2.0).</param>
+    /// <summary> Создание документа в Мультибанке. </summary>
+    /// <param name="jsonString">Json для отправки в Мультибанк</param>
     /// <param name="token">Токен доступа</param>
     /// <returns>Ответ в виде string</returns>
-    [Public]
-    public string SendDocument(string jsonString, string token)
+    [Public, Remote]
+    public string SendDocument(string docType, string jsonString, IEContract contract)
     {
-      JObject json = JObject.Parse(jsonString);
-      var client = new RestClient(MultibankSolution.BusinessUnitBoxes.GetAll().Where(x => x.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit
-                                                                                     || x.ExchangeService.ExchangeProvider == micros.MultibankSolution.ExchangeService.ExchangeProvider.Multibank
-                                                                                     || x.ExchangeService.ExchangeProvider == micros.MultibankSolution.ExchangeService.ExchangeProvider.MultibankSTGmicros)
-                                  .FirstOrDefault().ExchangeService.SendInvoiceV2micros);
-      client.Authenticator = new JwtAuthenticator(token);
+      //JObject json = JObject.Parse(jsonString);
+      var box = this.GetBuisnesUnitBoxForCompany(contract.BusinessUnit);
+      var client = new RestClient(box.ExchangeService.SendDocumentmicros);
+      client.Authenticator = new JwtAuthenticator(this.GetMultibankToken(contract.BusinessUnit));
       var request = new RestRequest(Method.POST);
-      request.AddParameter("doctype_id", Constants.Module.DoctypeId.Invoice);
-      request.AddParameter("data", json);
+      request.AlwaysMultipartFormData = true;
+      request.AddParameter("doctype_id", docType);
+      request.AddParameter("data", jsonString);
       IRestResponse response = client.Execute(request);
       return response.Content;
     }
@@ -212,25 +211,6 @@ namespace micros.MultibankModule.Server
       return response.Content;
     }
     
-    /// <summary> Обновление токена. </summary>
-    /// <param name="refreshToken">Токен обновление</param>
-    /// <returns>Получение нового токена доступа, обновлений и срок действий в виде Json</returns>
-    //    [Public]
-    //    public string RefreshToken(string refreshToken)
-    //    {
-    //      var company = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN = json.SelectToken("document.document_data.sellertin").ToString()).FirstOrDefault();
-    //      var box = this.GetIntegrationDataBookForCompany(company);
-    //      var client = new RestClient(box.ExchangeService.GetUpdatedmicros);
-    //      client.Timeout = -1;
-    //      var request = new RestRequest(Method.POST);
-    //      request.AlwaysMultipartFormData = true;
-    //      request.AddParameter("refresh_token", refreshToken);
-    //      request.AddParameter("client_id", box.ClientIdmicros);
-    //      request.AddParameter("client_secret", box.ClientSecretmicros);
-    //      request.AddParameter("scope", "*");
-    //      IRestResponse response = client.Execute(request);
-    //      return response.Content;
-    //    }
     
     /// <summary>
     /// Метод получения списка доступных для авторизации профилей юридических и физических лиц
@@ -360,8 +340,11 @@ namespace micros.MultibankModule.Server
       document.Currency = Sungero.Commons.Currencies.GetAll().Where(x => x.AlphaCode == "UZS").FirstOrDefault();
       
       document.TotalAmount = this.GetSum(json.SelectToken("document.goods").ToString(), true);
+      document.Subject = GetSubject(json.SelectToken("document.goods").ToString());
       document.BusinessUnit = this.GetBusnesUnitByTin(json, databook.IsIncoming.Value);
       document.Counterparty = this.GetOrCreatCounterpartyeByTin(json, databook.IsIncoming.Value);
+      if (micros.DrxUzbekistan.Companies.Is(document.Counterparty))
+        document.CounterpartySignatory = this.Get_Signer(json, databook.IsIncoming.Value, micros.DrxUzbekistan.Companies.As(document.Counterparty));
       document.RegistrationNumber = json.SelectToken("document.document_number").ToString();
       document.RegistrationDate = Convert.ToDateTime(json.SelectToken("document.document_date").ToString());
       
@@ -459,19 +442,12 @@ namespace micros.MultibankModule.Server
       //TODO: Вынести метод вычисления суммы
       
       document.TotalAmount = this.GetSum(json.SelectToken("document.goods").ToString(), false);;
-      if (isIncoming)
-      {
-        
-        document.BusinessUnit = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == clientTin).FirstOrDefault();
-        document.Counterparty = Sungero.Parties.Counterparties.GetAll().Where(x => x.TIN == ownerTin).FirstOrDefault();
-      }
-      else
-      {
-        document.BusinessUnit = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == ownerTin).FirstOrDefault();
-        document.Counterparty = Sungero.Parties.Counterparties.GetAll().Where(x => x.TIN == clientTin).FirstOrDefault();
-        
-      }
+      document.BusinessUnit = this.GetBusnesUnitByTin(json, isIncoming);
+      document.Counterparty = this.GetOrCreatCounterpartyeByTin(json, isIncoming);
+      if (micros.DrxUzbekistan.Companies.Is(document.Counterparty))
+        document.CounterpartySignatory = this.Get_Signer(json, isIncoming, micros.DrxUzbekistan.Companies.As(document.Counterparty));
       
+      document.Subject = GetSubject(json.SelectToken("document.goods").ToString());
       document.RegistrationNumber = json.SelectToken("document.document_number").ToString();
       document.RegistrationDate = Convert.ToDateTime(json.SelectToken("document.document_date").ToString());
       //  Если свойства Наша организация или Контрагент пустая, создать новую на основе данных из json
@@ -571,48 +547,13 @@ namespace micros.MultibankModule.Server
       
       document.Currency = Sungero.Commons.Currencies.GetAll().Where(x => x.AlphaCode == "UZS").FirstOrDefault();
       document.TotalAmount = this.GetSum(json.SelectToken("document.goods").ToString(), true);
-      if (isIncoming == true)
-      {
-        document.BusinessUnit = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == contragentTin).FirstOrDefault();
-        document.Counterparty = Sungero.Parties.Companies.GetAll().Where(x => x.TIN == ownerTin).FirstOrDefault();
-        
-        if(document.BusinessUnit == null)
-        {
-          string bName = json.SelectToken("conteragent.document_contragent_name").ToString();
-          document.BusinessUnit = Create_BuisnessUnit(bName.ToUpper(), contragentTin, null, null, null, null);
-        }
-        if(document.Counterparty == null)
-        {
-          string sName = json.SelectToken("owner.document_owner_name").ToString();
-          document.Counterparty = Create_Counterparty(sName.ToUpper(), ownerTin, null, null, null, null);
-        }
-      }
-      else
-      {
-        document.BusinessUnit = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == ownerTin).FirstOrDefault();
-        document.Counterparty = Sungero.Parties.Companies.GetAll().Where(x => x.TIN == contragentTin).FirstOrDefault();
-        
-        if(document.BusinessUnit == null)
-        {
-          #region Seller params
-          string sName = json.SelectToken("owner.document_owner_name").ToString();
-          #endregion
-          
-          
-          document.BusinessUnit = Create_BuisnessUnit(sName.ToUpper(), ownerTin, null, null, null, null);
-        }
-        if(document.Counterparty == null)
-        {
-          #region Buyer params
-          string bName = json.SelectToken("contragent.document_contragent_name").ToString();
-          #endregion
-          
-          document.Counterparty = Create_Counterparty(bName.ToUpper(), contragentTin, null, null, null, null);
-        }
-      }
+      document.BusinessUnit = this.GetBusnesUnitByTin(json, isIncoming);
+      document.Counterparty = this.GetOrCreatCounterpartyeByTin(json, isIncoming);
+      if (micros.DrxUzbekistan.Companies.Is(document.Counterparty))
+        document.CounterpartySignatory = this.Get_Signer(json, isIncoming, micros.DrxUzbekistan.Companies.As(document.Counterparty));
       
       document.RegistrationNumber = json.SelectToken("document.document_number").ToString();
-      if (document.Subject == null) document.Subject = json.SelectToken("document.document_number").ToString();
+      if (document.Subject == null) document.Subject = GetSubject(json.SelectToken("document.goods").ToString());
       document.RegistrationDate = Convert.ToDateTime(json.SelectToken("document.document_date").ToString());
       //  Если свойства Наша организация или Контрагент пустая, создать новую на основе данных из json
 
@@ -661,8 +602,8 @@ namespace micros.MultibankModule.Server
         MemoryStream ms = new MemoryStream();
         stream.CopyTo(ms);
         byte[] bodyOld = ms.ToArray();
-        Logger.Debug("BodyOLD: " + Encoding.Default.GetString(bodyOld));
-        Logger.Debug("NewBody: " + Encoding.Default.GetString(body));
+        //Logger.Debug("BodyOLD: " + Encoding.Default.GetString(bodyOld));
+        //Logger.Debug("NewBody: " + Encoding.Default.GetString(body));
         if (Encoding.Default.GetString(bodyOld) != Encoding.Default.GetString(body)) //ППЦ какой бред, но проверка с байтами не работает!
         {
           if (created)
@@ -709,7 +650,9 @@ namespace micros.MultibankModule.Server
       var task = micros.MultibankModule.ReviewTasks.Create();
       task.DocumentGroup.OfficialDocuments.Add(document);
       task.IntegrationDatabook = databook;
-      task.Subject = "Получен документ : " + document.Name;
+      string subject = "Получен документ : " + document.Name;
+      if (subject.Length > 250) subject = subject.Substring(0, 249); // Макс. длина темы 250 символов, и это изменить нельзя
+      task.Subject = subject;
       var box = this.GetBuisnesUnitBoxForCompany(document.BusinessUnit);
       task.Performer = box.Responsible;
       task.Start();
@@ -762,42 +705,9 @@ namespace micros.MultibankModule.Server
       return Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == tin).FirstOrDefault();
     }
     
-    /// <summary> Создание сущности "Организация" </summary>
-    /// <param name="name">Название</param>
-    /// <param name="tin">ИНН</param>
-    /// <param name="address">Адрес</param>
-    /// <param name="account">Банковский счёт</param>
-    /// <param name="vat">Регистрационный код плательщика НДС</param>
-    /// <param name="bankMFO">Банк МФО</param>
-    /// <returns>Созданный орг.</returns>
-    private Sungero.Parties.ICounterparty Create_Counterparty(string name, string tin, string address, string account, string vat, string bankMFO)
-    {
-      Sungero.Parties.ICounterparty party;
-      Logger.Debug("Counterparty: name = " + name + ", tin = " + tin);
-      if (tin.Length == 14)
-      {
-        var person = micros.DrxUzbekistan.People.Create();
-        var fullName = name.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
-        person.LastName = fullName[0];
-        person.FirstName = fullName[1];
-        person.MiddleName = fullName[2];
-        person.PINImicros = tin;
-        person.LegalAddress = address;
-        person.Account = account;
-        person.Save();
-        party = person;
-      }
-      else
-      {
-        party = Sungero.Parties.Companies.Create();
-        party.Name = name;
-        party.TIN = tin;
-        party.LegalAddress = address;
-        party.Save();
-      }
-      return party;
-    }
     
+    
+
     #endregion
     
     #region Sign-!DEV!
@@ -838,7 +748,7 @@ namespace micros.MultibankModule.Server
       IRestResponse response = client.Execute(request);
       JObject json = JObject.Parse(response.Content.ToString());
       string forSign = json.SelectToken("data.string").ToString();
-      Logger.Debug("Test_pcs7: " + forSign);
+      //Logger.Debug("Test_pcs7: " + forSign);
       return forSign;
     }
     
@@ -1125,7 +1035,7 @@ namespace micros.MultibankModule.Server
       var result = new List<byte[]>();
 
       var signedData = SignedData.GetInstance(ContentInfo.GetInstance(Asn1Object.FromByteArray(signature)).Content);
-      Logger.Debug("DATA: " + signedData.SignerInfos.ToArray().LastOrDefault().ToString());
+      //Logger.Debug("DATA: " + signedData.SignerInfos.ToArray().LastOrDefault().ToString());
       // Эти данные могут быть задублированы если подписей несколько, RX-у от этого нехорошо, поэтому удаляем дубли.
       var digestAlgorithms = signedData.DigestAlgorithms != null ? new DerSet(signedData.DigestAlgorithms.OfType<Asn1Encodable>().Distinct().ToArray()) : null;
       var certificates = signedData.Certificates != null ? new DerSet(signedData.Certificates.OfType<Asn1Encodable>().Distinct().ToArray()) : null;
@@ -1418,6 +1328,32 @@ namespace micros.MultibankModule.Server
       return amount;
     }
     
+    public string GetSubject(string jsonArray)
+    {
+      JArray json = JArray.Parse(jsonArray);
+      string route = "name";
+      string subject = String.Empty;
+      int i = 1;
+      foreach(var s in json)
+      {
+        subject = subject + s.SelectToken(route);
+        if (i < json.Count)
+        {
+          subject = subject + ", ";
+          i++;
+        }
+      }
+      int b = subject.Length;
+      if (b > 250) subject = subject.Substring(0, 249);
+      return subject;
+    }
+    
+    /// <summary>
+    /// Найти компанию по ИНН в json
+    /// </summary>
+    /// <param name="json">json документа</param>
+    /// <param name="isIncoming">Документ - входящий или нет</param>
+    /// <returns>Нашу организацию</returns>
     public Sungero.Company.IBusinessUnit GetBusnesUnitByTin(Newtonsoft.Json.Linq.JObject json, bool isIncoming)
     {
       string route = String.Empty;
@@ -1428,21 +1364,194 @@ namespace micros.MultibankModule.Server
       return company;
     }
     
+    /// <summary>
+    /// Ишет или создает контрагента
+    /// </summary>
+    /// <param name="json">json документа</param>
+    /// <param name="isIncoming">Документ - входящий или нет</param>
+    /// <returns>Контрагент</returns>
     public Sungero.Parties.ICounterparty GetOrCreatCounterpartyeByTin(Newtonsoft.Json.Linq.JObject json, bool isIncoming)
     {
+      //Определение переменных
       string route = String.Empty;
       if(isIncoming) route = "owner";
       else route = "contragent";
       string tin = json.SelectToken($"{route}.{route}_tin").ToString();
-      var counterparty = Sungero.Parties.Counterparties.GetAll(x => x.TIN == tin).FirstOrDefault();
+      string name = json.SelectToken($"{route}.document_{route}_name").ToString();
+      bool isPerson = false;
+      Sungero.Parties.ICounterparty counterparty;
+      
+      //Проверка на компанию/персону
+      if (tin.Length == 14)
+      {
+        counterparty = micros.DrxUzbekistan.People.GetAll(x => x.PINImicros == tin).FirstOrDefault();
+        isPerson = true;
+      }
+      else counterparty = micros.DrxUzbekistan.Companies.GetAll(x => x.TIN == tin).FirstOrDefault();
+      
+      //Проверка, существует ли контрагент в системе
       if (counterparty == null)
       {
-        string name = json.SelectToken($"{route}.document_{route}_name").ToString();
-        counterparty = Create_Counterparty(name.ToUpper(), tin, null, null, null, null);
+        name = json.SelectToken($"{route}.document_{route}_name").ToString();
+        if(isPerson)counterparty = Create_Person(name.ToUpper(), tin, null);
+        else counterparty = Create_Company(name, tin);
+      }
+      
+      //Обновление контрагента
+      JObject jdocument = JObject.Parse(json.SelectToken("document").ToString());
+      if (jdocument.ContainsKey(route))
+      {
+        if (isPerson) UpdatePersonFromJSon(json, route, micros.DrxUzbekistan.People.As(counterparty));
+        else UpdateCompanyFromJSon(json, jdocument, route, micros.DrxUzbekistan.Companies.As(counterparty));
       }
       return counterparty;
     }
+
+    public Sungero.Parties.IContact Get_Signer(Newtonsoft.Json.Linq.JObject json, bool isIncoming, micros.DrxUzbekistan.ICompany company)
+    {
+      Logger.Debug("start Get_Signer()");
+      string route = String.Empty;
+      if(isIncoming) route = "owner";
+      else route = "contragent";
+      Logger.Debug("route: " + route);
+      Sungero.Parties.IContact contact;
+      Logger.Debug("Contragent tin: " + json.SelectToken($"{route}.{route}_tin").ToString());
+      if (json.SelectToken($"{route}.{route}_tin").ToString().Length == 14) return null; //Если контрагент физ лицо, то подписующий не нужен
+      if (JTokenIsNullOrEmpty(json.SelectToken($"signature_information.{route}"))) //Если нет подписи контрагента то и подписующего со стороны контрагента нет.
+      {
+        Logger.Debug("signature information is null");
+        return null;
+      }
+      JObject signatoryInformation = JObject.Parse(json.SelectToken($"signature_information.{route}").ToString());
+      Logger.Debug("signature_information: " + signatoryInformation.ToString()); //Потом убрать
+      string pinfl = String.Empty;
+      string tin = String.Empty;
+      if(signatoryInformation.ContainsKey("person_pin")) pinfl = signatoryInformation.SelectToken("person_pin").ToString();
+      if(signatoryInformation.ContainsKey("person_tin")) tin = signatoryInformation.SelectToken("person_tin").ToString();
+      Logger.Debug("contragent PINFL: " + pinfl);
+      var signatory = Get_Person(pinfl, tin);
+      if (signatory == null) signatory = Create_Person(signatoryInformation.SelectToken("person_full_name").ToString(), pinfl, tin);
+      contact = Sungero.Parties.Contacts.GetAll(x => x.Person == signatory && x.Company == company).FirstOrDefault();
+      if (contact == null)
+      {
+        Logger.Debug("Create contact");
+        string jobTitle = String.Empty;
+        if (!JTokenIsNullOrEmpty(signatoryInformation.SelectToken("person_position"))) jobTitle = signatoryInformation.SelectToken("person_position").ToString();
+        contact = Create_Contact(signatory, company, jobTitle);
+      }
+      Logger.Debug("Signer: " + signatory.DisplayValue);
+      Logger.Debug("Contact: " + contact.Name);
+      return contact;
+    }
     
+    /// <summary> Создание сущности "Организация" </summary>
+    /// <param name="name">Название</param>
+    /// <param name="tin">ИНН</param>
+    /// <param name="address">Адрес</param>
+    /// <param name="account">Банковский счёт</param>
+    /// <param name="vat">Регистрационный код плательщика НДС</param>
+    /// <param name="bankMFO">Банк МФО</param>
+    /// <returns>Созданный орг.</returns>
+    private micros.DrxUzbekistan.ICompany Create_Company(string name, string tin)
+    {
+      var party = micros.DrxUzbekistan.Companies.Create();
+      party.Name = name.ToUpper();
+      party.TIN = tin;
+      party.Save();
+      return party;
+    }
+    
+    private micros.DrxUzbekistan.IPerson Create_Person(string name, string pnfl, string tin)
+    {
+      Logger.Debug("Start create person");
+      Logger.Debug("Person full name: " + name);
+      var person = micros.DrxUzbekistan.People.Create();
+      var nameArray = name.ToUpper().Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
+      Logger.Debug("Person Last name: " + nameArray[0]);
+      Logger.Debug("Person First name: " + nameArray[1]);
+      Logger.Debug("Person First name: " + nameArray[2]);
+      person.LastName = nameArray[0];
+      person.FirstName = nameArray[1];
+      person.MiddleName = nameArray[2];
+      person.PINImicros = pnfl;
+      person.TIN = tin;
+      person.PINImicros = pnfl;
+      Logger.Debug("Person PINFL: " + tin);
+      person.Save();
+      return person;
+    }
+    
+    private micros.DrxUzbekistan.IPerson Get_Person(string pinfl, string tin)
+    {
+      micros.DrxUzbekistan.IPerson person = null;
+      if(!String.IsNullOrEmpty(pinfl)) person = micros.DrxUzbekistan.People.GetAll(x => x.PINImicros == pinfl).FirstOrDefault();
+      else if (!String.IsNullOrEmpty(tin)) person = micros.DrxUzbekistan.People.GetAll(x => x.TIN == tin).FirstOrDefault();
+      if (person != null)
+      {
+        if (String.IsNullOrEmpty(person.TIN) && !String.IsNullOrEmpty(tin)) person.TIN = tin;
+        if (String.IsNullOrEmpty(person.PINImicros) && !String.IsNullOrEmpty(pinfl)) person.PINImicros = pinfl;
+      }
+      return person;
+    }
+    
+    private micros.DrxUzbekistan.ICompany UpdateCompanyFromJSon (Newtonsoft.Json.Linq.JObject json, Newtonsoft.Json.Linq.JObject document, string route, micros.DrxUzbekistan.ICompany company)
+    {
+      if (!JTokenIsNullOrEmpty(document.SelectToken($"{route}.{route}_name")))
+        company.Name = document.SelectToken($"{route}.{route}_name").ToString().ToUpper();
+      if (!JTokenIsNullOrEmpty(document.SelectToken($"{route}.{route}_oked")))
+        company.OKEDmicros = document.SelectToken($"{route}.{route}_oked").ToString();
+      if (!JTokenIsNullOrEmpty(document.SelectToken($"{route}.{route}_account")))
+        company.Account = document.SelectToken($"{route}.{route}_account").ToString();
+      if (!JTokenIsNullOrEmpty(document.SelectToken($"{route}.{route}_address")))
+        company.LegalAddress = document.SelectToken($"{route}.{route}_address").ToString();
+      if (!JTokenIsNullOrEmpty(document.SelectToken($"{route}.{route}_address")))
+        company.Phones = document.SelectToken($"{route}.{route}_work_phone").ToString();
+      if (!JTokenIsNullOrEmpty(document.SelectToken($"{route}.{route}_bank_id")))
+        company.Bank = micros.DrxUzbekistan.Banks.GetAll(x => x.BIC == document.SelectToken($"{route}.{route}_bank_id").ToString()).FirstOrDefault();
+      if (!JTokenIsNullOrEmpty(document.SelectToken($"{route}.{route}_district_id")))
+        company.Region = micros.DrxUzbekistan.Regions.GetAll(x => x.Code == document.SelectToken($"{route}.{route}_district_id").ToString()).FirstOrDefault();
+      company.Save();
+      return company;
+      
+    }
+    
+    private Sungero.Parties.IContact Create_Contact(micros.DrxUzbekistan.IPerson person, micros.DrxUzbekistan.ICompany company, string jobTitle)
+    {
+      Logger.Debug("Start create contact");
+      Logger.Debug("Person last name: " + person.LastName);
+      Logger.Debug("Person first name: " + person.FirstName);
+      Logger.Debug("Person middleName: " + person.MiddleName);
+      var contact = Sungero.Parties.Contacts.Create();
+      contact.Name = String.Format("{0} {1} {2}", person.LastName, person.FirstName, person.MiddleName);
+      Logger.Debug("Contact name: " + contact.Name);
+      contact.Company = company;
+      Logger.Debug("company: " + company.Name);
+      contact.Person = person;
+      contact.JobTitle = jobTitle;
+      contact.Save();
+      return contact;
+    }
+
+    private micros.DrxUzbekistan.IPerson UpdatePersonFromJSon (Newtonsoft.Json.Linq.JObject document, string route, micros.DrxUzbekistan.IPerson person)
+    {
+      if (person == null) person = micros.DrxUzbekistan.People.Create();
+      var fullName = document.SelectToken($"{route}.{route}_name").ToString().ToUpper().Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
+      person.LastName = fullName[0];
+      person.FirstName = fullName[1];
+      person.MiddleName = fullName[2];
+      if (JTokenIsNullOrEmpty(document.SelectToken($"{route}.{route}_account")))
+        person.Account = document.SelectToken($"{route}.{route}_account").ToString();
+      if (JTokenIsNullOrEmpty(document.SelectToken($"{route}.{route}_address")))
+        person.LegalAddress = document.SelectToken($"{route}.{route}_address").ToString();
+      person.Save();
+      return person;
+    }
+    
+    /// <summary>
+    /// Экспорт подписи из справочника интеграции
+    /// </summary>
+    /// <param name="databook">Справочник интеграции</param>
+    /// <returns>Архив с подписью</returns>
     [Public, Remote]
     public IZip ExportSign(IIntegrationDatabook databook)
     {
@@ -1453,6 +1562,11 @@ namespace micros.MultibankModule.Server
       return zip;
     }
     
+    /// <summary>
+    /// Возвращает подпись, сделанную в Директуме, из справочника интеграции
+    /// </summary>
+    /// <param name="databook">справочник интеграции</param>
+    /// <returns>Архив с подписью</returns>
     [Public, Remote]
     public IZip ExportAction(IIntegrationDatabook databook)
     {
@@ -1464,6 +1578,21 @@ namespace micros.MultibankModule.Server
     }
     
     [Public, Remote]
+    public IZip ExportData(string exportData)
+    {
+      var zip = Sungero.Core.Zip.Create();
+      var data = Encoding.Default.GetBytes(exportData);
+      zip.Add(data, "data", "txt");
+      zip.Save("data.zip");
+      return zip;
+    }
+    
+    /// <summary>
+    /// Возвращает json документа
+    /// </summary>
+    /// <param name="databook">Справочник интеграции</param>
+    /// <returns>Архив с Json</returns>
+    [Public, Remote]
     public IZip ExportJson(IIntegrationDatabook databook)
     {
       var zip=Sungero.Core.Zip.Create();
@@ -1472,6 +1601,161 @@ namespace micros.MultibankModule.Server
       return zip;
     }
     
+    /// <summary>
+    /// Проверка на наличие значения в токене
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public static bool JTokenIsNullOrEmpty(Newtonsoft.Json.Linq.JToken token)
+    {
+      return (token == null) ||
+        (token.Type == JTokenType.Array && !token.HasValues) ||
+        (token.Type == JTokenType.Object && !token.HasValues) ||
+        (token.Type == JTokenType.String && token.ToString() == String.Empty) ||
+        (token.Type == JTokenType.Null);
+    }
+    
     #endregion
+    
+    [Public, Remote]
+    public virtual string FillElectronicContract(micros.MultibankModule.IEContract contract)
+    {
+      var sContract = micros.MultibankModule.Structures.Module.ContractJson.Create();
+      sContract.contract_name = contract.Name;
+      sContract.place = contract.ContractAddress;
+      sContract.expire_date = contract.ValidTill.Value.ToString("yyyy-MM-dd");
+      
+      List<Structures.Module.ITermJson> terms = new List<micros.MultibankModule.Structures.Module.ITermJson>();
+      foreach (var t in contract.Terms)
+      {
+        var term = Structures.Module.TermJson.Create();
+        term.ord_no = t.Number.Value;
+        term.term_title = t.TermTitle;
+        term.term_text = t.TermText;
+        terms.Add(term);
+      }
+      
+      List<Structures.Module.IGoodJson> goods = new List<micros.MultibankModule.Structures.Module.IGoodJson>();
+      foreach (var g in contract.Goods)
+      {
+        var good = Structures.Module.GoodJson.Create();
+        good.good_series = g.GoodSeries;
+        good.name = g.Name;
+        good.catalog_code = g.CatalogCode;
+        good.catalog_name = g.CatalogName;
+        good.unit = g.Unit.MeasureId.Value;
+        good.qty = g.Qty.Value;
+        good.price = g.Price.Value;
+        good.amount = g.Amount.Value;
+        good.vat_percent = g.VatPercent.Value.ToString();
+        good.vat_sum = g.VatSum.Value;
+        good.vat_total_sum = g.VatTotalSum.Value;
+        good.no = g.No.Value;
+        good.total_sum = g.TotalSum.Value;
+        good.without_vat = g.WithoutVat.Value;
+        goods.Add(good);
+      }
+      
+      var company = micros.DrxUzbekistan.BusinessUnits.As(contract.BusinessUnit);
+      var owner = Structures.Module.OwnerJson.Create();
+      if (!String.IsNullOrEmpty(company.TIN))owner.ow_tin = company.TIN;
+      if (!String.IsNullOrEmpty(company.Name))owner.ow_name = company.Name;
+      if (!String.IsNullOrEmpty(company.LegalAddress))owner.ow_address = company.LegalAddress;
+      char[] split = new char[]{',',';'};
+      if (!String.IsNullOrEmpty(company.Phones))owner.ow_work_phone = company.Phones.Split(split, StringSplitOptions.RemoveEmptyEntries)[0];
+      owner.ow_mobile = null;
+      owner.ow_fax = null;
+      if (!String.IsNullOrEmpty(company.OKEDmicros))owner.ow_oked = company.OKEDmicros;
+      if (!String.IsNullOrEmpty(company.Account))owner.ow_account = company.Account;
+      if (company.Bank != null)
+        if (!String.IsNullOrEmpty(company.Bank.BIC))owner.ow_bank_id = company.Bank.BIC;
+      owner.ow_fiz_tin = Convert.ToInt64(micros.DrxUzbekistan.People.As(company.CEO.Person).PINImicros);
+      owner.ow_fio = company.CEO.Person.Name;
+      owner.ow_branch_code = null;
+      owner.ow_branch_name = null;
+      
+      var contragent = micros.DrxUzbekistan.Companies.As(contract.Counterparty);
+      List<Structures.Module.IParticipantsJson> participants = new List<micros.MultibankModule.Structures.Module.IParticipantsJson>();
+      var participant = Structures.Module.ParticipantsJson.Create();
+      if (!String.IsNullOrEmpty(contragent.TIN))participant.pt_tin = contragent.TIN;
+      if (!String.IsNullOrEmpty(contragent.Name))participant.pt_name = contragent.Name;
+      if (!String.IsNullOrEmpty(contragent.LegalAddress))participant.pt_address = contragent.LegalAddress;
+      if (!String.IsNullOrEmpty(contragent.Phones))participant.pt_work_phone = contragent.Phones.Split(split, StringSplitOptions.RemoveEmptyEntries)[0];
+      participant.pt_mobile = null;
+      participant.pt_fax = null;
+      if (!String.IsNullOrEmpty(contragent.OKEDmicros))participant.pt_oked = contragent.OKEDmicros;
+      if (!String.IsNullOrEmpty(contragent.Account))participant.pt_account = contragent.Account;
+      if (contragent.Bank != null)
+        if (!String.IsNullOrEmpty(contragent.Bank.BIC))participant.pt_bank_id = contragent.Bank.BIC;
+      if (!String.IsNullOrEmpty(micros.DrxUzbekistan.People.As(contract.Contact.Person).PINImicros))
+      {
+        var pinfl = micros.DrxUzbekistan.People.As(contract.Contact.Person).PINImicros;
+        participant.pt_fiz_tin = Convert.ToInt64(pinfl);
+      }
+      participant.pt_fio = contract.Contact.Name;
+      participant.pt_branch_code = null;
+      participant.pt_branch_name = null;
+      participants.Add(participant);
+      
+      var eContract = micros.MultibankModule.Structures.Module.EContractJson.Create();
+      eContract.contract = sContract;
+      eContract.сontract_name = sContract.contract_name;
+      eContract.expire_date = sContract.expire_date;
+      eContract.place = sContract.place;
+      eContract.document_number = contract.RegistrationNumber;
+      eContract.document_date = contract.ValidFrom.Value.ToString("yyyy-MM-dd");
+      eContract.has_vat = contract.Goods.Any(x => x.WithoutVat == false);
+      eContract.owner = owner;
+      eContract.participants = participants;
+      eContract.terms = terms;
+      eContract.goods = goods;
+      
+      string json = JsonConvert.SerializeObject(eContract);
+      return json;
+    }
+    
+    [Public, Remote]
+    public virtual string EContractErrors(micros.MultibankModule.IEContract contract)
+    {
+      List<string> errorsList = new List<string>();
+      string errors = String.Empty;
+      
+      //Наша орг
+      if (String.IsNullOrEmpty(contract.BusinessUnit.TIN)) errorsList.Add("Заполните ИНН нашей организации");
+      if (contract.BusinessUnit.CEO == null) errorsList.Add("В нашей организации отсутствует руководитель");
+      if (contract.BusinessUnit.CEO != null)
+        if (String.IsNullOrEmpty(micros.DrxUzbekistan.People.As(contract.BusinessUnit.CEO.Person).PINImicros)) errorsList.Add("Заполните ИНН руководителя нашей организации");
+      if (String.IsNullOrEmpty(contract.BusinessUnit.Phones)) errorsList.Add("Заполните номер нашей организации");
+      if (String.IsNullOrEmpty(micros.DrxUzbekistan.BusinessUnits.As(contract.BusinessUnit).OKEDmicros)) errorsList.Add("Заполните ОКЭД нашей организации");
+      if (String.IsNullOrEmpty(contract.BusinessUnit.Account)) errorsList.Add("Заполните номер счета нашей организации");
+      if (String.IsNullOrEmpty(contract.BusinessUnit.LegalAddress)) errorsList.Add("Заполните адресс нашей организации");
+      if (contract.BusinessUnit.Bank == null) errorsList.Add("Заполните банк в нашей организации");
+      if (contract.BusinessUnit.Bank != null)
+        if (String.IsNullOrEmpty(contract.BusinessUnit.Bank.BIC)) errorsList.Add("Заполните МФО в банке нашей организации");
+      
+      //Контакт
+      if (contract.Contact.Person == null) errorsList.Add("У контакта отсутствует персона");
+      if (contract.Contact.Person != null && String.IsNullOrEmpty(micros.DrxUzbekistan.People.As(contract.Contact.Person).PINImicros)) errorsList.Add("Заполните ПИНФЛ контакта в персоне");
+      
+      //Контрагент
+      if (String.IsNullOrEmpty(contract.Counterparty.TIN)) errorsList.Add("Заполните ИНН контрагента");
+      if (String.IsNullOrEmpty(contract.Counterparty.Account)) errorsList.Add("Заполните номер счета контрагента");
+      if (String.IsNullOrEmpty(contract.Counterparty.LegalAddress)) errorsList.Add("Заполните адресс контрагента");
+      if (contract.Counterparty.Bank == null) errorsList.Add("Заполните банк в контрагенте");
+      if (contract.Counterparty.Bank != null)
+        if (String.IsNullOrEmpty(contract.Counterparty.Bank.BIC)) errorsList.Add("Заполните МФО в банке контрагента");
+      if (String.IsNullOrEmpty(micros.DrxUzbekistan.Companies.As(contract.Counterparty).OKEDmicros)) errorsList.Add("Заполните ОКЭД контрагента");
+      
+      //Условия договора и товары
+      if (contract.Terms.Count < 1) errorsList.Add("Должно быть хотя бы одно условие договора");
+      if (contract.Goods.Count < 1) errorsList.Add("Должен быть хотя бы один продукт или услуга");
+      
+      
+      foreach (string error in errorsList)
+      {
+        errors = errors + "\r\n" + error;
+      }
+      return errors;
+    }
   }
 }

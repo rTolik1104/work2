@@ -127,6 +127,7 @@
       "Name": "Name",
       "Code": "Name",
       "IsDisplayValue": true,
+      "IsEnabled": false,
       "IsQuickSearchAllowed": true,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1"
@@ -138,6 +139,7 @@
       "Code": "Document",
       "EntityGuid": "58cca102-1e97-4f07-b6ac-fd866a8b7cb1",
       "FlatListInStandaloneLookup": true,
+      "IsEnabled": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
       "PreviousPropertyGuid": "93f692da-93b0-4834-a5fc-e56d8b5bad54"
     },
@@ -146,6 +148,7 @@
       "NameGuid": "5e114213-315d-45e5-8da6-69f2553f3174",
       "Name": "Guid",
       "Code": "Guid",
+      "IsEnabled": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "7e3ebb42-4194-44a8-91ff-7c645b0ae2b1"
     },
@@ -170,9 +173,9 @@
     {
       "$type": "Sungero.Metadata.DataPropertyMetadata, Sungero.Metadata",
       "NameGuid": "675905f1-4be5-46cb-952f-3e30f533bfed",
-      "Name": "ActionData",
+      "Name": "Action",
       "CanBeSearch": false,
-      "Code": "ActionData",
+      "Code": "Action",
       "IsShowedInList": false,
       "PreviousPropertyGuid": "f89fd1bb-cdce-49b9-92fb-0354eabb6668"
     },
@@ -181,6 +184,7 @@
       "NameGuid": "80a23b5c-6a7b-4a10-ad1d-b59b35b4b1bc",
       "Name": "IsIncoming",
       "Code": "IsIncoming",
+      "IsEnabled": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
       "PreviousPropertyGuid": "675905f1-4be5-46cb-952f-3e30f533bfed"
     },

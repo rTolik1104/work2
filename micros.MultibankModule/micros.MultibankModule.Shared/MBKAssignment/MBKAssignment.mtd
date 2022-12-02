@@ -90,6 +90,7 @@
     "Buttons": [],
     "IsAncestorMetadata": true
   },
+  "DefaultActivePanelGuid": "ca9bd824-9eef-401c-acc4-626c7f0b41b8",
   "ExtraSearchProperties": [],
   "FilterPanel": {
     "NameGuid": "23d98c0f-b348-479d-b1fb-ccdcf2096bd2",
@@ -248,7 +249,8 @@
   "NeverLinkToParentWhenCreated": true,
   "OperationsClass": "",
   "Overridden": [
-    "IconName"
+    "IconName",
+    "DefaultActivePanelGuid"
   ],
   "Properties": [
     {
@@ -420,15 +422,6 @@
       },
       {
         "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
-        "NameGuid": "8c75f7fd-8b77-4a05-9545-24735ce9f2f9",
-        "Name": "ActionButton",
-        "ActionGuid": "5d4a309e-58b5-4f6c-bc82-c309c7df05fa",
-        "ButtonSize": "Large",
-        "Index": 0,
-        "ParentGuid": "0bd4d4b4-5712-470f-9a02-ebe7c9ce1ce6"
-      },
-      {
-        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
         "NameGuid": "09d0b538-b874-49c3-9089-1c1fc50c55bb",
         "Name": "SimpleFinish",
         "ActionGuid": "a2d7dcf1-2370-4946-b38d-3f2ba893d4ac",
@@ -447,16 +440,7 @@
         "ParentGuid": "f329dc86-efcb-484a-bdfd-999e6f96e971"
       }
     ],
-    "Groups": [
-      {
-        "NameGuid": "0bd4d4b4-5712-470f-9a02-ebe7c9ce1ce6",
-        "Name": "Service",
-        "IconName": null,
-        "Index": 51,
-        "ParentGuid": "21a31627-5f58-4416-8c4a-90f538ee2e57",
-        "SmallIconName": null
-      }
-    ],
+    "Groups": [],
     "IsAncestorMetadata": true,
     "Pages": [],
     "RibbonKind": "Card"
