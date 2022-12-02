@@ -1,0 +1,236 @@
+{
+  "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
+  "NameGuid": "880a744d-6755-45d3-8ed9-427482270cca",
+  "Name": "Multibank",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "micros.Multibank.Client",
+  "ClientBaseAssemblyName": "micros.Multibank.ClientBase",
+  "ClientBaseNamespace": "micros.Multibank.ClientBase",
+  "ClientNamespace": "micros.Multibank.Client",
+  "Code": "Multib1",
+  "CompanyCode": "micros",
+  "Cover": {
+    "NameGuid": "3450a6f3-0f70-468b-a0a8-8f53311b0eee",
+    "Actions": [
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "7db94287-a581-40f8-aedb-eff5574eb173",
+        "Name": "CreateTestPDF",
+        "FunctionName": "Function1",
+        "GroupId": "3e37ff3f-9a54-486a-9d83-c5f17abe2be4"
+      }
+    ],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "7db4c01a-bb5c-4199-a7c7-091282c6fae0",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [
+      {
+        "NameGuid": "3e37ff3f-9a54-486a-9d83-c5f17abe2be4",
+        "Name": "Group",
+        "BackgroundPosition": "Stretch"
+      }
+    ],
+    "Header": {
+      "NameGuid": "87f5ce7b-2e0d-4c75-9e95-44fb9b215f75",
+      "BackgroundPosition": "Stretch"
+    }
+  },
+  "Dependencies": [
+    {
+      "Id": "c37a9e36-95ca-4abd-9a49-dea6dcc0db5c",
+      "IsSolutionModule": true,
+      "MaxVersion": "",
+      "MinVersion": ""
+    }
+  ],
+  "ExplorerTreeOrder": [
+    {
+      "ItemId": "3ee24cbf-e0c1-4ed9-b2bc-051096a31b3d"
+    }
+  ],
+  "IconResourcesKeys": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "micros.Multibank",
+  "Libraries": [
+    {
+      "NameGuid": "a67db793-c8de-4f6c-9f10-277e33f25354",
+      "Name": "NewtonSoft",
+      "Scope": "Both"
+    },
+    {
+      "NameGuid": "2e15baa5-d299-4fea-9487-e5647b1c9974",
+      "Name": "RestSharp",
+      "Scope": "Both"
+    },
+    {
+      "NameGuid": "34894a3b-1855-4905-8840-c8251b404b91",
+      "Name": "AsposeExtension",
+      "Scope": "Both"
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "CreateDocument",
+      "Parameters": [
+        {
+          "Name": "parameter",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Post"
+    },
+    {
+      "Name": "CreatePDF",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "document",
+          "ParameterType": "global::Sungero.Content.IElectronicDocument",
+          "ParameterTypeFullName": "Sungero.Content.IElectronicDocument, Sungero.Content.Shared"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "FillInvoiceV2",
+      "Parameters": [
+        {
+          "Name": "version",
+          "ParameterType": "global::Sungero.Content.IElectronicDocumentVersions",
+          "ParameterTypeFullName": "Sungero.Content.IElectronicDocumentVersions, Sungero.Content.Shared"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetJsonFromBody",
+      "Parameters": [
+        {
+          "Name": "document",
+          "ParameterType": "global::Sungero.Content.IElectronicDocument",
+          "ParameterTypeFullName": "Sungero.Content.IElectronicDocument, Sungero.Content.Shared"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetJsonMultibankGuid",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "json",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetJsonMultibankPassword",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "json",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "IsSignedInMultibank",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "document",
+          "ParameterType": "global::Sungero.Content.IElectronicDocument",
+          "ParameterTypeFullName": "Sungero.Content.IElectronicDocument, Sungero.Content.Shared"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "MultibankSign",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "document",
+          "ParameterType": "global::Sungero.Content.IElectronicDocument",
+          "ParameterTypeFullName": "Sungero.Content.IElectronicDocument, Sungero.Content.Shared"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "SendDocument",
+      "Parameters": [
+        {
+          "Name": "jsonString",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "SendToEimzo",
+      "Parameters": [
+        {
+          "Name": "incomingData",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Client",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "micros.Multibank",
+  "ResourcesKeys": [
+    "InvoiceJsonV2",
+    "AuthTokenInvoiceV2",
+    "IncomingTaxInvoiceHTML",
+    "InvoiceForPDFPage",
+    "GoodTableHTML",
+    "OpenInvoicePage"
+  ],
+  "ServerAssemblyName": "micros.Multibank.Server",
+  "ServerNamespace": "micros.Multibank.Server",
+  "SharedAssemblyName": "micros.Multibank.Shared",
+  "SharedNamespace": "micros.Multibank.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.0",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "ModuleMetadata",
+      "Number": 6
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}
