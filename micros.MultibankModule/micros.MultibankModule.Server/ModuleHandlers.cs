@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -10,7 +10,7 @@ namespace micros.MultibankModule.Server
   partial class ExchangeServiceFolderHandlers
   {
 
-    public virtual IQueryable<Sungero.Workflow.IAssignmentBase> ExchangeServiceDataQuery(IQueryable<Sungero.Workflow.IAssignmentBase> query)
+    public virtual IQueryable<micros.MultibankModule.IMBKAssignment> ExchangeServiceDataQuery(IQueryable<micros.MultibankModule.IMBKAssignment> query)
     {
       return query;
     }

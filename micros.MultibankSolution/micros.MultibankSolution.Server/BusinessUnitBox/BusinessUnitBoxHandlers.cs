@@ -36,7 +36,7 @@ namespace micros.MultibankSolution
     {
       if(_obj.MultibankCompanymicros != null)
       {
-        string response = MultibankModule.PublicFunctions.Module.JoinProfile(Encoding.Default.GetString(_obj.AccessTokenmicros), _obj.MultibankCompanymicros.ProfileID, _obj.BusinessUnit);
+        string response = MultibankModule.PublicFunctions.Module.JoinProfile(_obj);
         if (response.Contains("\"success\":true")) _obj.ConnectionStatus = MultibankSolution.BusinessUnitBox.ConnectionStatus.Connected;
       }
 

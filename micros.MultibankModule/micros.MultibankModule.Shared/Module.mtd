@@ -30,14 +30,21 @@
         "NameGuid": "2970efa6-f945-4473-b949-994ae087c174",
         "Name": "ServiceDatabooks",
         "BackgroundPosition": "Stretch",
-        "IconName": "GroupIconServiceDatabooks_2970efa6f9454473b949994ae087c174.png"
+        "IconName": "GroupIconServiceDatabooks_2970efa6f9454473b949994ae087c174.png",
+        "TabId": "cd3b3902-2e32-402e-941b-8ff6c01eae4b"
       }
     ],
     "Header": {
       "NameGuid": "87f5ce7b-2e0d-4c75-9e95-44fb9b215f75",
       "BackgroundPosition": "Stretch",
       "IconName": "HeaderIcon_87f5ce7b2e0d4c759e9544fb9b215f75.png"
-    }
+    },
+    "Tabs": [
+      {
+        "NameGuid": "cd3b3902-2e32-402e-941b-8ff6c01eae4b",
+        "Name": "ServiceDatabooks"
+      }
+    ]
   },
   "Dependencies": [
     {
@@ -45,11 +52,6 @@
       "IsSolutionModule": true,
       "MaxVersion": "",
       "MinVersion": ""
-    },
-    {
-      "Id": "df83a2ea-8d43-4ec4-a34a-2e61863014df",
-      "MaxVersion": "",
-      "MinVersion": "4.4.32.0"
     }
   ],
   "ExplorerTreeOrder": [
@@ -180,6 +182,48 @@
       "Placement": "Shared",
       "ReturnType": "void",
       "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "ExportAction",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "databook",
+          "ParameterType": "global::micros.MultibankModule.IIntegrationDatabook",
+          "ParameterTypeFullName": "micros.MultibankModule.IIntegrationDatabook, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Sungero.Core.IZip",
+      "ReturnTypeFullName": "Sungero.Core.IZip, Sungero.Domain.Shared"
+    },
+    {
+      "Name": "ExportJson",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "databook",
+          "ParameterType": "global::micros.MultibankModule.IIntegrationDatabook",
+          "ParameterTypeFullName": "micros.MultibankModule.IIntegrationDatabook, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Sungero.Core.IZip",
+      "ReturnTypeFullName": "Sungero.Core.IZip, Sungero.Domain.Shared"
+    },
+    {
+      "Name": "ExportSign",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "databook",
+          "ParameterType": "global::micros.MultibankModule.IIntegrationDatabook",
+          "ParameterTypeFullName": "micros.MultibankModule.IIntegrationDatabook, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Sungero.Core.IZip",
+      "ReturnTypeFullName": "Sungero.Core.IZip, Sungero.Domain.Shared"
     },
     {
       "Name": "FillInvoiceV2",
@@ -363,19 +407,9 @@
       "Name": "JoinProfile",
       "Parameters": [
         {
-          "Name": "token",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
-        },
-        {
-          "Name": "profileId",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
-        },
-        {
-          "Name": "company",
-          "ParameterType": "global::Sungero.Company.IBusinessUnit",
-          "ParameterTypeFullName": "Sungero.Company.IBusinessUnit, Sungero.Domain.Interfaces"
+          "Name": "box",
+          "ParameterType": "global::micros.MultibankSolution.IBusinessUnitBox",
+          "ParameterTypeFullName": "micros.MultibankSolution.IBusinessUnitBox, Sungero.Domain.Interfaces"
         }
       ],
       "ReturnType": "global::System.String",
@@ -535,7 +569,7 @@
     {
       "NameGuid": "041c9ad6-a7bb-458a-96eb-2a2743e06eec",
       "Name": "ExchangeService",
-      "DefaultContentType": "ea683a63-273e-43ae-bcf1-7a443698008a",
+      "DefaultContentType": "bf5834b9-f7f9-46ce-991b-b5769e424085",
       "DisplayType": "Inbox",
       "FilterPanel": {
         "NameGuid": "07eae0f1-ae15-4f51-812b-ac131aa33bc5",
@@ -548,18 +582,15 @@
       "IsShow": true,
       "Kind": "Computable",
       "NeedShowMarkedCount": true,
-      "ParentFolderId": "eb72a985-606c-4647-ba0c-1389928a4e17",
-      "SupportedDescendantsTypes": [
-        "bf5834b9-f7f9-46ce-991b-b5769e424085"
-      ]
+      "ParentFolderId": "eb72a985-606c-4647-ba0c-1389928a4e17"
     }
   ],
-  "Version": "0.0.1.15",
+  "Version": "0.0.1.22",
   "Widgets": [],
   "Versions": [
     {
       "Type": "ModuleMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "DomainApi",

@@ -32,29 +32,12 @@ namespace micros.MultibankModule.Server
       var plainTextBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(obj));
       return Convert.ToBase64String(plainTextBytes);
     }
-    
-    /// <summary>
-    /// Конвертация(Декодировка) Base64 в Json.
-    /// </summary>
-    /// <param name="base64String">json закодированный в Base64</param>
-    /// <returns>Json</returns>
-    //    private Newtonsoft.Json.Linq.JObject Base64DecodeObject(string base64String)
-    //    {
-    //      var base64EncodedBytes = Convert.FromBase64String(base64String);
-    //      string jsonString = Encoding.UTF8.GetString(base64EncodedBytes);
-    //      //JArray jArray = JArray.Parse(jsonString);
-    //      //JObject json = JsonConvert.DeserializeObject<JObject>(jsonString);
-    //      JObject json = JObject.Parse(jsonString);
-    //      return json; //JsonConvert.DeserializeObject<JObject>(Encoding.UTF8.GetString(base64EncodedBytes));
-    //    }
+
     private string Base64DecodeObject(string base64String)
     {
       var base64EncodedBytes = Convert.FromBase64String(base64String);
       string json = Encoding.UTF8.GetString(base64EncodedBytes);
-      //JArray jArray = JArray.Parse(jsonString);
-      //JObject json = JsonConvert.DeserializeObject<JObject>(jsonString);
-      //JObject json = JObject.Parse(jsonString);
-      return json; //JsonConvert.DeserializeObject<JObject>(Encoding.UTF8.GetString(base64EncodedBytes));
+      return json;
     }
     
     /// <summary>
@@ -161,6 +144,7 @@ namespace micros.MultibankModule.Server
     /// (1. Запрос на создание PDF по document_id. 2. Как ответ получить PDF в формате base64)
     /// </summary>
     /// <param name="json">Json для получение ID документа и Пароль</param>
+    /// <param name="box">Абонентский ящик Орг.</param>
     /// <returns>PDF в Base64, если PDF документ был не получен, возвращает текст - "False"</returns>
     public string GetPDF(Newtonsoft.Json.Linq.JObject json, micros.MultibankSolution.IBusinessUnitBox box)
     {
@@ -181,9 +165,10 @@ namespace micros.MultibankModule.Server
     public string SendDocument(string jsonString, string token)
     {
       JObject json = JObject.Parse(jsonString);
-      var client = new RestClient(MultibankSolution.BusinessUnitBoxes.GetAll().Where(x => x.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit)
-                                  .Where(b => b.ExchangeService.ExchangeProvider == micros.MultibankSolution.ExchangeService.ExchangeProvider.Multibank ||
-                                         b.ExchangeService.ExchangeProvider == micros.MultibankSolution.ExchangeService.ExchangeProvider.MultibankSTGmicros).FirstOrDefault().ExchangeService.SendInvoiceV2micros);
+      var client = new RestClient(MultibankSolution.BusinessUnitBoxes.GetAll().Where(x => x.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit
+                                                                                     || x.ExchangeService.ExchangeProvider == micros.MultibankSolution.ExchangeService.ExchangeProvider.Multibank
+                                                                                     || x.ExchangeService.ExchangeProvider == micros.MultibankSolution.ExchangeService.ExchangeProvider.MultibankSTGmicros)
+                                  .FirstOrDefault().ExchangeService.SendInvoiceV2micros);
       client.Authenticator = new JwtAuthenticator(token);
       var request = new RestRequest(Method.POST);
       request.AddParameter("doctype_id", Constants.Module.DoctypeId.Invoice);
@@ -197,17 +182,21 @@ namespace micros.MultibankModule.Server
     /// <param name="clientSecret">Ключ приложения запрашивающего токен</param>
     /// <param name="userName">Логин пользователя</param>
     /// <param name="password">Пароль пользователя</param>
+    /// <param name="staging">Определения сервера (продакшен или тестовый)</param>
     /// <returns>Токен доступа, обновлений и срок действие в виде Json</returns>
     [Public]
     public string AuthWithLogin(string clientId, string clientSecret, string userName, string password, bool staging)
     {
       string address = "";
+      
       if (!staging)
         address = "https://account.multibank.uz/api/login";
       else
         address = "https://account-staging.multibank.uz/api/login";
+      
       var client = new RestClient(address);
       client.Timeout = -1;
+      
       var request = new RestRequest(Method.POST);
       request.AlwaysMultipartFormData = true;
       request.AddParameter("grant_type", "password"); //  Грант тип , авторизации
@@ -216,7 +205,10 @@ namespace micros.MultibankModule.Server
       request.AddParameter("username", userName);
       request.AddParameter("password", password);
       request.AddParameter("scope", "*"); //  Массив прав разделенных пробелами выдаваемых токену.
+      
       IRestResponse response = client.Execute(request);
+      Logger.Debug("AuthWithLogin: " + response.Content);
+      
       return response.Content;
     }
     
@@ -243,7 +235,7 @@ namespace micros.MultibankModule.Server
     /// <summary>
     /// Метод получения списка доступных для авторизации профилей юридических и физических лиц
     /// </summary>
-    /// <param name="token">Токен доступа</param>
+    /// <param name="box">Абонентский ящик орг.</param>
     /// <returns></returns>
     [Public]
     public string GetProfile(micros.MultibankSolution.IBusinessUnitBox box)
@@ -253,26 +245,26 @@ namespace micros.MultibankModule.Server
       var request = new RestRequest(Method.GET);
       request.AlwaysMultipartFormData = true;
       IRestResponse response = client.Execute(request);
-      Console.WriteLine(response.Content);
       return response.Content;
     }
     
     /// <summary>
     /// Метод необходим для присоединения профиля компании или же физического лица к токену.
     /// </summary>
-    /// <param name="token">Токен доступа</param>
-    /// <param name="profileId">Идентификатор профиля для присоеденения к токенуа</param>
+    /// <param name="box">Абонентский ящик Орг. </param>
     /// <returns></returns>
     [Public]
-    public string JoinProfile(string token, string profileId, Sungero.Company.IBusinessUnit company)
+    public string JoinProfile(MultibankSolution.IBusinessUnitBox box)
     {
-      var box = this.GetBuisnesUnitBoxForCompany(company);
       var client = new RestClient(box.ExchangeService.JoinProfilemicros);
+      string token = Encoding.Default.GetString(box.AccessTokenmicros);
+      string token64 = Convert.ToBase64String(box.AccessTokenmicros);
       client.Authenticator = new JwtAuthenticator(token);
       var request = new RestRequest(Method.POST);
       request.AlwaysMultipartFormData = true;
-      request.AddParameter("profile_id", profileId);
+      request.AddParameter("profile_id", box.MultibankCompanymicros.ProfileID);
       IRestResponse response = client.Execute(request);
+      Logger.Debug("JoinProfile: " + response.Content);
       return response.Content;
     }
     
@@ -288,12 +280,7 @@ namespace micros.MultibankModule.Server
     [Public(WebApiRequestType = RequestType.Post), Remote]
     public virtual string CreateDocument(string parameter)
     {
-      //JArray jArray = JArray.Parse(Base64DecodeObject(parameter).ToString());
       var json = JObject.Parse(JsonConvert.DeserializeObject<JObject>(Base64DecodeObject(parameter)).ToString().ToLower());
-      
-      // Проверка ИНН
-      //if(json.SelectToken("document.document_data.sellertin").ToString() == "" || json.SelectToken("document.document_data.buyertin").ToString() == "")
-      //  return "Инн покупателя или продавца не заполнена";
       
       // Создание документа по типу
       string doctype = json["document"]["doctype_id"].ToString();
@@ -305,10 +292,6 @@ namespace micros.MultibankModule.Server
         return Create_Contract(json);
       else if(doctype == Constants.Module.DoctypeId.Contract)
         return Create_Contract(json);
-      else if(doctype == Constants.Module.DoctypeId.PowerOfAttorney)
-        return "Неверный тип документа";
-      else if(doctype == Constants.Module.DoctypeId.TTH)
-        return "Неверный тип документа";
       
       return "Неверный тип документа";
     }
@@ -329,6 +312,7 @@ namespace micros.MultibankModule.Server
       
       //Проверка - входищий ли это документ или исходящий
       if (tr.Contains("owner") || tr.Contains("sender") || tr.Contains("seller")) isIncoming = false;
+      
       IIntegrationDatabook databook = IntegrationDatabooks.GetAll().Where(x => x.Guid == json.SelectToken("document.document_id").ToString() && x.IsIncoming == isIncoming).FirstOrDefault();
       if (databook == null)
       {
@@ -356,9 +340,7 @@ namespace micros.MultibankModule.Server
       {
         //Обновить запись
         databook.JSon = Encoding.Default.GetBytes(json.ToString());
-        //this.UpdateTaxInvoice(json.ToString(), databook);
-        //var task = ReviewTasks.GetAll().Where(x => x.IntegrationDatabook == databook).FirstOrDefault();
-        //if (task != null) this.UpdateDocumentStatusForMBKAssignment(task);
+        this.UpdateTaxInvoice(json.ToString(), databook);
         return "OK - " + databook.Document.Info.ToString();
       }
     }
@@ -366,68 +348,24 @@ namespace micros.MultibankModule.Server
     /// <summary>
     /// Обновить СФ из Json
     /// </summary>
-    /// <param name="jsonString"></param>
-    /// <param name="documentOld"></param>
-    /// <param name="databook"></param>
+    /// <param name="jsonString">Данные из Multibank</param>
+    /// <param name="databook">Справочник интеграции</param>
     [Public, Remote]
     public virtual void UpdateTaxInvoice(string jsonString, IIntegrationDatabook databook)
     {
       var document = Sungero.Docflow.AccountingDocumentBases.As(databook.Document);
-      JObject json = JObject.Parse(jsonString.ToLower());
+      JObject json = JObject.Parse(jsonString);
       JToken goods = json.SelectToken("document.goods");
-      string buyerTin = json.SelectToken("document.document_data.buyertin").ToString();
-      string sellerTin = json.SelectToken("document.document_data.sellertin").ToString();
-      string ourTin = String.Empty;
-      string counterTin = String.Empty;
-      
-      if (databook.IsIncoming.Value)
-      {
-        ourTin = buyerTin;
-        counterTin = sellerTin;
-      }
-      else
-      {
-        ourTin = sellerTin;
-        counterTin = buyerTin;
-      }
       
       document.Currency = Sungero.Commons.Currencies.GetAll().Where(x => x.AlphaCode == "UZS").FirstOrDefault();
-      double amount = 0;
-      if(json.SelectToken("document.goods.[0].total_sum") != null)
-      {
-        foreach(var summ in json.SelectToken("document.goods").ToArray())
-        {
-          amount = amount + Convert.ToDouble(summ.SelectToken("total_sum"));
-        }
-      }
-      document.TotalAmount = amount;
-      document.BusinessUnit = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == ourTin).FirstOrDefault();
-      document.Counterparty = Sungero.Parties.Companies.GetAll().Where(x => x.TIN == counterTin).FirstOrDefault();
+      
+      document.TotalAmount = this.GetSum(json.SelectToken("document.goods").ToString(), true);
+      document.BusinessUnit = this.GetBusnesUnitByTin(json, databook.IsIncoming.Value);
+      document.Counterparty = this.GetOrCreatCounterpartyeByTin(json, databook.IsIncoming.Value);
       document.RegistrationNumber = json.SelectToken("document.document_number").ToString();
       document.RegistrationDate = Convert.ToDateTime(json.SelectToken("document.document_date").ToString());
-      //  Если свойства Наша организация или Контрагент пустая, создать новую на основе данных из json
       
-      #region Buyer params
-      string bName = json.SelectToken("document.document_data.buyer.name").ToString();
-      string bAddress = json.SelectToken("document.document_data.buyer.address").ToString();
-      string bAccount = json.SelectToken("document.document_data.buyer.account").ToString();
-      string bVAT = json.SelectToken("document.document_data.buyer.vatregcode").ToString();
-      string bBank = json.SelectToken("document.document_data.buyer.bankid").ToString();
-      #endregion
-
-      #region Seller params
-      string sName = json.SelectToken("document.document_data.seller.name").ToString();
-      string sAddress = json.SelectToken("document.document_data.seller.address").ToString();
-      string sAccount = json.SelectToken("document.document_data.seller.account").ToString();
-      string sVAT = json.SelectToken("document.document_data.seller.vatregcode").ToString();
-      string sBank = json.SelectToken("document.document_data.seller.bankid").ToString();
-      #endregion
-      
-      if(document.Counterparty == null)
-      {
-        if (databook.IsIncoming.Value) document.Counterparty = Create_Counterparty(sName.ToUpper(), sellerTin, sAddress, sAccount, sVAT, sBank);
-        else document.Counterparty = Create_Counterparty(bName.ToUpper(), buyerTin, bAddress, bAccount, bVAT, bBank);
-      }
+      this.IfNeedRefreshTokens(this.GetBuisnesUnitBoxForCompany(document.BusinessUnit));
 
       //Проверка на подписание
       if(this.IsSignedInMultibank(json)) databook.Sign = Convert.FromBase64String(this.GNKString(databook, "accept", string.Empty));
@@ -471,12 +409,13 @@ namespace micros.MultibankModule.Server
         companyTin = json.SelectToken("contragent.contragent_tin").ToString();
         isIncoming = true;
       }
+      var databook = IntegrationDatabooks.GetAll().Where(x => x.Guid == json.SelectToken("document.document_id").ToString() && x.IsIncoming == isIncoming).FirstOrDefault();
       var company = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == companyTin).FirstOrDefault();
       var box = this.GetBuisnesUnitBoxForCompany(company);
       this.IfNeedRefreshTokens(box);
-      if(!IntegrationDatabooks.GetAll().Any(x => x.Guid == json.SelectToken("document.document_id").ToString() && x.IsIncoming == isIncoming))
+      if(databook == null)
       {
-        var databook = IntegrationDatabooks.Create();
+        databook = IntegrationDatabooks.Create();
         databook.JSon = Encoding.Default.GetBytes(json.ToString());
         databook.Guid = json.SelectToken("document.document_id").ToString();
         databook.IsIncoming = isIncoming;
@@ -495,12 +434,9 @@ namespace micros.MultibankModule.Server
       }
       else
       {
-        var databook = IntegrationDatabooks.GetAll().Where(x => x.Guid == json.SelectToken("document.document_id").ToString() && x.IsIncoming == isIncoming).FirstOrDefault();
         databook.JSon = Encoding.Default.GetBytes(json.ToString());
         databook.Save();
-        //this.UpdateContractStatementFromJson(json.ToString(), databook.Document, isIncoming);
-        //var task = ReviewTasks.GetAll().Where(x => x.IntegrationDatabook == databook).FirstOrDefault();
-        //if (task != null) this.UpdateDocumentStatusForMBKAssignment(task);
+        this.UpdateContractStatementFromJson(json.ToString(), databook.Document, isIncoming);
         return "OK - " + databook.Document.Info.ToString();
       }
     }
@@ -519,16 +455,11 @@ namespace micros.MultibankModule.Server
       string clientTin = json.SelectToken("contragent.contragent_tin").ToString();
       
       document.Currency = Sungero.Commons.Currencies.GetAll().Where(x => x.AlphaCode == "UZS").FirstOrDefault();
-      double amount = 0;
-      if(json.SelectToken("document.goods.[0].amount") != null)
-      {
-        foreach(var summ in json.SelectToken("document.goods").ToArray())
-        {
-          amount = amount + Convert.ToDouble(summ.SelectToken("amount"));
-        }
-      }
-      document.TotalAmount = amount;
-      if (isIncoming == true)
+      
+      //TODO: Вынести метод вычисления суммы
+      
+      document.TotalAmount = this.GetSum(json.SelectToken("document.goods").ToString(), false);;
+      if (isIncoming)
       {
         
         document.BusinessUnit = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == clientTin).FirstOrDefault();
@@ -617,7 +548,7 @@ namespace micros.MultibankModule.Server
         var databook = IntegrationDatabooks.GetAll().Where(x => x.Guid == json.SelectToken("document.document_id").ToString() && x.IsIncoming == isIncoming).FirstOrDefault();
         databook.JSon = Encoding.Default.GetBytes(json.ToString());
         databook.Save();
-        //this.UpdateContractFromJson(json.ToString(), databook.Document, isIncoming);
+        this.UpdateContractFromJson(json.ToString(), databook.Document, isIncoming);
         //var task = ReviewTasks.GetAll().Where(x => x.IntegrationDatabook == databook).FirstOrDefault();
         //if (task != null) this.UpdateDocumentStatusForMBKAssignment(task);
         return "OK - " + databook.Document.Info.ToString();
@@ -639,15 +570,7 @@ namespace micros.MultibankModule.Server
       string contragentTin = json.SelectToken("contragent.contragent_tin").ToString();
       
       document.Currency = Sungero.Commons.Currencies.GetAll().Where(x => x.AlphaCode == "UZS").FirstOrDefault();
-      double amount = 0;
-      if(json.SelectToken("document.goods.[0].total_sum") != null)
-      {
-        foreach(var summ in json.SelectToken("document.goods").ToArray())
-        {
-          amount = amount + Convert.ToDouble(summ.SelectToken("total_sum"));
-        }
-      }
-      document.TotalAmount = amount;
+      document.TotalAmount = this.GetSum(json.SelectToken("document.goods").ToString(), true);
       if (isIncoming == true)
       {
         document.BusinessUnit = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == contragentTin).FirstOrDefault();
@@ -655,18 +578,12 @@ namespace micros.MultibankModule.Server
         
         if(document.BusinessUnit == null)
         {
-          #region Buyer params
           string bName = json.SelectToken("conteragent.document_contragent_name").ToString();
-          #endregion
-          
           document.BusinessUnit = Create_BuisnessUnit(bName.ToUpper(), contragentTin, null, null, null, null);
         }
         if(document.Counterparty == null)
         {
-          #region Seller params
           string sName = json.SelectToken("owner.document_owner_name").ToString();
-          #endregion
-          
           document.Counterparty = Create_Counterparty(sName.ToUpper(), ownerTin, null, null, null, null);
         }
       }
@@ -687,7 +604,7 @@ namespace micros.MultibankModule.Server
         if(document.Counterparty == null)
         {
           #region Buyer params
-          string bName = json.SelectToken("conteragent.document_contragent_name").ToString();
+          string bName = json.SelectToken("contragent.document_contragent_name").ToString();
           #endregion
           
           document.Counterparty = Create_Counterparty(bName.ToUpper(), contragentTin, null, null, null, null);
@@ -855,12 +772,30 @@ namespace micros.MultibankModule.Server
     /// <returns>Созданный орг.</returns>
     private Sungero.Parties.ICounterparty Create_Counterparty(string name, string tin, string address, string account, string vat, string bankMFO)
     {
-      var book = Sungero.Parties.Companies.Create();
-      book.Name = name;
-      book.TIN = tin;
-      book.LegalAddress = address;
-      book.Save();
-      return Sungero.Parties.Counterparties.GetAll().Where(x => x.TIN == tin).FirstOrDefault();
+      Sungero.Parties.ICounterparty party;
+      Logger.Debug("Counterparty: name = " + name + ", tin = " + tin);
+      if (tin.Length == 14)
+      {
+        var person = micros.DrxUzbekistan.People.Create();
+        var fullName = name.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
+        person.LastName = fullName[0];
+        person.FirstName = fullName[1];
+        person.MiddleName = fullName[2];
+        person.PINImicros = tin;
+        person.LegalAddress = address;
+        person.Account = account;
+        person.Save();
+        party = person;
+      }
+      else
+      {
+        party = Sungero.Parties.Companies.Create();
+        party.Name = name;
+        party.TIN = tin;
+        party.LegalAddress = address;
+        party.Save();
+      }
+      return party;
     }
     
     #endregion
@@ -921,7 +856,8 @@ namespace micros.MultibankModule.Server
       this.IfNeedRefreshTokens(this.GetBuisnesUnitBoxForCompany(document.BusinessUnit));
       string signature = Convert.ToBase64String(databook.OutgoingData);
       string token = this.GetMultibankToken(document.BusinessUnit);
-      string document_id = IntegrationDatabooks.GetAll().Where(x => x.Document == document).FirstOrDefault().Guid;
+      string document_id = databook.Guid;
+      Logger.Debug("Guid: " + document_id);
       var request = new RestRequest(Method.POST);
       request.AddHeader("Authorization", string.Format("Bearer {0}", token));
       request.AlwaysMultipartFormData = true;
@@ -947,7 +883,7 @@ namespace micros.MultibankModule.Server
       this.IfNeedRefreshTokens(this.GetBuisnesUnitBoxForCompany(document.BusinessUnit));
       string signature = Convert.ToBase64String(databook.OutgoingData);
       string token = this.GetMultibankToken(document.BusinessUnit);
-      string document_id = IntegrationDatabooks.GetAll().Where(x => x.Document == document).FirstOrDefault().Guid;
+      string document_id = databook.Guid;
       var request = new RestRequest(Method.POST);
       request.AddHeader("Authorization", string.Format("Bearer {0}", token));
       request.AlwaysMultipartFormData = true;
@@ -965,13 +901,11 @@ namespace micros.MultibankModule.Server
     [Public, Remote]
     public virtual string ReturnSigningDocumentInMultibank(IIntegrationDatabook databook)
     {
-      //var databook = IntegrationDatabooks.GetAll().Where(x => x.Document == document).FirstOrDefault();
       var document = databook.Document;
       string signature = Convert.ToBase64String(databook.OutgoingData);
       var client = new RestClient(this.GetBuisnesUnitBoxForCompany(document.BusinessUnit).ExchangeService.MultibankAcceptmicros);
       string token = this.GetMultibankToken(document.BusinessUnit);
       string document_id = databook.Guid;
-      
       
       var request = new RestRequest(Method.POST);
       request.AddHeader("authorization", "Bearer " + token);
@@ -980,7 +914,7 @@ namespace micros.MultibankModule.Server
       request.AddParameter("document_id", document_id);
       request.AddParameter("sign", signature);
 
-      Logger.Debug("pkcs7: " + signature);
+      //Logger.Debug("pkcs7: " + signature);
       IRestResponse response = client.Execute(request);
       Logger.Debug(response.Content);
       return response.Content;
@@ -1253,8 +1187,10 @@ namespace micros.MultibankModule.Server
     [Public, Remote]
     public virtual string GetMultibankJsonFromID(Sungero.Docflow.IOfficialDocument document)
     {
+      var box = this.GetBuisnesUnitBoxForCompany(document.BusinessUnit);
+      this.IfNeedRefreshTokens(box);
       string document_id = IntegrationDatabooks.GetAll().Where(x => x.Document == document).FirstOrDefault().Guid;
-      var client = new RestClient(this.GetBuisnesUnitBoxForCompany(document.BusinessUnit).ExchangeService.GetPublicDocmicros + document_id);
+      var client = new RestClient(box.ExchangeService.GetPublicDocmicros + document_id);
       client.Authenticator = new JwtAuthenticator(this.GetMultibankToken(document.BusinessUnit));
       var request = new RestRequest(Method.GET);
       request.AddParameter("params","public");
@@ -1262,7 +1198,6 @@ namespace micros.MultibankModule.Server
       Logger.Debug("Update data: " + response.Content);
       JObject json = JObject.Parse(response.Content);
       return json.SelectToken("data").ToString();
-      //return response.Content.ToString();
     }
     
 
@@ -1377,12 +1312,13 @@ namespace micros.MultibankModule.Server
       JObject json = JObject.Parse(response);
       
       //Сохранить Токен доступа и токен обновлений в БД(свойство справочника) в виде бинарных данных, и сохранение срока действие токена в виде стринг(Формат даты Linux Time)
-      box.AccessTokenmicros = Encoding.Default.GetBytes(json.SelectToken("access_token").ToString());
+      string access_token = json.SelectToken("access_token").ToString();
+      string access_token64 = access_token.Split('.')[1] + "=";
+      box.AccessTokenmicros = Encoding.Default.GetBytes(access_token);
       box.RefreshTokenmicros = Encoding.Default.GetBytes(json.SelectToken("refresh_token").ToString());
-      //JObject json2 = JsonConvert.DeserializeObject<JObject>(Encoding.UTF8.GetString(Convert.FromBase64String(json.SelectToken("access_token").ToString().Split('.')[1] + "=")));
-      string access_token = json.SelectToken("access_token").ToString().Split('.')[1] + "=";
+      
       Logger.Debug("Access_Tokent = " + access_token);
-      var accessTokenByte = Convert.FromBase64String(access_token);
+      var accessTokenByte = Convert.FromBase64String(access_token64);
       string accessTokenString = Encoding.UTF8.GetString(accessTokenByte);
       JObject json2 = JsonConvert.DeserializeObject<JObject>(accessTokenString);
       box.ExpireAccessmicros = json2.SelectToken("exp").ToString();
@@ -1436,8 +1372,7 @@ namespace micros.MultibankModule.Server
         if (box.ExchangeService.ExchangeProvider == micros.MultibankSolution.ExchangeService.ExchangeProvider.MultibankSTGmicros) isSTG = true;
         var respond = MultibankModule.PublicFunctions.Module.AuthWithLogin(box.ClientIdmicros.ToString(), box.ClientSecretmicros, box.Login, box.Password, isSTG);  // Запрос на получение токена
         micros.MultibankModule.PublicFunctions.Module.Remote.UpdateTokens(respond, box);  // Вызов метода для сохранение токенов в БД.
-        //if(box.MultibankCompanymicros != null)
-        //MultibankModule.PublicFunctions.Module.JoinProfile(Encoding.Default.GetString(box.AccessTokenmicros), box.MultibankCompanymicros.ProfileID);
+        MultibankModule.PublicFunctions.Module.JoinProfile(box);
         box.Save();
       }
     }
@@ -1463,6 +1398,80 @@ namespace micros.MultibankModule.Server
       JObject error = JObject.Parse(response);
       return error.SelectToken("message.ru").ToString(Formatting.None);
     }
+    
+    /// <summary>
+    /// Вычисления суммы
+    /// </summary>
+    /// <param name="jsonArray">Товары из json</param>
+    /// <returns></returns>
+    public double GetSum(string jsonArray, bool totalSum)
+    {
+      JArray json = JArray.Parse(jsonArray);
+      string route = String.Empty;
+      if (totalSum) route = "total_sum";
+      else route = "amount";
+      double amount = 0;
+      foreach(var summ in json)
+      {
+        amount = amount + Convert.ToDouble(summ.SelectToken(route));
+      }
+      return amount;
+    }
+    
+    public Sungero.Company.IBusinessUnit GetBusnesUnitByTin(Newtonsoft.Json.Linq.JObject json, bool isIncoming)
+    {
+      string route = String.Empty;
+      if(isIncoming) route = "contragent";
+      else route = "owner";
+      string tin = json.SelectToken($"{route}.{route}_tin").ToString();
+      var company = Sungero.Company.BusinessUnits.GetAll(x => x.TIN == tin).FirstOrDefault();
+      return company;
+    }
+    
+    public Sungero.Parties.ICounterparty GetOrCreatCounterpartyeByTin(Newtonsoft.Json.Linq.JObject json, bool isIncoming)
+    {
+      string route = String.Empty;
+      if(isIncoming) route = "owner";
+      else route = "contragent";
+      string tin = json.SelectToken($"{route}.{route}_tin").ToString();
+      var counterparty = Sungero.Parties.Counterparties.GetAll(x => x.TIN == tin).FirstOrDefault();
+      if (counterparty == null)
+      {
+        string name = json.SelectToken($"{route}.document_{route}_name").ToString();
+        counterparty = Create_Counterparty(name.ToUpper(), tin, null, null, null, null);
+      }
+      return counterparty;
+    }
+    
+    [Public, Remote]
+    public IZip ExportSign(IIntegrationDatabook databook)
+    {
+      var zip=Sungero.Core.Zip.Create();
+      var data = Encoding.Default.GetBytes(Convert.ToBase64String(databook.Sign));
+      zip.Add(data,"sign","txt");
+      zip.Save("sign.zip");
+      return zip;
+    }
+    
+    [Public, Remote]
+    public IZip ExportAction(IIntegrationDatabook databook)
+    {
+      var zip=Sungero.Core.Zip.Create();
+      var data = Encoding.Default.GetBytes(Convert.ToBase64String(databook.OutgoingData));
+      zip.Add(data,"sign","txt");
+      zip.Save("sign.zip");
+      return zip;
+    }
+    
+    [Public, Remote]
+    public IZip ExportJson(IIntegrationDatabook databook)
+    {
+      var zip=Sungero.Core.Zip.Create();
+      zip.Add(databook.JSon,"json","json");
+      zip.Save("json.zip");
+      return zip;
+    }
+    
     #endregion
   }
 }

@@ -27,6 +27,7 @@ namespace micros.MultibankModule.Client
       freeAprovalTask.ForApprovalGroup.ElectronicDocuments.Add(_obj.DocumentGroup.OfficialDocuments.FirstOrDefault());
       freeAprovalTask.ReceiveOnCompletion = Sungero.Docflow.FreeApprovalTask.ReceiveOnCompletion.Notice;
       freeAprovalTask.State.Properties.ReceiveOnCompletion.IsEnabled = false;
+      freeAprovalTask.MaxDeadline = Calendar.Today.AddDays(1);
       freeAprovalTask.Show();
       _obj.Subtasks.Append(freeAprovalTask);
       e.CloseFormAfterAction = true;
@@ -119,13 +120,16 @@ namespace micros.MultibankModule.Client
             {
               if (dialogCert.Show() == DialogButtons.Ok)
               {
+                string pass = password.Value;
+                if (pass.Contains(@"\")) pass = pass.Replace(@"\", @"\\");
+                if (login.Contains(@"\")) login = login.Replace(@"\", @"\\");
                 Dictionary<string, byte[]> signdata = new Dictionary<string, byte[]>();
                 string forSign = "forsign: {\"address\": \"{serverAddress}\", \"login\": \"{login}\", \"password\": \"{password}\", \"document_id\": {document_id}, \"issigned\": {issigned}, \"pkcs7\": \"{pkcs7}\"}";
                 
                 string stringForSign = MultibankModule.PublicFunctions.Module.Remote.GNKString(databook, "cancel", string.Empty);
                 string stringForSign64 = Convert.ToBase64String(Encoding.Default.GetBytes(stringForSign));
 
-                forSign = forSign.Replace("{serverAddress}", address).Replace("{login}", login).Replace("{password}", password.Value).Replace("{document_id}", _obj.DocumentGroup.OfficialDocuments.FirstOrDefault().Id.ToString()).Replace("{issigned}", "false").Replace("{pkcs7}", stringForSign64);
+                forSign = forSign.Replace("{serverAddress}", address).Replace("{login}", login).Replace("{password}", pass).Replace("{document_id}", _obj.DocumentGroup.OfficialDocuments.FirstOrDefault().Id.ToString()).Replace("{issigned}", "false").Replace("{pkcs7}", stringForSign64);
                 Logger.Debug("String for sign: " + forSign);
                 signdata.Add("1", Encoding.Default.GetBytes(forSign));
                 var externalSign = ExternalSignatures.Sign(certificate.Value, signdata);
@@ -206,12 +210,15 @@ namespace micros.MultibankModule.Client
               {
                 if (dialogCert.Show() == DialogButtons.Ok)
                 {
+                  string pass = password.Value;
+                  if (pass.Contains(@"\")) pass = pass.Replace(@"\", @"\\");
+                  if (login.Contains(@"\")) login = login.Replace(@"\", @"\\");
                   Dictionary<string, byte[]> signdata = new Dictionary<string, byte[]>();
                   string forSign = "forsign: {\"address\": \"{serverAddress}\", \"login\": \"{login}\", \"password\": \"{password}\", \"document_id\": {document_id}, \"issigned\": {issigned}, \"pkcs7\": \"{pkcs7}\"}";
                   
                   string stringForSign = MultibankModule.PublicFunctions.Module.Remote.GNKString(databook, "reject", opts.Value);
                   string stringForSign64 = Convert.ToBase64String(Encoding.Default.GetBytes(stringForSign));
-                  forSign = forSign.Replace("{serverAddress}", address).Replace("{login}", login).Replace("{password}", password.Value).Replace("{document_id}", _obj.DocumentGroup.OfficialDocuments.FirstOrDefault().Id.ToString()).Replace("{issigned}", "false").Replace("{pkcs7}", stringForSign64);
+                  forSign = forSign.Replace("{serverAddress}", address).Replace("{login}", login).Replace("{password}", pass).Replace("{document_id}", _obj.DocumentGroup.OfficialDocuments.FirstOrDefault().Id.ToString()).Replace("{issigned}", "false").Replace("{pkcs7}", stringForSign64);
                   Logger.Debug("String for sign: " + forSign);
                   signdata.Add("1", Encoding.Default.GetBytes(forSign));
                   var externalSign = ExternalSignatures.Sign(certificate.Value, signdata);
@@ -285,15 +292,18 @@ namespace micros.MultibankModule.Client
             {
               if (dialogCert.Show() == DialogButtons.Ok)
               {
+                string pass = password.Value;
+                if (pass.Contains(@"\")) pass = pass.Replace(@"\", @"\\");
+                if (login.Contains(@"\")) login = login.Replace(@"\", @"\\");
                 Dictionary<string, byte[]> signdata = new Dictionary<string, byte[]>();
                 string forSign = "forsign: {\"address\": \"{serverAddress}\", \"login\": \"{login}\", \"password\": \"{password}\", \"document_id\": {document_id}, \"issigned\": {issigned}, \"pkcs7\": \"{pkcs7}\"}";
                 
-                string stringForSign = Convert.ToBase64String(databook.Sign);
-                forSign = forSign.Replace("{serverAddress}", address).Replace("{login}", login).Replace("{password}", password.Value).Replace("{document_id}", _obj.DocumentGroup.OfficialDocuments.FirstOrDefault().Id.ToString()).Replace("{issigned}", "true").Replace("{pkcs7}", stringForSign);
-                Logger.Debug("String for sign: " + forSign);
+                string stringForSign = micros.MultibankModule.PublicFunctions.Module.Remote.GNKString(databook, "accept", String.Empty);
+                forSign = forSign.Replace("{serverAddress}", address).Replace("{login}", login).Replace("{password}", pass).Replace("{document_id}", _obj.DocumentGroup.OfficialDocuments.FirstOrDefault().Id.ToString()).Replace("{issigned}", "true").Replace("{pkcs7}", stringForSign);
+                Logger.Debug("String for sign: " + forSign.Replace(password.Value, "******"));
                 signdata.Add("1", Encoding.Default.GetBytes(forSign));
                 var externalSign = ExternalSignatures.Sign(certificate.Value, signdata);
-                var signedString = Convert.ToBase64String(externalSign.FirstOrDefault().Value);
+                //var signedString = Convert.ToBase64String(externalSign.FirstOrDefault().Value);
                 string status = MultibankModule.PublicFunctions.Module.Remote.ReturnSigningDocumentInMultibank(databook);
                 var document = databook.Document;
                 if (!status.Contains("\"success\":true"))

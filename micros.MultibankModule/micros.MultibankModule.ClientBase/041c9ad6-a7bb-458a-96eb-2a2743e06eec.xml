@@ -46,7 +46,7 @@
             <property name="Visible">true</property>
             <property name="Name">String_Subject</property>
             <property name="VisibleIndex">2</property>
-            <property name="ActualWidth">49*</property>
+            <property name="ActualWidth">50*</property>
           </property>
           <property name="Item4" isnull="true" iskey="true">
             <property name="FieldName">Navigation_From_c612fc4144a3428ba97c433c333d78e9</property>

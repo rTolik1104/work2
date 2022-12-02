@@ -61,7 +61,6 @@ namespace micros.MultibankSolution.Client
               micros.MultibankModule.PublicFunctions.Module.Remote.UpdateTokens(respond, _obj);  // Вызов метода для сохранение токенов в БД.
               if (respond.Contains("\"success\":true")) _obj.ConnectionStatus = MultibankSolution.BusinessUnitBox.ConnectionStatus.Connected;
               _obj.Save();
-              MultibankModule.PublicFunctions.Module.Remote.CreateProfileList(_obj);
             }
           });
         dialog.Show();

@@ -2,6 +2,32 @@
   "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
   "NameGuid": "68abbad2-2f76-431a-8f6f-75a10bf64d7e",
   "Name": "IntegrationDatabook",
+  "Actions": [
+    {
+      "NameGuid": "01a80115-b338-40dc-817f-4306d9286aa5",
+      "Name": "DownloadJson",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
+    },
+    {
+      "NameGuid": "1d796bdb-844d-45ad-9f34-d6fde9e66549",
+      "Name": "DownloadSign",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
+    },
+    {
+      "NameGuid": "a8b41263-0558-49fe-83c0-e4e137a5e742",
+      "Name": "DownloadAction",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
+    }
+  ],
   "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
   "CanBeNavigationPropertyType": true,
   "Code": "IntegrationDat",
@@ -84,8 +110,16 @@
       ]
     }
   ],
+  "HideFromCreationArea": true,
+  "HideFromNavigationEditorCreationArea": true,
   "IconResourcesKeys": [],
+  "IsAutoCreated": true,
   "OperationsClass": "",
+  "Overridden": [
+    "HideFromCreationArea",
+    "HideFromNavigationEditorCreationArea",
+    "IsAutoCreated"
+  ],
   "Properties": [
     {
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
@@ -166,7 +200,35 @@
     "NameGuid": "fb2fff0d-14a8-47c2-92f6-9e78e9e3d355",
     "Name": "RibbonCard",
     "Categories": [],
-    "Elements": [],
+    "Elements": [
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "cbfabca7-492a-4a56-857e-c9c6eeaf028d",
+        "Name": "DownloadJson",
+        "ActionGuid": "01a80115-b338-40dc-817f-4306d9286aa5",
+        "ButtonSize": "Large",
+        "Index": 51,
+        "ParentGuid": "f3b0ddcd-9d1e-4ca3-8780-695ae25a9e8b"
+      },
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "8608d71b-8e20-48ba-89f9-e4d92b3007df",
+        "Name": "DownloadSign",
+        "ActionGuid": "1d796bdb-844d-45ad-9f34-d6fde9e66549",
+        "ButtonSize": "Large",
+        "Index": 52,
+        "ParentGuid": "f3b0ddcd-9d1e-4ca3-8780-695ae25a9e8b"
+      },
+      {
+        "$type": "Sungero.Metadata.RibbonActionButtonMetadata, Sungero.Metadata",
+        "NameGuid": "f069704f-0e5b-4d0a-87b1-4a0efa808661",
+        "Name": "DownloadAction",
+        "ActionGuid": "a8b41263-0558-49fe-83c0-e4e137a5e742",
+        "ButtonSize": "Large",
+        "Index": 53,
+        "ParentGuid": "f3b0ddcd-9d1e-4ca3-8780-695ae25a9e8b"
+      }
+    ],
     "Groups": [],
     "IsAncestorMetadata": true,
     "Pages": [],
