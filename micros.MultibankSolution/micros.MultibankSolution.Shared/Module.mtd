@@ -21,8 +21,7 @@
     "Header": {
       "NameGuid": "ba5c35e4-0996-43fb-81e0-85244bff0cc3",
       "BackgroundPosition": "Stretch"
-    },
-    "Tabs": []
+    }
   },
   "DesktopViews": [],
   "ExplorerTreeOrder": [
@@ -76,11 +75,11 @@
   "Versions": [
     {
       "Type": "SolutionMetadata",
-      "Number": 8
+      "Number": 6
     },
     {
       "Type": "ModuleMetadata",
-      "Number": 8
+      "Number": 6
     },
     {
       "Type": "DomainApi",
