@@ -85,7 +85,7 @@ namespace FastReport
       <TextObject Name="Text16" Left="122.85" Width="94.5" Height="37.8" Border.Lines="All" Fill.Color="Gold" GrowToBottom="true" Text="[SourceTable.taskscount]" Duplicates="Merge" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
       <TextObject Name="Text10" Left="9.45" Width="113.4" Height="37.8" Border.Lines="All" Fill.Color="Silver" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[SourceTable.emolyee_department]" Duplicates="Merge" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
       <Sort>
-        <Sort Expression="[SourceTable.emolyee_name]"/>
+        <Sort Expression="[SourceTable.emolyee_department]"/>
       </Sort>
     </DataBand>
   </ReportPage>
