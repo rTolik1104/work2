@@ -7,8 +7,4 @@ using micros.MultibankSolution.IncomingTaxInvoice;
 
 namespace micros.MultibankSolution
 {
-  partial class IncomingTaxInvoiceClientHandlers
-  {
-
-  }
 }

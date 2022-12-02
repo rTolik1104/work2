@@ -27,6 +27,66 @@
   "ExplorerTreeOrder": [
     {
       "ItemId": "1e825e4f-37f0-40d2-a517-8be6d1dd44bc"
+    },
+    {
+      "ItemId": "6526c9dd-f12f-4b35-ba90-b498ad5d3e33",
+      "PreviousItemId": "1e825e4f-37f0-40d2-a517-8be6d1dd44bc"
+    },
+    {
+      "ItemId": "0c62429a-27b8-48aa-8d5b-2536e19b87ce",
+      "PreviousItemId": "6526c9dd-f12f-4b35-ba90-b498ad5d3e33"
+    },
+    {
+      "ItemId": "fb155f9c-acee-4400-9559-9f3c397babf0",
+      "PreviousItemId": "0c62429a-27b8-48aa-8d5b-2536e19b87ce"
+    },
+    {
+      "ItemId": "587ed590-1888-4eac-a07d-ca898582592d",
+      "PreviousItemId": "fb155f9c-acee-4400-9559-9f3c397babf0"
+    },
+    {
+      "ItemId": "6326a304-9ba8-4cfa-abed-2a08aa7927e4",
+      "PreviousItemId": "587ed590-1888-4eac-a07d-ca898582592d"
+    },
+    {
+      "ItemId": "1e29905d-49d7-4fad-a106-be37d9bbcc65",
+      "PreviousItemId": "6326a304-9ba8-4cfa-abed-2a08aa7927e4"
+    },
+    {
+      "ItemId": "59333f8d-f33c-4a25-91fe-957eefeddd5a",
+      "PreviousItemId": "1e29905d-49d7-4fad-a106-be37d9bbcc65"
+    },
+    {
+      "ItemId": "ff0584cf-3b75-486f-8fc7-054f3e81d17a",
+      "PreviousItemId": "59333f8d-f33c-4a25-91fe-957eefeddd5a"
+    },
+    {
+      "ItemId": "a955678a-661f-4dd5-bf57-8a8407fe14e5",
+      "PreviousItemId": "ff0584cf-3b75-486f-8fc7-054f3e81d17a"
+    },
+    {
+      "ItemId": "5b1a7988-b544-4eb8-b492-d7a70ebef534",
+      "PreviousItemId": "a955678a-661f-4dd5-bf57-8a8407fe14e5"
+    },
+    {
+      "ItemId": "f080a7d8-f179-409b-987a-332ee04e701b",
+      "PreviousItemId": "5b1a7988-b544-4eb8-b492-d7a70ebef534"
+    },
+    {
+      "ItemId": "e5afef0d-8169-43da-8777-b55a24e29730",
+      "PreviousItemId": "f080a7d8-f179-409b-987a-332ee04e701b"
+    },
+    {
+      "ItemId": "22514985-e4cf-49d9-ab06-39773703f2dc",
+      "PreviousItemId": "e5afef0d-8169-43da-8777-b55a24e29730"
+    },
+    {
+      "ItemId": "4ef8415d-fb90-4163-82c0-10a85c283eb5",
+      "PreviousItemId": "22514985-e4cf-49d9-ab06-39773703f2dc"
+    },
+    {
+      "ItemId": "cd8004c2-4a05-484e-ac12-8227d67e88ee",
+      "PreviousItemId": "4ef8415d-fb90-4163-82c0-10a85c283eb5"
     }
   ],
   "IconResourcesKeys": [],
@@ -50,7 +110,7 @@
   "SharedAssemblyName": "micros.MultibankSolution.Shared",
   "SharedNamespace": "micros.MultibankSolution.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.0",
+  "Version": "0.0.1.8",
   "Widgets": [],
   "Versions": [
     {
