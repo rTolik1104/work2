@@ -280,4 +280,22 @@
   <data name="CollectionDisplayName" xml:space="preserve">
     <value>Электронный договор</value>
   </data>
+  <data name="Property_CounterpartySignatory" xml:space="preserve">
+    <value>Директор</value>
+  </data>
+  <data name="Action_UpdateFromMultibank" xml:space="preserve">
+    <value>Обновить документ</value>
+  </data>
+  <data name="Action_UpdateFromMultibankHint" xml:space="preserve">
+    <value>Обновить документ</value>
+  </data>
+  <data name="Action_UpdateFromMultibankDescription" xml:space="preserve">
+    <value>Обновить документ</value>
+  </data>
+  <data name="Ribbon_Multibank_112cd383fd2b4b319db9bb5c09bc70ae" xml:space="preserve">
+    <value>Мультибанк</value>
+  </data>
+  <data name="Ribbon_Service_0de96e25f5214b459a714578ba0e319a" xml:space="preserve">
+    <value>Служебные</value>
+  </data>
 </root>

@@ -313,4 +313,91 @@
   <data name="Action_SendToMultibankConfirmationDescription" xml:space="preserve">
     <value />
   </data>
+  <data name="Enum_VerificationState_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Property_CounterpartySignatory" xml:space="preserve">
+    <value>Director</value>
+  </data>
+  <data name="Enum_LifeCycleState_CreateByOwner" xml:space="preserve">
+    <value>Документ создан поставщиком</value>
+  </data>
+  <data name="Enum_LifeCycleState_SignedByOwner" xml:space="preserve">
+    <value>Документ подписан поставщиком</value>
+  </data>
+  <data name="Enum_LifeCycleState_SentByOwner" xml:space="preserve">
+    <value>Документ отправлен поставщиком</value>
+  </data>
+  <data name="Enum_LifeCycleState_ReceivedByRecip" xml:space="preserve">
+    <value>Ожидает вашей подписи</value>
+  </data>
+  <data name="Enum_LifeCycleState_RejectBySender" xml:space="preserve">
+    <value>Документ отклонён</value>
+  </data>
+  <data name="Enum_LifeCycleState_RejectByRecipie" xml:space="preserve">
+    <value>Документ отклонён</value>
+  </data>
+  <data name="Enum_LifeCycleState_AcceptBySender" xml:space="preserve">
+    <value>Документ подтвержден</value>
+  </data>
+  <data name="Enum_LifeCycleState_AcceptByRecipie" xml:space="preserve">
+    <value>Документ подтвержден</value>
+  </data>
+  <data name="Enum_LifeCycleState_CanceledByOwner" xml:space="preserve">
+    <value>Документ аннулирован</value>
+  </data>
+  <data name="Enum_LifeCycleState_CanceledByRecip" xml:space="preserve">
+    <value>Документ аннулирован</value>
+  </data>
+  <data name="Enum_LifeCycleState_RevokedBySeller" xml:space="preserve">
+    <value>Документ откорректирован</value>
+  </data>
+  <data name="Enum_LifeCycleState_RevokedForBuyer" xml:space="preserve">
+    <value>Документ откорректирован</value>
+  </data>
+  <data name="Enum_LifeCycleState_OneSidedInvoice" xml:space="preserve">
+    <value>Счёт-фактура выставлен</value>
+  </data>
+  <data name="Enum_LifeCycleState_AcceptByAgent" xml:space="preserve">
+    <value>Документ принят доверенным лицом</value>
+  </data>
+  <data name="Enum_LifeCycleState_RejectByAgent" xml:space="preserve">
+    <value>Отклонён доверенным лицом</value>
+  </data>
+  <data name="Action_UpdateFromMultibank" xml:space="preserve">
+    <value>UpdateFromMultibank</value>
+  </data>
+  <data name="Action_UpdateFromMultibankDescription" xml:space="preserve">
+    <value>UpdateFromMultibank</value>
+  </data>
+  <data name="Action_UpdateFromMultibankHint" xml:space="preserve">
+    <value>UpdateFromMultibank</value>
+  </data>
+  <data name="Action_UpdateFromMultibankConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_UpdateFromMultibankConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_OpenInMultibank" xml:space="preserve">
+    <value>Open document in Multibank</value>
+  </data>
+  <data name="Action_OpenInMultibankDescription" xml:space="preserve">
+    <value>Открывает буличную ссылку на страницу документа</value>
+  </data>
+  <data name="Action_OpenInMultibankHint" xml:space="preserve">
+    <value>Открывает буличную ссылку на страницу документа</value>
+  </data>
+  <data name="Action_OpenInMultibankConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_OpenInMultibankConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Ribbon_Multibank_112cd383fd2b4b319db9bb5c09bc70ae" xml:space="preserve">
+    <value>Multibank</value>
+  </data>
+  <data name="Ribbon_Service_0de96e25f5214b459a714578ba0e319a" xml:space="preserve">
+    <value>Service</value>
+  </data>
 </root>
