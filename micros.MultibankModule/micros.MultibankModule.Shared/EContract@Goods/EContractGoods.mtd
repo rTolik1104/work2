@@ -21,6 +21,15 @@
     },
     {
       "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "f4e317c1-6bf3-4d71-b104-2aaf8fa47e24",
+      "Name": "GoodSeries",
+      "CanBeSearch": false,
+      "Code": "GoodSeries",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "e062ec60-603e-4c4a-8afd-de82adfcb0b4"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
       "NameGuid": "4b28257b-57bd-47ed-be1a-82b43cee98f0",
       "Name": "Name",
       "CanBeSearch": false,
@@ -62,7 +71,7 @@
       "PreviousPropertyGuid": "b5d4ecf0-9fa0-4311-9cd2-15a0bb66bdfa"
     },
     {
-      "$type": "Sungero.Metadata.DoublePropertyMetadata, Sungero.Metadata",
+      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
       "NameGuid": "a75d7ed6-dec1-4835-962e-6c3e856bc31e",
       "Name": "Qty",
       "CanBeSearch": false,

@@ -64,6 +64,9 @@
   <data name="Property_Name" xml:space="preserve">
     <value>Описание товаров (работ, услуг)</value>
   </data>
+  <data name="Property_GoodSeries" xml:space="preserve">
+    <value>Серийный номер</value>
+  </data>
   <data name="Property_Unit" xml:space="preserve">
     <value>Ед. изм.</value>
   </data>

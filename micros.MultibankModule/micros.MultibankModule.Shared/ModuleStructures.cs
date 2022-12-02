@@ -82,7 +82,7 @@ namespace micros.MultibankModule.Structures.Module
     public string catalog_code {get; set;}
     public string catalog_name {get; set;}
     public int unit {get; set;}
-    public double qty {get; set;}
+    public int qty {get; set;}
     public double price {get; set;}
     public double amount {get; set;}
     public string vat_percent {get; set;}
