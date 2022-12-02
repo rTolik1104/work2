@@ -13,6 +13,7 @@ using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.Cms;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Cms;
+using Org.BouncyCastle.X509.Store;
 
 
 namespace micros.MultibankModule.Server
@@ -161,9 +162,9 @@ namespace micros.MultibankModule.Server
     /// </summary>
     /// <param name="json">Json для получение ID документа и Пароль</param>
     /// <returns>PDF в Base64, если PDF документ был не получен, возвращает текст - "False"</returns>
-    public string GetPDF(Newtonsoft.Json.Linq.JObject json)
+    public string GetPDF(Newtonsoft.Json.Linq.JObject json, micros.MultibankSolution.IBusinessUnitBox box)
     {
-      var client = new RestClient(MultibankModule.IntegrationDataBooks.GetAll().Where(x => x.Account == micros.MultibankModule.AuthDatabooks.GetAll().Where(a => a.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit).FirstOrDefault()).FirstOrDefault().GetPDF);
+      var client = new RestClient(box.ExchangeService.GetPDFmicros);
       var request = new RestRequest(Method.POST);
       request.AddParameter("is_new", "false");
       request.AddParameter("document_id", json.SelectToken("document.document_id").ToString());
@@ -180,34 +181,13 @@ namespace micros.MultibankModule.Server
     public string SendDocument(string jsonString, string token)
     {
       JObject json = JObject.Parse(jsonString);
-      var client = new RestClient(MultibankModule.IntegrationDataBooks.GetAll().Where(x => x.Account == micros.MultibankModule.AuthDatabooks.GetAll().Where(a => a.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit).FirstOrDefault()).FirstOrDefault().SendInvoiceV2);
+      var client = new RestClient(MultibankSolution.BusinessUnitBoxes.GetAll().Where(x => x.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit)
+                                  .Where(b => b.ExchangeService.ExchangeProvider == micros.MultibankSolution.ExchangeService.ExchangeProvider.Multibank ||
+                                         b.ExchangeService.ExchangeProvider == micros.MultibankSolution.ExchangeService.ExchangeProvider.MultibankSTGmicros).FirstOrDefault().ExchangeService.SendInvoiceV2micros);
       client.Authenticator = new JwtAuthenticator(token);
       var request = new RestRequest(Method.POST);
       request.AddParameter("doctype_id", Constants.Module.DoctypeId.Invoice);
       request.AddParameter("data", json);
-      IRestResponse response = client.Execute(request);
-      return response.Content;
-    }
-    
-    /// <summary> Получение токена доступа, обновлений и срок действие </summary>
-    /// <param name="clientId">Идентификатор приложения запрашивающего токен</param>
-    /// <param name="clientSecret">Ключ приложения запрашивающего токен</param>
-    /// <param name="userName">Логин пользователя</param>
-    /// <param name="password">Пароль пользователя</param>
-    /// <returns>Токен доступа, обновлений и срок действие в виде Json</returns>
-    [Public]
-    public string AuthWithLogin(string clientId, string clientSecret, string userName, string password)
-    {
-      var client = new RestClient(MultibankModule.IntegrationDataBooks.GetAll().Where(x => x.Account == micros.MultibankModule.AuthDatabooks.GetAll().Where(a => a.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit).FirstOrDefault()).FirstOrDefault().GetToken);
-      client.Timeout = -1;
-      var request = new RestRequest(Method.POST);
-      request.AlwaysMultipartFormData = true;
-      request.AddParameter("grant_type", "password"); //  Грант тип , авторизации
-      request.AddParameter("client_id", clientId);
-      request.AddParameter("client_secret", clientSecret);
-      request.AddParameter("username", userName);
-      request.AddParameter("password", password);
-      request.AddParameter("scope", "*"); //  Массив прав разделенных пробелами выдаваемых токену.
       IRestResponse response = client.Execute(request);
       return response.Content;
     }
@@ -243,34 +223,22 @@ namespace micros.MultibankModule.Server
     /// <summary> Обновление токена. </summary>
     /// <param name="refreshToken">Токен обновление</param>
     /// <returns>Получение нового токена доступа, обновлений и срок действий в виде Json</returns>
-    [Public]
-    public string RefreshToken(string refreshToken)
-    {
-      var bAddresses = MultibankModule.IntegrationDataBooks.GetAll().Where(x => x.Account == micros.MultibankModule.AuthDatabooks.GetAll().Where(a => a.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit).FirstOrDefault()).FirstOrDefault();
-      var bAuth = micros.MultibankModule.AuthDatabooks.GetAll().Where(a => a.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit).FirstOrDefault();
-      var client = new RestClient(bAddresses.GetUpdatedToken);
-      client.Timeout = -1;
-      var request = new RestRequest(Method.POST);
-      request.AlwaysMultipartFormData = true;
-      request.AddParameter("refresh_token", refreshToken);
-      request.AddParameter("client_id", bAuth.ClientId);
-      request.AddParameter("client_secret", bAuth.ClientSecret);
-      request.AddParameter("scope", "*");
-      IRestResponse response = client.Execute(request);
-      return response.Content;
-    }
-    
-    /// <summary> Получение информации о токене обновления </summary>
-    /// <param name="refreshToken">Токен обновление</param>
-    /// <returns>Вернуть True в случае если токен ещё действителен, иначе False</returns>
-    [Public]
-    public bool isToken(string refreshToken)
-    {
-      var client = new RestClient(MultibankModule.IntegrationDataBooks.GetAll().Where(x => x.Account == micros.MultibankModule.AuthDatabooks.GetAll().Where(a => a.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit).FirstOrDefault()).FirstOrDefault().RefreshToken + refreshToken);
-      var request = new RestRequest(Method.GET);
-      IRestResponse response = client.Execute(request);
-      return DateTimeOffset.Now.ToUnixTimeSeconds() + 10 < ((long)JObject.Parse(response.Content).SelectToken("expire_time")) ? true : false;
-    }
+    //    [Public]
+    //    public string RefreshToken(string refreshToken)
+    //    {
+    //      var company = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN = json.SelectToken("document.document_data.sellertin").ToString()).FirstOrDefault();
+    //      var box = this.GetIntegrationDataBookForCompany(company);
+    //      var client = new RestClient(box.ExchangeService.GetUpdatedmicros);
+    //      client.Timeout = -1;
+    //      var request = new RestRequest(Method.POST);
+    //      request.AlwaysMultipartFormData = true;
+    //      request.AddParameter("refresh_token", refreshToken);
+    //      request.AddParameter("client_id", box.ClientIdmicros);
+    //      request.AddParameter("client_secret", box.ClientSecretmicros);
+    //      request.AddParameter("scope", "*");
+    //      IRestResponse response = client.Execute(request);
+    //      return response.Content;
+    //    }
     
     /// <summary>
     /// Метод получения списка доступных для авторизации профилей юридических и физических лиц
@@ -278,10 +246,10 @@ namespace micros.MultibankModule.Server
     /// <param name="token">Токен доступа</param>
     /// <returns></returns>
     [Public]
-    public string GetProfile(string token)
+    public string GetProfile(micros.MultibankSolution.IBusinessUnitBox box)
     {
-      var client = new RestClient(MultibankModule.IntegrationDataBooks.GetAll().Where(x => x.Account == micros.MultibankModule.AuthDatabooks.GetAll().Where(a => a.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit).FirstOrDefault()).FirstOrDefault().GetProfile);
-      client.Authenticator = new JwtAuthenticator(token);
+      var client = new RestClient(box.ExchangeService.GetProfilemicros);
+      client.Authenticator = new JwtAuthenticator(Encoding.Default.GetString(box.AccessTokenmicros));
       var request = new RestRequest(Method.GET);
       request.AlwaysMultipartFormData = true;
       IRestResponse response = client.Execute(request);
@@ -296,16 +264,16 @@ namespace micros.MultibankModule.Server
     /// <param name="profileId">Идентификатор профиля для присоеденения к токенуа</param>
     /// <returns></returns>
     [Public]
-    public string JoinProfile(string token, string profileId)
+    public string JoinProfile(string token, string profileId, Sungero.Company.IBusinessUnit company)
     {
-      var client = new RestClient(MultibankModule.IntegrationDataBooks.GetAll().Where(x => x.Account == micros.MultibankModule.AuthDatabooks.GetAll().Where(a => a.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit).FirstOrDefault()).FirstOrDefault().JoinProfile);
+      var box = this.GetBuisnesUnitBoxForCompany(company);
+      var client = new RestClient(box.ExchangeService.JoinProfilemicros);
       client.Authenticator = new JwtAuthenticator(token);
       var request = new RestRequest(Method.POST);
       request.AlwaysMultipartFormData = true;
       request.AddParameter("profile_id", profileId);
       IRestResponse response = client.Execute(request);
-      Console.WriteLine(response.Content);
-      return "";
+      return response.Content;
     }
     
     #endregion
@@ -313,30 +281,30 @@ namespace micros.MultibankModule.Server
     #region API CRUD
     
     /// <summary>
-    /// 
+    /// Общая функция создания и обновления документа
     /// </summary>
     /// <param name="parameter">Json закодированный в Base64</param>
     /// <returns>Метод отработан</returns>
-    [Public(WebApiRequestType = RequestType.Post)]
+    [Public(WebApiRequestType = RequestType.Post), Remote]
     public virtual string CreateDocument(string parameter)
     {
       //JArray jArray = JArray.Parse(Base64DecodeObject(parameter).ToString());
-      var json = JObject.Parse(JsonConvert.DeserializeObject<JObject>(Base64DecodeObject(parameter)).ToString());
+      var json = JObject.Parse(JsonConvert.DeserializeObject<JObject>(Base64DecodeObject(parameter)).ToString().ToLower());
       
       // Проверка ИНН
-      if(json.SelectToken("document.document_data.SellerTin").ToString() == "" || json.SelectToken("document.document_data.BuyerTin").ToString() == "")
-        return "Инн покупателя или продавца не заполнена";
+      //if(json.SelectToken("document.document_data.sellertin").ToString() == "" || json.SelectToken("document.document_data.buyertin").ToString() == "")
+      //  return "Инн покупателя или продавца не заполнена";
       
       // Создание документа по типу
       string doctype = json["document"]["doctype_id"].ToString();
       if(doctype == Constants.Module.DoctypeId.Invoice)
-        return Create_IncomingInvoice(json);
+        return Create_Invoice(json);
       else if(doctype == Constants.Module.DoctypeId.Actum)
-        return "Неверный тип документа";
+        return Create_ContractStatement(json);
       else if(doctype == Constants.Module.DoctypeId.GnkContract)
-        return "Неверный тип документа";
+        return Create_Contract(json);
       else if(doctype == Constants.Module.DoctypeId.Contract)
-        return "Неверный тип документа";
+        return Create_Contract(json);
       else if(doctype == Constants.Module.DoctypeId.PowerOfAttorney)
         return "Неверный тип документа";
       else if(doctype == Constants.Module.DoctypeId.TTH)
@@ -344,65 +312,517 @@ namespace micros.MultibankModule.Server
       
       return "Неверный тип документа";
     }
-    
+
     #endregion
     
     #region Документы
     
+    #region Создание и обновление "Счет фактуры"
     /// <summary> Создание документа "Счет-фактура полученный" - (IncomingTaxInvoice) </summary>
     /// <param name="json">Json по которому будет создан документ</param>
     /// <returns>Ответ об успехе</returns>
-    public virtual string Create_IncomingInvoice(Newtonsoft.Json.Linq.JObject json)
+    public virtual string Create_Invoice(Newtonsoft.Json.Linq.JObject json)
     {
-      var document = micros.MultibankSolution.IncomingTaxInvoices.Create();
-      document.Save();
-      this.UpdateInvoiceFromJson(json.ToString(), document);
+      string ownerTin = json.SelectToken("owner.owner_tin").ToString();
+      string tr = json.SelectToken("transaction.transaction_operation").ToString();  //Операция транзакции
+      bool isIncoming = true;
       
-      //      string route = "document.document_data.";
-      //      string buyerTin = json.SelectToken(route + "BuyerTin").ToString();
-      //      string sellerTin = json.SelectToken(route + "SellerTin").ToString();
-//
-      //      document.Guidmicros = json.SelectToken("document.document_id").ToString();
-      //      document.Currency = Sungero.Commons.Currencies.GetAll().Where(x => x.AlphaCode == "UZS").FirstOrDefault();
-      //      if(json.SelectToken("document.goods.[0].total_sum") != null)
-      //        document.TotalAmount = Convert.ToDouble(json.SelectToken("document.goods.[0].total_sum"));
-      //      document.BusinessUnit = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == buyerTin).FirstOrDefault();
-      //      document.Counterparty = Sungero.Parties.Companies.GetAll().Where(x => x.TIN == sellerTin).FirstOrDefault();
-      //      //  Если свойства Наша организация или Контрагент пустая, создать новую на основе данных из json
-      //      if(document.BusinessUnit == null) document.BusinessUnit = Create_BuisnessUnit(json.SelectToken(route + "Buyer.Name").ToString(), buyerTin, json.SelectToken(route + "Buyer.Address").ToString(), json.SelectToken(route + "Buyer.Account").ToString(), json.SelectToken(route + "Buyer.VatRegCode").ToString(), json.SelectToken(route + "Buyer.BankId").ToString());
-      //      if(document.Counterparty == null) document.Counterparty = Create_Counterparty(json.SelectToken(route + "Seller.Name").ToString(), sellerTin, json.SelectToken(route + "Seller.Address").ToString(), json.SelectToken(route + "Seller.Account").ToString(), json.SelectToken(route + "Seller.VatRegCode").ToString(), json.SelectToken(route + "Seller.BankId").ToString());
-//
-      //      document.CreateVersion();
-      //      var  version = document.LastVersion;
-//
-      //      string documentData = Convert.ToString(JsonConvert.DeserializeObject(json.SelectToken("document.document_data").ToString()));
-      //      documentData = documentData.Replace("\r\n  ", "").Replace(@"  \", @"\").Replace("  ", "").Replace(": ", ":").Replace("\r\n", "");
-      //      //byte[] jsonByte = Convert.FromBase64String(Base64EncodeObject(JsonConvert.DeserializeObject(json.SelectToken("document.document_data").ToString())));
-      //      byte[] jsonByte = Encoding.Default.GetBytes(documentData);
-      //      Logger.Debug("DocumentData: " + documentData);
-      //      MemoryStream jsonStream = new MemoryStream(jsonByte);
-      //      version.Body.Write(jsonStream);
-      //      version.BodyAssociatedApplication = Sungero.Content.AssociatedApplications.GetByExtension("json");
-//
-      //      string pdfBase64 = GetPDF(json);
-      //      if(pdfBase64 != "false" && pdfBase64 != "False" && pdfBase64 != null)
-      //      {
-      //        byte[] pdfByte = Convert.FromBase64String(pdfBase64);
-      //        MemoryStream pdfStream = new MemoryStream(pdfByte);
-      //        version.PublicBody.Write(pdfStream);
-      //        version.AssociatedApplication = Sungero.Content.AssociatedApplications.GetByExtension("pdf");
-      //      }
-      //      else
-      //        version.AssociatedApplication = Sungero.Content.AssociatedApplications.GetByExtension("json");
-//
-      //      document.JSonDocumentmicros = jsonByte;
-//
-      //      document.UpdateStatusDatemicros = Calendar.Now;
-//
-      //      document.Save();
-      
-      return "OK - " + document.Info.ToString();
+      //Проверка - входищий ли это документ или исходящий
+      if (tr.Contains("owner") || tr.Contains("sender") || tr.Contains("seller")) isIncoming = false;
+      IIntegrationDatabook databook = IntegrationDatabooks.GetAll().Where(x => x.Guid == json.SelectToken("document.document_id").ToString() && x.IsIncoming == isIncoming).FirstOrDefault();
+      if (databook == null)
+      {
+        databook = IntegrationDatabooks.Create();
+        databook.IsIncoming = isIncoming;
+        databook.JSon = Encoding.Default.GetBytes(json.ToString());
+        databook.Guid = json.SelectToken("document.document_id").ToString();
+        Sungero.Docflow.IAccountingDocumentBase document;
+        databook.JSon = Encoding.Default.GetBytes(json.ToString());
+        if (isIncoming) document = Sungero.FinancialArchive.IncomingTaxInvoices.Create();
+        else document = Sungero.FinancialArchive.OutgoingTaxInvoices.Create();
+        document.Save();
+        databook.Document = document;
+
+        databook.Save();
+        this.UpdateTaxInvoice(json.ToString(), databook);
+        databook.Name = document.Name;
+        databook.Save();
+        
+        if(isIncoming) this.CreateTask(document, databook);
+        
+        return "OK - " + databook.Document.Info.ToString();
+      }
+      else
+      {
+        //Обновить запись
+        databook.JSon = Encoding.Default.GetBytes(json.ToString());
+        //this.UpdateTaxInvoice(json.ToString(), databook);
+        //var task = ReviewTasks.GetAll().Where(x => x.IntegrationDatabook == databook).FirstOrDefault();
+        //if (task != null) this.UpdateDocumentStatusForMBKAssignment(task);
+        return "OK - " + databook.Document.Info.ToString();
+      }
     }
+    
+    /// <summary>
+    /// Обновить СФ из Json
+    /// </summary>
+    /// <param name="jsonString"></param>
+    /// <param name="documentOld"></param>
+    /// <param name="databook"></param>
+    [Public, Remote]
+    public virtual void UpdateTaxInvoice(string jsonString, IIntegrationDatabook databook)
+    {
+      var document = Sungero.Docflow.AccountingDocumentBases.As(databook.Document);
+      JObject json = JObject.Parse(jsonString.ToLower());
+      JToken goods = json.SelectToken("document.goods");
+      string buyerTin = json.SelectToken("document.document_data.buyertin").ToString();
+      string sellerTin = json.SelectToken("document.document_data.sellertin").ToString();
+      string ourTin = String.Empty;
+      string counterTin = String.Empty;
+      
+      if (databook.IsIncoming.Value)
+      {
+        ourTin = buyerTin;
+        counterTin = sellerTin;
+      }
+      else
+      {
+        ourTin = sellerTin;
+        counterTin = buyerTin;
+      }
+      
+      document.Currency = Sungero.Commons.Currencies.GetAll().Where(x => x.AlphaCode == "UZS").FirstOrDefault();
+      double amount = 0;
+      if(json.SelectToken("document.goods.[0].total_sum") != null)
+      {
+        foreach(var summ in json.SelectToken("document.goods").ToArray())
+        {
+          amount = amount + Convert.ToDouble(summ.SelectToken("total_sum"));
+        }
+      }
+      document.TotalAmount = amount;
+      document.BusinessUnit = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == ourTin).FirstOrDefault();
+      document.Counterparty = Sungero.Parties.Companies.GetAll().Where(x => x.TIN == counterTin).FirstOrDefault();
+      document.RegistrationNumber = json.SelectToken("document.document_number").ToString();
+      document.RegistrationDate = Convert.ToDateTime(json.SelectToken("document.document_date").ToString());
+      //  Если свойства Наша организация или Контрагент пустая, создать новую на основе данных из json
+      
+      #region Buyer params
+      string bName = json.SelectToken("document.document_data.buyer.name").ToString();
+      string bAddress = json.SelectToken("document.document_data.buyer.address").ToString();
+      string bAccount = json.SelectToken("document.document_data.buyer.account").ToString();
+      string bVAT = json.SelectToken("document.document_data.buyer.vatregcode").ToString();
+      string bBank = json.SelectToken("document.document_data.buyer.bankid").ToString();
+      #endregion
+
+      #region Seller params
+      string sName = json.SelectToken("document.document_data.seller.name").ToString();
+      string sAddress = json.SelectToken("document.document_data.seller.address").ToString();
+      string sAccount = json.SelectToken("document.document_data.seller.account").ToString();
+      string sVAT = json.SelectToken("document.document_data.seller.vatregcode").ToString();
+      string sBank = json.SelectToken("document.document_data.seller.bankid").ToString();
+      #endregion
+      
+      if(document.Counterparty == null)
+      {
+        if (databook.IsIncoming.Value) document.Counterparty = Create_Counterparty(sName.ToUpper(), sellerTin, sAddress, sAccount, sVAT, sBank);
+        else document.Counterparty = Create_Counterparty(bName.ToUpper(), buyerTin, bAddress, bAccount, bVAT, bBank);
+      }
+
+      //Проверка на подписание
+      if(this.IsSignedInMultibank(json)) databook.Sign = Convert.FromBase64String(this.GNKString(databook, "accept", string.Empty));
+      databook.Save();
+      
+      //Создание версии документа
+      this.VerifyOrCreateVersion(databook);
+      
+      string status = json.SelectToken("transaction.transaction_operation").ToString();
+      if(status == "CreateByOwner")
+      {
+        document.LifeCycleState = MultibankSolution.IncomingTaxInvoice.LifeCycleState.Draft;
+      }
+      else document.LifeCycleState = document.LifeCycleStateAllowedItems.Where(n => n.Value.ToLower().StartsWith(status.Substring(0, 11))).FirstOrDefault();
+      
+      document.Save();
+      this.RegistrSigning(databook);
+      
+    }
+    #endregion
+    
+    
+    #region Создание и обновление "АКТ выполненых работ"
+    
+    /// <summary> Создание документа "АКТ выполненых работ" - (IncomingTaxInvoice) </summary>
+    /// <param name="json">Json по которому будет создан документ</param>
+    /// <returns>Ответ об успехе</returns>
+    public virtual string Create_ContractStatement(Newtonsoft.Json.Linq.JObject json)
+    {
+      string ownerTin = json.SelectToken("owner.owner_tin").ToString();
+      string tr = json.SelectToken("transaction.transaction_operation").ToString();  //Операция транзакции
+      string companyTin = String.Empty;
+      bool isIncoming;
+      if (tr.Contains("owner") || tr.Contains("sender") || tr.Contains("seller"))
+      {
+        companyTin = ownerTin;
+        isIncoming = false;
+      }
+      else
+      {
+        companyTin = json.SelectToken("contragent.contragent_tin").ToString();
+        isIncoming = true;
+      }
+      var company = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == companyTin).FirstOrDefault();
+      var box = this.GetBuisnesUnitBoxForCompany(company);
+      this.IfNeedRefreshTokens(box);
+      if(!IntegrationDatabooks.GetAll().Any(x => x.Guid == json.SelectToken("document.document_id").ToString() && x.IsIncoming == isIncoming))
+      {
+        var databook = IntegrationDatabooks.Create();
+        databook.JSon = Encoding.Default.GetBytes(json.ToString());
+        databook.Guid = json.SelectToken("document.document_id").ToString();
+        databook.IsIncoming = isIncoming;
+        var document = Sungero.FinancialArchive.ContractStatements.Create();
+        document.Save();
+        databook.Document = document;
+        databook.Save();
+        this.UpdateContractStatementFromJson(json.ToString(), document, isIncoming);
+
+        databook.Name = document.Name;
+        databook.Save();
+
+        if(isIncoming) this.CreateTask(document, databook);
+        
+        return "OK - " + document.Info.ToString();
+      }
+      else
+      {
+        var databook = IntegrationDatabooks.GetAll().Where(x => x.Guid == json.SelectToken("document.document_id").ToString() && x.IsIncoming == isIncoming).FirstOrDefault();
+        databook.JSon = Encoding.Default.GetBytes(json.ToString());
+        databook.Save();
+        //this.UpdateContractStatementFromJson(json.ToString(), databook.Document, isIncoming);
+        //var task = ReviewTasks.GetAll().Where(x => x.IntegrationDatabook == databook).FirstOrDefault();
+        //if (task != null) this.UpdateDocumentStatusForMBKAssignment(task);
+        return "OK - " + databook.Document.Info.ToString();
+      }
+    }
+    
+    /// <summary>
+    /// Обновить "АКТ выполненых работ" из json
+    /// </summary>
+    /// <param name="jsonString">новый json</param>
+    /// <param name="documentOld">старый документ</param>
+    [Public, Remote]
+    public virtual void UpdateContractStatementFromJson(string jsonString, Sungero.Docflow.IOfficialDocument documentOLD, bool isIncoming)
+    {
+      var document = MultibankSolution.ContractStatements.Get(documentOLD.Id);
+      JObject json = JObject.Parse(jsonString);
+      string ownerTin = json.SelectToken("owner.owner_tin").ToString();
+      string clientTin = json.SelectToken("contragent.contragent_tin").ToString();
+      
+      document.Currency = Sungero.Commons.Currencies.GetAll().Where(x => x.AlphaCode == "UZS").FirstOrDefault();
+      double amount = 0;
+      if(json.SelectToken("document.goods.[0].amount") != null)
+      {
+        foreach(var summ in json.SelectToken("document.goods").ToArray())
+        {
+          amount = amount + Convert.ToDouble(summ.SelectToken("amount"));
+        }
+      }
+      document.TotalAmount = amount;
+      if (isIncoming == true)
+      {
+        
+        document.BusinessUnit = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == clientTin).FirstOrDefault();
+        document.Counterparty = Sungero.Parties.Counterparties.GetAll().Where(x => x.TIN == ownerTin).FirstOrDefault();
+      }
+      else
+      {
+        document.BusinessUnit = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == ownerTin).FirstOrDefault();
+        document.Counterparty = Sungero.Parties.Counterparties.GetAll().Where(x => x.TIN == clientTin).FirstOrDefault();
+        
+      }
+      
+      document.RegistrationNumber = json.SelectToken("document.document_number").ToString();
+      document.RegistrationDate = Convert.ToDateTime(json.SelectToken("document.document_date").ToString());
+      //  Если свойства Наша организация или Контрагент пустая, создать новую на основе данных из json
+
+      //Проверка на подписание
+      var databook = IntegrationDatabooks.GetAll().Where(x => x.Guid == json.SelectToken("document.document_id").ToString() && x.IsIncoming == isIncoming).FirstOrDefault();
+      if(this.IsSignedInMultibank(json)) databook.Sign = Convert.FromBase64String(this.GNKString(databook, "accept", string.Empty));
+      databook.Save();
+      
+      //Создание версии документа
+      this.VerifyOrCreateVersion(databook);
+      
+      string status = json.SelectToken("transaction.transaction_operation").ToString();
+      if(status == "CreateByOwner")
+      {
+        document.LifeCycleState = MultibankSolution.IncomingTaxInvoice.LifeCycleState.Draft;
+      }
+      else document.LifeCycleState = document.LifeCycleStateAllowedItems.Where(n => n.Value.ToLower().StartsWith(status.Substring(0, 11))).FirstOrDefault();
+      
+      document.Save();
+      this.RegistrSigning(databook);
+      
+    }
+    
+    #endregion
+    
+    #region Создание и обновление "Договоров"
+    
+    /// <summary>
+    /// Создание документа "Договор" - (Contract)
+    /// </summary>
+    /// <param name="json">Json по которому будет создан документ</param>
+    /// <returns>Ответ об успехе</returns>
+    public virtual string Create_Contract(Newtonsoft.Json.Linq.JObject json)
+    {
+      string ownerTin = json.SelectToken("owner.owner_tin").ToString();
+      string tr = json.SelectToken("transaction.transaction_operation").ToString();  //Операция транзакции
+      string companyTin = String.Empty;
+      bool isIncoming;
+      if (tr.Contains("owner") || tr.Contains("sender") || tr.Contains("seller"))
+      {
+        companyTin = ownerTin;
+        isIncoming = false;
+      }
+      else
+      {
+        companyTin = json.SelectToken("contragent.contragent_tin").ToString();
+        isIncoming = true;
+      }
+      var company = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == companyTin).FirstOrDefault();
+      var box = this.GetBuisnesUnitBoxForCompany(company);
+      this.IfNeedRefreshTokens(box);
+      if(!IntegrationDatabooks.GetAll().Any(x => x.Guid == json.SelectToken("document.document_id").ToString() && x.IsIncoming == isIncoming))
+      {
+        var databook = IntegrationDatabooks.Create();
+        databook.JSon = Encoding.Default.GetBytes(json.ToString());
+        databook.Guid = json.SelectToken("document.document_id").ToString();
+        databook.IsIncoming = isIncoming;
+        var document = Sungero.Contracts.Contracts.Create();
+        document.Save();
+        databook.Document = document;
+        databook.Save();
+        this.UpdateContractFromJson(json.ToString(), document, isIncoming);
+
+        databook.Name = document.Name;
+        databook.Save();
+
+        if(isIncoming) this.CreateTask(document, databook);
+        
+        return "OK - " + document.Info.ToString();
+      }
+      else
+      {
+        var databook = IntegrationDatabooks.GetAll().Where(x => x.Guid == json.SelectToken("document.document_id").ToString() && x.IsIncoming == isIncoming).FirstOrDefault();
+        databook.JSon = Encoding.Default.GetBytes(json.ToString());
+        databook.Save();
+        //this.UpdateContractFromJson(json.ToString(), databook.Document, isIncoming);
+        //var task = ReviewTasks.GetAll().Where(x => x.IntegrationDatabook == databook).FirstOrDefault();
+        //if (task != null) this.UpdateDocumentStatusForMBKAssignment(task);
+        return "OK - " + databook.Document.Info.ToString();
+      }
+    }
+    
+    /// <summary>
+    /// Обновить "Договор" из json
+    /// </summary>
+    /// <param name="jsonString">новый json</param>
+    /// <param name="documentOld">старый документ</param>
+    [Public, Remote]
+    public virtual void UpdateContractFromJson(string jsonString, Sungero.Docflow.IOfficialDocument documentOLD, bool isIncoming)
+    {
+      var document = MultibankSolution.Contracts.Get(documentOLD.Id);
+      if (Locks.GetLockInfo(document).IsLocked) Locks.Unlock(document);
+      JObject json = JObject.Parse(jsonString);
+      string ownerTin = json.SelectToken("owner.owner_tin").ToString();
+      string contragentTin = json.SelectToken("contragent.contragent_tin").ToString();
+      
+      document.Currency = Sungero.Commons.Currencies.GetAll().Where(x => x.AlphaCode == "UZS").FirstOrDefault();
+      double amount = 0;
+      if(json.SelectToken("document.goods.[0].total_sum") != null)
+      {
+        foreach(var summ in json.SelectToken("document.goods").ToArray())
+        {
+          amount = amount + Convert.ToDouble(summ.SelectToken("total_sum"));
+        }
+      }
+      document.TotalAmount = amount;
+      if (isIncoming == true)
+      {
+        document.BusinessUnit = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == contragentTin).FirstOrDefault();
+        document.Counterparty = Sungero.Parties.Companies.GetAll().Where(x => x.TIN == ownerTin).FirstOrDefault();
+        
+        if(document.BusinessUnit == null)
+        {
+          #region Buyer params
+          string bName = json.SelectToken("conteragent.document_contragent_name").ToString();
+          #endregion
+          
+          document.BusinessUnit = Create_BuisnessUnit(bName.ToUpper(), contragentTin, null, null, null, null);
+        }
+        if(document.Counterparty == null)
+        {
+          #region Seller params
+          string sName = json.SelectToken("owner.document_owner_name").ToString();
+          #endregion
+          
+          document.Counterparty = Create_Counterparty(sName.ToUpper(), ownerTin, null, null, null, null);
+        }
+      }
+      else
+      {
+        document.BusinessUnit = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == ownerTin).FirstOrDefault();
+        document.Counterparty = Sungero.Parties.Companies.GetAll().Where(x => x.TIN == contragentTin).FirstOrDefault();
+        
+        if(document.BusinessUnit == null)
+        {
+          #region Seller params
+          string sName = json.SelectToken("owner.document_owner_name").ToString();
+          #endregion
+          
+          
+          document.BusinessUnit = Create_BuisnessUnit(sName.ToUpper(), ownerTin, null, null, null, null);
+        }
+        if(document.Counterparty == null)
+        {
+          #region Buyer params
+          string bName = json.SelectToken("conteragent.document_contragent_name").ToString();
+          #endregion
+          
+          document.Counterparty = Create_Counterparty(bName.ToUpper(), contragentTin, null, null, null, null);
+        }
+      }
+      
+      document.RegistrationNumber = json.SelectToken("document.document_number").ToString();
+      if (document.Subject == null) document.Subject = json.SelectToken("document.document_number").ToString();
+      document.RegistrationDate = Convert.ToDateTime(json.SelectToken("document.document_date").ToString());
+      //  Если свойства Наша организация или Контрагент пустая, создать новую на основе данных из json
+
+      //Проверка на подписание
+      var databook = IntegrationDatabooks.GetAll().Where(x => x.Guid == json.SelectToken("document.document_id").ToString() && x.IsIncoming == isIncoming).FirstOrDefault();
+      if(this.IsSignedInMultibank(json)) databook.Sign = Convert.FromBase64String(this.GNKString(databook, "accept", string.Empty));
+      databook.Save();
+      
+      //Создание версии документа
+      this.VerifyOrCreateVersion(databook);
+      
+      string status = json.SelectToken("transaction.transaction_operation").ToString();
+      if(status == "CreateByOwner")
+      {
+        document.LifeCycleState = MultibankSolution.IncomingTaxInvoice.LifeCycleState.Draft;
+      }
+      else document.LifeCycleState = document.LifeCycleStateAllowedItems.Where(n => n.Value.ToLower().StartsWith(status.Substring(0, 11))).FirstOrDefault();
+      //var test = document.LifeCycleStateAllowedItems.Where(n => n.Value.ToLower().StartsWith(status.Substring(0, 11))).FirstOrDefault();
+      
+      document.Save();
+      this.RegistrSigning(databook);
+    }
+    #endregion
+    
+    #region Работа с версиями и задачами
+    /// <summary>
+    /// Проверить/Создать версию документа
+    /// </summary>
+    /// <param name="databook"></param>
+    public virtual void VerifyOrCreateVersion(IIntegrationDatabook databook)
+    {
+      var document = databook.Document;
+      Sungero.Content.IElectronicDocumentVersions version;
+      bool created = false;
+      if (document.HasVersions) version = document.LastVersion;
+      else
+      {
+        document.CreateVersion();
+        version = document.LastVersion;
+        created = true;
+      }
+      if (databook.Sign != null)
+      {
+        var body = this.GetAttachedBodyFromSignature(databook.Sign);
+        var stream = document.LastVersion.Body.Read();
+        MemoryStream ms = new MemoryStream();
+        stream.CopyTo(ms);
+        byte[] bodyOld = ms.ToArray();
+        Logger.Debug("BodyOLD: " + Encoding.Default.GetString(bodyOld));
+        Logger.Debug("NewBody: " + Encoding.Default.GetString(body));
+        if (Encoding.Default.GetString(bodyOld) != Encoding.Default.GetString(body)) //ППЦ какой бред, но проверка с байтами не работает!
+        {
+          if (created)
+          {
+            MemoryStream newBodyStream = new MemoryStream(body);
+            version.Body.Write(newBodyStream);
+            version.BodyAssociatedApplication = Sungero.Content.AssociatedApplications.GetByExtension("json");
+          }
+          else
+          {
+            MemoryStream newBodyStream = new MemoryStream(body);
+            document.CreateVersion();
+            version = document.LastVersion;
+            version.Body.Write(newBodyStream);
+            version.BodyAssociatedApplication = Sungero.Content.AssociatedApplications.GetByExtension("json");
+            created = true;
+          }
+        }
+      }
+      else
+      {
+        MemoryStream ms = new MemoryStream(databook.JSon);
+      }
+      string pdfBase64 = GetPDF(JObject.Parse(Encoding.Default.GetString(databook.JSon)), this.GetBuisnesUnitBoxForCompany(document.BusinessUnit));
+      if(pdfBase64 != "false" && pdfBase64 != "False" && pdfBase64 != null)
+      {
+        byte[] pdfByte = Convert.FromBase64String(pdfBase64);
+        MemoryStream pdfStream = new MemoryStream(pdfByte);
+        version.PublicBody.Write(pdfStream);
+        version.AssociatedApplication = Sungero.Content.AssociatedApplications.GetByExtension("pdf");
+        //version.Save();
+      }
+      else
+        version.AssociatedApplication = Sungero.Content.AssociatedApplications.GetByExtension("json");
+      document.Save();
+    }
+    
+    /// <summary>
+    /// Создание задачи "На обработку"
+    /// </summary>
+    /// <param name="document"></param>
+    public virtual void CreateTask(Sungero.Docflow.IOfficialDocument document, IIntegrationDatabook databook)
+    {
+      var task = micros.MultibankModule.ReviewTasks.Create();
+      task.DocumentGroup.OfficialDocuments.Add(document);
+      task.IntegrationDatabook = databook;
+      task.Subject = "Получен документ : " + document.Name;
+      var box = this.GetBuisnesUnitBoxForCompany(document.BusinessUnit);
+      task.Performer = box.Responsible;
+      task.Start();
+    }
+    
+    /// <summary>
+    /// Назначить статус Документа в задании
+    /// </summary>
+    /// <param name="task"></param>
+    [Public, Remote]
+    public virtual Sungero.Core.Enumeration GetDocumentStatusForMBKAssignment(IMBKAssignment assignment)
+    {
+      var document = assignment.DocumentGroup.OfficialDocuments.SingleOrDefault();
+      string documentStatus = document.LifeCycleState.Value.Value.Substring(0, 10).ToLower();
+      var statuses = assignment.DocumentStatusAllowedItems.ToList();
+      var status = statuses.Where(x => x.Value.ToLower().Contains(documentStatus)).FirstOrDefault();
+      return status;
+    }
+    
+    public virtual void UpdateDocumentStatusForMBKAssignment(IReviewTask task)
+    {
+      var assignment = MBKAssignments.GetAll().Where(x => x.MainTask == task && x.Status == MultibankModule.MBKAssignment.Status.InProcess).FirstOrDefault();
+      if (assignment != null)
+      {
+        assignment.DocumentStatus = this.GetDocumentStatusForMBKAssignment(assignment);
+        assignment.Save();
+      }
+    }
+    #endregion
+    
     #endregion
     
     #region Создание записей в справочнике
@@ -447,24 +867,6 @@ namespace micros.MultibankModule.Server
     
     #region Sign-!DEV!
     
-    /// <summary>
-    /// Получить строку PKCS7 для подписания в тело документа
-    /// </summary>
-    /// <param name="document">Документ полученный из Мультибанка, который нужно подписать</param>
-    [Public, Remote]
-    public void GetMultibankSignData(Sungero.Content.IElectronicDocument document)
-    {
-      string document_id = MultibankSolution.IncomingTaxInvoices.Get(document.Id).Guidmicros.ToString();
-
-      string gnkString = this.GNKString(document_id);
-      byte[] jsonByte = Convert.FromBase64String(Base64EncodeObject(gnkString));
-      MemoryStream jsonStream = new MemoryStream(jsonByte);
-      var version = document.LastVersion;
-      if (Locks.GetLockInfo(version.Body).IsLocked)
-        version.Body.Write(jsonStream);
-      
-      document.Save();
-    }
     
     /// <summary>
     /// Открепить подпись от документа
@@ -487,66 +889,109 @@ namespace micros.MultibankModule.Server
     /// </summary>
     /// <param name="document_id">GUID документа в Multibank</param>
     /// <returns></returns>
-    [Remote]
-    public string GNKString(string document_id)
+    [Public, Remote]
+    public string GNKString(IIntegrationDatabook databook, string action, string opts)
     {
-      //var invoice = MultibankSolution.IncomingTaxInvoices.Get(document.Id);
-      var client = new RestClient(MultibankModule.IntegrationDataBooks.GetAll().Where(x => x.Account == micros.MultibankModule.AuthDatabooks.GetAll().Where(a => a.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit).FirstOrDefault()).FirstOrDefault().GNKString);
-      client.Authenticator = new JwtAuthenticator(this.GetMultibankToken());
+      var box = this.GetBuisnesUnitBoxForCompany(databook.Document.BusinessUnit);
+      var client = new RestClient(box.ExchangeService.GNKStringmicros);
+      client.Authenticator = new JwtAuthenticator(this.GetMultibankToken(box.BusinessUnit));
       var request = new RestRequest(Method.POST);
-      request.AddParameter("document_id", document_id);
-      request.AddParameter("action", "accept");
+      request.AddParameter("document_id", databook.Guid);
+      request.AddParameter("action", action);
+      if (!String.IsNullOrEmpty(opts))
+        request.AddParameter("opts", "{\"notes\": \"" + opts + "\"}");
       IRestResponse response = client.Execute(request);
       JObject json = JObject.Parse(response.Content.ToString());
       string forSign = json.SelectToken("data.string").ToString();
       Logger.Debug("Test_pcs7: " + forSign);
       return forSign;
     }
+    
+    /// <summary>
+    /// Отклонить подписанные данные в Multibank
+    /// </summary>
+    /// <param name="document"></param>
+    [Public, Remote]
+    public virtual string RejectDocumentInMultibank(IIntegrationDatabook databook, string opts)
+    {
+      var document = databook.Document;
+      var client = new RestClient(this.GetBuisnesUnitBoxForCompany(document.BusinessUnit).ExchangeService.Rejectmicros);
+      Logger.Debug("Address: " + this.GetBuisnesUnitBoxForCompany(document.BusinessUnit).ExchangeService.Rejectmicros);
+      client.Timeout = -1;
+      this.IfNeedRefreshTokens(this.GetBuisnesUnitBoxForCompany(document.BusinessUnit));
+      string signature = Convert.ToBase64String(databook.OutgoingData);
+      string token = this.GetMultibankToken(document.BusinessUnit);
+      string document_id = IntegrationDatabooks.GetAll().Where(x => x.Document == document).FirstOrDefault().Guid;
+      var request = new RestRequest(Method.POST);
+      request.AddHeader("Authorization", string.Format("Bearer {0}", token));
+      request.AlwaysMultipartFormData = true;
+      request.AddParameter("document_id", document_id);
+      request.AddParameter("sign", signature);
+      request.AddParameter("notes", opts);
+      IRestResponse response = client.Execute(request);
+      Logger.Debug(response.Content);
+      return response.Content;
+    }
 
+    /// <summary>
+    /// Аннулировать подписанные данные в Multibank
+    /// </summary>
+    /// <param name="document"></param>
+    [Public, Remote]
+    public virtual string CancelDocumentInMultibank(IIntegrationDatabook databook)
+    {
+      var document = databook.Document;
+      var client = new RestClient(this.GetBuisnesUnitBoxForCompany(document.BusinessUnit).ExchangeService.Cancelmicros);
+      Logger.Debug("Address: " + this.GetBuisnesUnitBoxForCompany(document.BusinessUnit).ExchangeService.Cancelmicros);
+      client.Timeout = -1;
+      this.IfNeedRefreshTokens(this.GetBuisnesUnitBoxForCompany(document.BusinessUnit));
+      string signature = Convert.ToBase64String(databook.OutgoingData);
+      string token = this.GetMultibankToken(document.BusinessUnit);
+      string document_id = IntegrationDatabooks.GetAll().Where(x => x.Document == document).FirstOrDefault().Guid;
+      var request = new RestRequest(Method.POST);
+      request.AddHeader("Authorization", string.Format("Bearer {0}", token));
+      request.AlwaysMultipartFormData = true;
+      request.AddParameter("document_id", document_id);
+      request.AddParameter("sign", signature);
+      IRestResponse response = client.Execute(request);
+      Logger.Debug(response.Content);
+      return response.Content;
+    }
+    
     /// <summary>
     /// Возвращает подписанные данные в Multibank
     /// </summary>
     /// <param name="document"></param>
     [Public, Remote]
-    public void ReturnSigningDocumentInMultibank(Sungero.Content.IElectronicDocument document)
+    public virtual string ReturnSigningDocumentInMultibank(IIntegrationDatabook databook)
     {
-      var sugnatures = Signatures.Get(document.LastVersion).Where(x => x.SignCertificate != null);
+      //var databook = IntegrationDatabooks.GetAll().Where(x => x.Document == document).FirstOrDefault();
+      var document = databook.Document;
+      string signature = Convert.ToBase64String(databook.OutgoingData);
+      var client = new RestClient(this.GetBuisnesUnitBoxForCompany(document.BusinessUnit).ExchangeService.MultibankAcceptmicros);
+      string token = this.GetMultibankToken(document.BusinessUnit);
+      string document_id = databook.Guid;
       
-      byte[] finalSignature = null;
-
-      foreach(var sugnature in sugnatures.OrderBy(s => s.SigningDate))
-      {
-        if(finalSignature == null)
-        {
-          finalSignature = sugnature.GetDataSignature();
-          continue;
-        }
-        
-        finalSignature = this.MergeSignatures(finalSignature, sugnature.GetDataSignature());
-      }
-
-      using (var ms = new System.IO.MemoryStream())
-      {
-        document.LastVersion.Body.Read().CopyTo(ms);
-        finalSignature = this.ConverSignatureToAttached(finalSignature, ms.ToArray());
-      }
       
-      var client = new RestClient(MultibankModule.IntegrationDataBooks.GetAll().Where(x => x.Account == micros.MultibankModule.AuthDatabooks.GetAll().Where(a => a.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit).FirstOrDefault()).FirstOrDefault().MultibankAccept);
-      string token = this.GetMultibankToken();
-      string document_id = micros.MultibankSolution.IncomingTaxInvoices.Get(document.Id).Guidmicros;
-      client.Authenticator = new JwtAuthenticator(token);
       var request = new RestRequest(Method.POST);
+      request.AddHeader("authorization", "Bearer " + token);
+      request.AlwaysMultipartFormData = true;
+
       request.AddParameter("document_id", document_id);
-      request.AddParameter("sign", Convert.ToBase64String(finalSignature));
-      Logger.Debug("pkcs7: " + Convert.ToBase64String(finalSignature));
+      request.AddParameter("sign", signature);
+
+      Logger.Debug("pkcs7: " + signature);
       IRestResponse response = client.Execute(request);
       Logger.Debug(response.Content);
+      return response.Content;
     }
     
     [Public, Remote]
-    public micros.MultibankModule.IIntegrationDataBook GetIntegrationDataBookForCurrentUser()
+    public micros.MultibankSolution.IBusinessUnitBox GetBuisnesUnitBoxForCompany(Sungero.Company.IBusinessUnit company)
     {
-      return MultibankModule.IntegrationDataBooks.GetAll().Where(x => x.Account == micros.MultibankModule.AuthDatabooks.GetAll().Where(a => a.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit).FirstOrDefault()).FirstOrDefault();
+      return MultibankSolution.BusinessUnitBoxes.GetAll().Where(x => x.BusinessUnit == company)
+        .Where(b => b.ExchangeService.ExchangeProvider == micros.MultibankSolution.ExchangeService.ExchangeProvider.Multibank ||
+               b.ExchangeService.ExchangeProvider == micros.MultibankSolution.ExchangeService.ExchangeProvider.MultibankSTGmicros).FirstOrDefault();
     }
 
     
@@ -612,18 +1057,35 @@ namespace micros.MultibankModule.Server
     #endregion
     
     #region Sign document in multibank
+    
+    /// <summary>
+    /// Импорт подписи после второго подписания в e-imzo
+    /// </summary>
+    /// <param name="sign">подпись в base64</param>
+    [Public(WebApiRequestType = RequestType.Post)]
+    public virtual string ImportSign(string externalSign, int document_id)
+    {
+      Logger.Debug("PKCS7: " + externalSign);
+      byte[] signByteArray = Convert.FromBase64String(externalSign);
+      
+      var databook = IntegrationDatabooks.GetAll().Where(x => x.Document.Id == document_id).FirstOrDefault();
+      databook.OutgoingData = signByteArray;
+      databook.Save();
+      this.RegistrSigning(databook);
+      //      var signForImport = this.SplitSignatures(signByteArray).FirstOrDefault();
+      //      Signatures.Import(databook.Document, SignatureType.Approval, Sungero.Company.Employees.Current.Name, signForImport, databook.Document.LastVersion);
+      return "OK";
+    }
+    
     /// <summary>
     /// Смотрит, подписан ли документ в Multibank
     /// </summary>
     /// <param name="docId">ID документа в Multibank</param>
     /// <param name="docPassword">Пароль документа в Multibank</param>
     /// <returns></returns>
-    [Public, Remote]
-    public virtual bool IsSignedInMultibank(Sungero.Content.IElectronicDocument document)
+    public virtual bool IsSignedInMultibank(Newtonsoft.Json.Linq.JObject json)
     {
-      string json = this.GetMultibankJsonFromID(document);
-      JObject jsonIn = JObject.Parse(json);
-      if (jsonIn.SelectToken("data.signature_information.contragent") == null && jsonIn.SelectToken("data.signature_information.contragent") == null)
+      if (json.SelectToken("signature_information.contragent").ToString() == "" && json.SelectToken("signature_information.owner").ToString() == "")
         return false;
       else
       {
@@ -632,52 +1094,77 @@ namespace micros.MultibankModule.Server
     }
     
     /// <summary>
-    /// Импорт дописи документа полученного из Multibank
+    /// Импорт подписи документа полученного из Multibank
     /// </summary>
     /// <param name="signature_information">Токен из JSon мультибанка(data.signature_information)</param>
     /// <param name="document"></param>
-    public virtual void RegistrSigning(Newtonsoft.Json.Linq.JObject signature_information, Sungero.Content.IElectronicDocument document)
+    public virtual void RegistrSigning(IIntegrationDatabook databook)
     {
-      if (signature_information.SelectToken("contragent").ToString() != null && document.HasVersions)
+      var document = databook.Document;
+      if (databook.Sign != null)
       {
-        JArray signaturesJson = JArray.Parse(JObject.Parse(this.GetSignatures(MultibankSolution.IncomingTaxInvoices.Get(document.Id).Guidmicros)).SelectToken("data").ToString());
-        byte[] samDocument = this.GetAttachedBodyFromSignature(Convert.FromBase64String(signaturesJson.First.SelectToken("signature_pkcs7").ToString()));
-        MemoryStream stream = new MemoryStream(samDocument);
-        document.LastVersion.Body.Write(stream);
-        document.Save();
-        foreach (JObject sign in signaturesJson)
+        foreach (var sgn in this.SplitSignatures(databook.Sign))
         {
-          string s = sign.SelectToken("signature_data").ToString();
-          string d = s.Substring(s.IndexOf("person_full_name") + 19);
-          string utf8 = d.Substring(0, d.IndexOf('"'));
-          byte[] signData = this.ConverSignatureToDeattached(Convert.FromBase64String(sign.SelectToken("signature_pkcs7").ToString()));
-          string signString = Encoding.Default.GetString(signData);
-          string signatoryFullName =  System.Text.RegularExpressions.Regex.Replace(utf8, @"\\u([0-9A-Fa-f]{4})", m => ""+(char)Convert.ToInt32(m.Groups[1].Value, 16));
-          Logger.Debug("signatoryFullName: " + signatoryFullName);
-          int i = 1;
-          foreach (var sgn in this.SplitSignatures(signData))
+          if (!Signatures.Get(document.LastVersion).Any(x => x.GetDataSignature() == sgn))
           {
-            Signatures.Import(document, SignatureType.Approval, signatoryFullName, sgn, document.LastVersion);
-            i++;
+            var detachedSign = this.ConverSignatureToDeattached(sgn);
+            
+            //Тупой метод вытягивания имени подписующего из подписи, но лучше я не придумал
+            var signedData = SignedData.GetInstance(ContentInfo.GetInstance(Asn1Object.FromByteArray(detachedSign)).Content);
+            var signersCertificates = signedData.Certificates.ToArray().Last();
+            var string1 = signersCertificates.ToString().Split('[');
+            string string2 = string1.Where(x => x.StartsWith("2.5.4.3")).Last();
+            string name = string2.Substring(string2.IndexOf(",") + 2).Replace("]", "").Replace(", ", "");
+            Logger.Debug("Signer name: " + name.ToString());
+            
+            if (!Signatures.Get(document.LastVersion).Any(x => x.SignatoryFullName == name))
+            {
+              Signatures.Import(document, SignatureType.Approval, name, sgn, document.LastVersion);
+            }
           }
         }
-        document.Save();
       }
+      if (databook.OutgoingData != null)
+      {
+        foreach (var sgn in this.SplitSignatures(databook.OutgoingData))
+        {
+          if (!Signatures.Get(document.LastVersion).Any(x => x.GetDataSignature() == sgn))
+          {
+            var detachedSign = this.ConverSignatureToDeattached(sgn);
+            
+            //Тупой метод вытягивания имени подписующего из подписи, но лучше я не придумал
+            var signedData = SignedData.GetInstance(ContentInfo.GetInstance(Asn1Object.FromByteArray(detachedSign)).Content);
+            var signersCertificates = signedData.Certificates.ToArray().Last();
+            var string1 = signersCertificates.ToString().Split('[');
+            string string2 = string1.Where(x => x.StartsWith("2.5.4.3")).Last();
+            string name = string2.Substring(string2.IndexOf(",") + 2).Replace("]", "").Replace(", ", "");
+            Logger.Debug("Signer name: " + name.ToString());
+            
+            if (!Signatures.Get(document.LastVersion).Any(x => x.SignatoryFullName == name))
+            {
+              Signatures.Import(document, SignatureType.Approval, name, sgn, document.LastVersion);
+            }
+          }
+        }
+      }
+      document.Save();
     }
     
     /// <summary>
     /// Получить все подписи по документу из Мультибанка
     /// </summary>
     /// <param name="document_id"></param>
-    public virtual string GetSignatures(string document_id)
+    public virtual string GetSignatures(string document_id, Sungero.Company.IBusinessUnit company)
     {
-      var client = new RestClient(MultibankModule.IntegrationDataBooks.GetAll().Where(x => x.Account == micros.MultibankModule.AuthDatabooks.GetAll().Where(a => a.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit).FirstOrDefault()).FirstOrDefault().GetSignatures);
+      var box = this.GetBuisnesUnitBoxForCompany(company);
+      var client = new RestClient(box.ExchangeService.GetSignaturesmicros);
       //string token = this.GetMultibankToken();
       client.Authenticator = new HttpBasicAuthenticator("micros24site","a8lo23d0r3f48");
       var request = new RestRequest(Method.POST);
       request.AddParameter("document_id", document_id);
       IRestResponse response = client.Execute(request);
       Logger.Debug(response.Content);
+      //var dataBook = this.Get
       return response.Content;
     }
     
@@ -704,6 +1191,7 @@ namespace micros.MultibankModule.Server
       var result = new List<byte[]>();
 
       var signedData = SignedData.GetInstance(ContentInfo.GetInstance(Asn1Object.FromByteArray(signature)).Content);
+      Logger.Debug("DATA: " + signedData.SignerInfos.ToArray().LastOrDefault().ToString());
       // Эти данные могут быть задублированы если подписей несколько, RX-у от этого нехорошо, поэтому удаляем дубли.
       var digestAlgorithms = signedData.DigestAlgorithms != null ? new DerSet(signedData.DigestAlgorithms.OfType<Asn1Encodable>().Distinct().ToArray()) : null;
       var certificates = signedData.Certificates != null ? new DerSet(signedData.Certificates.OfType<Asn1Encodable>().Distinct().ToArray()) : null;
@@ -763,81 +1251,21 @@ namespace micros.MultibankModule.Server
     /// <param name="document">Документ</param>
     /// <returns>string json</returns>
     [Public, Remote]
-    public virtual string GetMultibankJsonFromID(Sungero.Content.IElectronicDocument document)
+    public virtual string GetMultibankJsonFromID(Sungero.Docflow.IOfficialDocument document)
     {
-      string document_id = MultibankSolution.IncomingTaxInvoices.Get(document.Id).Guidmicros;
-      var bAuth = micros.MultibankModule.AuthDatabooks.GetAll().Where(x => x.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit).ToList();
-      var client = new RestClient(this.GetIntegrationDataBookForCurrentUser().GetPublicDoc + document_id);
-      client.Authenticator = new JwtAuthenticator(this.GetMultibankToken());
+      string document_id = IntegrationDatabooks.GetAll().Where(x => x.Document == document).FirstOrDefault().Guid;
+      var client = new RestClient(this.GetBuisnesUnitBoxForCompany(document.BusinessUnit).ExchangeService.GetPublicDocmicros + document_id);
+      client.Authenticator = new JwtAuthenticator(this.GetMultibankToken(document.BusinessUnit));
       var request = new RestRequest(Method.GET);
       request.AddParameter("params","public");
       IRestResponse response = client.Execute(request);
-      JObject json = JObject.Parse(response.Content.ToString());
+      Logger.Debug("Update data: " + response.Content);
+      JObject json = JObject.Parse(response.Content);
       return json.SelectToken("data").ToString();
       //return response.Content.ToString();
     }
     
-    /// <summary>
-    /// Обновить вх СФ из json
-    /// </summary>
-    /// <param name="jsonString">новый json</param>
-    /// <param name="documentOld">старый документ</param>
-    [Public, Remote]
-    public virtual void UpdateInvoiceFromJson(string jsonString, Sungero.Content.IElectronicDocument documentOld)
-    {
-      var document = micros.MultibankSolution.IncomingTaxInvoices.Get(documentOld.Id);
-      JObject json = JObject.Parse(jsonString);
-      string route = "document.";
-      string buyerTin = json.SelectToken(route + "document_data.BuyerTin").ToString();
-      string sellerTin = json.SelectToken(route + "document_data.SellerTin").ToString();
-      
-      document.Guidmicros = json.SelectToken("document.document_id").ToString();
-      document.Currency = Sungero.Commons.Currencies.GetAll().Where(x => x.AlphaCode == "UZS").FirstOrDefault();
-      if(json.SelectToken("document.goods.[0].total_sum") != null)
-        document.TotalAmount = Convert.ToDouble(json.SelectToken("document.goods.[0].total_sum"));
-      document.BusinessUnit = Sungero.Company.BusinessUnits.GetAll().Where(x => x.TIN == buyerTin).FirstOrDefault();
-      document.Counterparty = Sungero.Parties.Companies.GetAll().Where(x => x.TIN == sellerTin).FirstOrDefault();
-      document.RegistrationNumber = json.SelectToken("document.document_number").ToString();
-      document.RegistrationDate = Convert.ToDateTime(json.SelectToken("document.document_date").ToString());
-      //  Если свойства Наша организация или Контрагент пустая, создать новую на основе данных из json
-      if(document.BusinessUnit == null) document.BusinessUnit = Create_BuisnessUnit(json.SelectToken(route + "document_data.Buyer.Name").ToString(), buyerTin, json.SelectToken(route + "Buyer.Address").ToString(), json.SelectToken(route + "Buyer.Account").ToString(), json.SelectToken(route + "Buyer.VatRegCode").ToString(), json.SelectToken(route + "Buyer.BankId").ToString());
-      if(document.Counterparty == null) document.Counterparty = Create_Counterparty(json.SelectToken(route + "document_data.Seller.Name").ToString(), sellerTin, json.SelectToken(route + "Seller.Address").ToString(), json.SelectToken(route + "Seller.Account").ToString(), json.SelectToken(route + "Seller.VatRegCode").ToString(), json.SelectToken(route + "Seller.BankId").ToString());
 
-      document.CreateVersion();
-      var  version = document.LastVersion;
-      
-      
-      
-      byte[] jsonByte = Encoding.Default.GetBytes(jsonString);
-      MemoryStream jsonStream = new MemoryStream(jsonByte);
-      version.Body.Write(jsonStream);
-      version.BodyAssociatedApplication = Sungero.Content.AssociatedApplications.GetByExtension("json");
-      
-      string pdfBase64 = GetPDF(JObject.Parse(json.ToString()));
-      if(pdfBase64 != "false" && pdfBase64 != "False" && pdfBase64 != null)
-      {
-        byte[] pdfByte = Convert.FromBase64String(pdfBase64);
-        MemoryStream pdfStream = new MemoryStream(pdfByte);
-        version.PublicBody.Write(pdfStream);
-        version.AssociatedApplication = Sungero.Content.AssociatedApplications.GetByExtension("pdf");
-      }
-      else
-        version.AssociatedApplication = Sungero.Content.AssociatedApplications.GetByExtension("json");
-      
-      string status = json.SelectToken("transaction.transaction_operation").ToString();
-      string statusNewValue = GetStatusFromMultibank(status);
-      if(statusNewValue != null && statusNewValue != document.LifeCycleState.Value.Value)
-      {
-        document.LifeCycleState = document.LifeCycleStateAllowedItems.Where(n => n.Value.ToString() == statusNewValue).FirstOrDefault();
-        document.UpdateStatusDatemicros = Calendar.Now;
-      }
-      
-      document.JSonDocumentmicros = jsonByte;
-      
-      document.Save();
-      
-      this.RegistrSigning(JObject.Parse(json.SelectToken("signature_information").ToString()), document);
-    }
     
     /// <summary>
     /// Получить статус документа из json
@@ -855,28 +1283,30 @@ namespace micros.MultibankModule.Server
       else return null;
     }
     
-    public string GetMultibankToken()
+    /// <summary>
+    /// Получить токен Мультибанка
+    /// </summary>
+    /// <returns>ответ Мультибанка содержащий токен</returns>
+    public string GetMultibankToken(Sungero.Company.IBusinessUnit company)
     {
-      var bAuth = micros.MultibankModule.AuthDatabooks.GetAll().Where(x => x.BusinessUnit == Sungero.Company.Employees.Current.Department.BusinessUnit).FirstOrDefault();
+      var bAuth = this.GetBuisnesUnitBoxForCompany(company);
       string token = " ";
-      if (Convert.ToInt32(bAuth.ExpireAccess) > DateTimeOffset.Now.ToUnixTimeSeconds())
+      if (Convert.ToInt32(bAuth.ExpireAccessmicros) > DateTimeOffset.Now.ToUnixTimeSeconds())
       {
-        token = Encoding.Default.GetString(bAuth.AccessToken);
+        token = Encoding.Default.GetString(bAuth.AccessTokenmicros);
         return token;
       }
       else
       {
         var authD = bAuth;
-        //string clientId = authD.
-        //var respond = Multibank.PublicFunctions.Module.AuthWithLogin(authD.ClientId, authD.ClientSecret, authD.Login, authD.Password);
-        MultibankModule.PublicFunctions.AuthDatabook.UpdateTokens(bAuth, MultibankModule.PublicFunctions.Module.RefreshToken(Encoding.Default.GetString(bAuth.RefreshToken)));
-        return Encoding.Default.GetString(bAuth.AccessToken);
+        this.IfNeedRefreshTokens(bAuth);
+        return Encoding.Default.GetString(bAuth.AccessTokenmicros);
       }
       
     }
     
     /// <summary>
-    /// Соединить все подписи
+    /// Соединить все подписи из документа
     /// </summary>
     /// <param name="signature1"></param>
     /// <param name="signature2"></param>
@@ -910,7 +1340,6 @@ namespace micros.MultibankModule.Server
       if (signedData2.SignerInfos != null)
         signers.AddRange(signedData2.SignerInfos.ToArray());
 
-
       var newSignedData = new SignedData(digestAlgorithms.Any() ? new DerSet(digestAlgorithms.Distinct().ToArray()) : null,
                                          signedData1.EncapContentInfo,
                                          certificates.Any() ? new DerSet(certificates.Distinct().ToArray()) : null,
@@ -935,7 +1364,105 @@ namespace micros.MultibankModule.Server
     }
     #endregion
     
+    #region Отказ от AuthDataBook
+    
+    /// <summary>
+    /// Обновить токены из Мультибанка
+    /// </summary>
+    /// <param name="response">ответ Мультибанка содержащий токены авторизации</param>
+    /// <param name="box">Абонентский ящик нашей организации</param>
+    [Public, Remote]
+    public void UpdateTokens(string response, micros.MultibankSolution.IBusinessUnitBox box)
+    {
+      JObject json = JObject.Parse(response);
+      
+      //Сохранить Токен доступа и токен обновлений в БД(свойство справочника) в виде бинарных данных, и сохранение срока действие токена в виде стринг(Формат даты Linux Time)
+      box.AccessTokenmicros = Encoding.Default.GetBytes(json.SelectToken("access_token").ToString());
+      box.RefreshTokenmicros = Encoding.Default.GetBytes(json.SelectToken("refresh_token").ToString());
+      //JObject json2 = JsonConvert.DeserializeObject<JObject>(Encoding.UTF8.GetString(Convert.FromBase64String(json.SelectToken("access_token").ToString().Split('.')[1] + "=")));
+      string access_token = json.SelectToken("access_token").ToString().Split('.')[1] + "=";
+      Logger.Debug("Access_Tokent = " + access_token);
+      var accessTokenByte = Convert.FromBase64String(access_token);
+      string accessTokenString = Encoding.UTF8.GetString(accessTokenByte);
+      JObject json2 = JsonConvert.DeserializeObject<JObject>(accessTokenString);
+      box.ExpireAccessmicros = json2.SelectToken("exp").ToString();
+      box.Save();
+    }
+    
+    /// <summary>
+    /// Создать профили из Мультибанка привязанные к аккаунту мультибанка.
+    /// </summary>
+    /// <param name="box"></param>
+    [Public, Remote]
+    public void CreateProfileList(micros.MultibankSolution.IBusinessUnitBox box)
+    {
+      //В случае если токен уже недействителен
+      
+      JObject json = JObject.Parse(MultibankModule.PublicFunctions.Module.GetProfile(box));
+      
+      int count = json.SelectToken("data").Count();
+      
+      for(int i = 0; i <= count - 1; i++)
+      {
+        if (!MultibankModule.ProfilesLists.GetAll().Any(a => a.ProfileID == json.SelectToken("data.["+ i +"].profile_id").ToString()))
+        {
+          var book = MultibankModule.ProfilesLists.Create();
+          book.Login = box.Login;
+          book.ProfileID = json.SelectToken("data.["+ i +"].profile_id").ToString();
+          book.Name = json.SelectToken("data.["+ i +"].name").ToString();
+          book.UserId = json.SelectToken("data.["+ i +"].user_id").ToString();
+          book.Save();
+        }
+      }
+    }
     #endregion
     
+    #endregion
+    
+    
+    
+    #region Utilits
+    
+    /// <summary>
+    /// Обновить токен если время жизни токена истекло
+    /// </summary>
+    /// <param name="box">Абонентский ящик нашей организации</param>
+    [Public, Remote]
+    public void IfNeedRefreshTokens(micros.MultibankSolution.IBusinessUnitBox box)
+    {
+      if (DateTimeOffset.FromUnixTimeSeconds(long.Parse(box.ExpireAccessmicros)) <= Calendar.Now)
+      {
+        var isSTG = false;
+        if (box.ExchangeService.ExchangeProvider == micros.MultibankSolution.ExchangeService.ExchangeProvider.MultibankSTGmicros) isSTG = true;
+        var respond = MultibankModule.PublicFunctions.Module.AuthWithLogin(box.ClientIdmicros.ToString(), box.ClientSecretmicros, box.Login, box.Password, isSTG);  // Запрос на получение токена
+        micros.MultibankModule.PublicFunctions.Module.Remote.UpdateTokens(respond, box);  // Вызов метода для сохранение токенов в БД.
+        //if(box.MultibankCompanymicros != null)
+        //MultibankModule.PublicFunctions.Module.JoinProfile(Encoding.Default.GetString(box.AccessTokenmicros), box.MultibankCompanymicros.ProfileID);
+        box.Save();
+      }
+    }
+    
+    /// <summary>
+    /// Костыль для проверки пароля пользователя
+    /// </summary>
+    /// <returns></returns>
+    [Public(WebApiRequestType = RequestType.Get)]
+    public virtual string CheckPassword()
+    {
+      return "Ok";
+    }
+    
+    /// <summary>
+    /// Получить строку ошибки из ответа сервера Multibank
+    /// </summary>
+    /// <param name="response">ответ сервера Multibank</param>
+    /// <returns>Error RU</returns>
+    [Public, Remote]
+    public virtual string GetMessageFromResponse(string response)
+    {
+      JObject error = JObject.Parse(response);
+      return error.SelectToken("message.ru").ToString(Formatting.None);
+    }
+    #endregion
   }
 }

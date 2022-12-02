@@ -4,7 +4,7 @@ using System.Linq;
 using Sungero.Core;
 using Sungero.CoreEntities;
 
-namespace micros.MultibankModule.Structures.IntegrationDataBook
+namespace micros.MultibankModule.Structures.IntegrationDatabook
 {
 
 }

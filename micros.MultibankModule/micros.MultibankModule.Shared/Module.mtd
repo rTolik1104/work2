@@ -11,17 +11,40 @@
   "CompanyCode": "micros",
   "Cover": {
     "NameGuid": "3450a6f3-0f70-468b-a0a8-8f53311b0eee",
-    "Actions": [],
+    "Actions": [
+      {
+        "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
+        "NameGuid": "1d8ab727-f8a3-4341-a07d-bbd72ddef827",
+        "Name": "IntegrationDatabooks",
+        "EntityTypeId": "68abbad2-2f76-431a-8f6f-75a10bf64d7e",
+        "GroupId": "2970efa6-f945-4473-b949-994ae087c174"
+      }
+    ],
     "Background": null,
     "Footer": {
       "NameGuid": "7db4c01a-bb5c-4199-a7c7-091282c6fae0",
       "BackgroundPosition": "Stretch"
     },
-    "Groups": [],
+    "Groups": [
+      {
+        "NameGuid": "2970efa6-f945-4473-b949-994ae087c174",
+        "Name": "ServiceDatabooks",
+        "BackgroundPosition": "Stretch",
+        "IconName": "GroupIconServiceDatabooks_2970efa6f9454473b949994ae087c174.png",
+        "TabId": "cd3b3902-2e32-402e-941b-8ff6c01eae4b"
+      }
+    ],
     "Header": {
       "NameGuid": "87f5ce7b-2e0d-4c75-9e95-44fb9b215f75",
-      "BackgroundPosition": "Stretch"
-    }
+      "BackgroundPosition": "Stretch",
+      "IconName": "HeaderIcon_87f5ce7b2e0d4c759e9544fb9b215f75.png"
+    },
+    "Tabs": [
+      {
+        "NameGuid": "cd3b3902-2e32-402e-941b-8ff6c01eae4b",
+        "Name": "ServiceDatabooks"
+      }
+    ]
   },
   "Dependencies": [
     {
@@ -29,20 +52,38 @@
       "IsSolutionModule": true,
       "MaxVersion": "",
       "MinVersion": ""
+    },
+    {
+      "Id": "df83a2ea-8d43-4ec4-a34a-2e61863014df",
+      "MaxVersion": "",
+      "MinVersion": "4.4.32.0"
     }
   ],
   "ExplorerTreeOrder": [
-    {
-      "ItemId": "3ee24cbf-e0c1-4ed9-b2bc-051096a31b3d"
-    },
     {
       "ItemId": "1044962f-57d7-46b2-bddf-fea2fbfbcbf0",
       "PreviousItemId": "3ee24cbf-e0c1-4ed9-b2bc-051096a31b3d"
     },
     {
-      "ItemId": "d36f7cfc-f059-4a3f-b8e9-03a25501ae59",
+      "ItemId": "b4fa2f60-a60e-4d27-a2c4-9b8a9b49aa3f",
       "PreviousItemId": "1044962f-57d7-46b2-bddf-fea2fbfbcbf0"
+    },
+    {
+      "ItemId": "68abbad2-2f76-431a-8f6f-75a10bf64d7e",
+      "PreviousItemId": "b4fa2f60-a60e-4d27-a2c4-9b8a9b49aa3f"
+    },
+    {
+      "ItemId": "bf5834b9-f7f9-46ce-991b-b5769e424085",
+      "PreviousItemId": "68abbad2-2f76-431a-8f6f-75a10bf64d7e"
+    },
+    {
+      "ItemId": "041c9ad6-a7bb-458a-96eb-2a2743e06eec",
+      "PreviousItemId": "bf5834b9-f7f9-46ce-991b-b5769e424085"
     }
+  ],
+  "HandledEvents": [
+    "InitializingServer",
+    "VisibilityServer"
   ],
   "IconResourcesKeys": [],
   "Importance": "Medium",
@@ -88,33 +129,6 @@
           "Name": "password",
           "ParameterType": "global::System.String",
           "ParameterTypeFullName": "System.String"
-        }
-      ],
-      "ReturnType": "global::System.String",
-      "ReturnTypeFullName": "System.String"
-    },
-    {
-      "Name": "AuthWithLogin",
-      "Parameters": [
-        {
-          "Name": "clientId",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
-        },
-        {
-          "Name": "clientSecret",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
-        },
-        {
-          "Name": "userName",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
-        },
-        {
-          "Name": "password",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
         },
         {
           "Name": "staging",
@@ -126,7 +140,28 @@
       "ReturnTypeFullName": "System.String"
     },
     {
+      "Name": "CancelDocumentInMultibank",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "databook",
+          "ParameterType": "global::micros.MultibankModule.IIntegrationDatabook",
+          "ParameterTypeFullName": "micros.MultibankModule.IIntegrationDatabook, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "CheckPassword",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
       "Name": "CreateDocument",
+      "IsRemote": true,
       "Parameters": [
         {
           "Name": "parameter",
@@ -134,9 +169,24 @@
           "ParameterTypeFullName": "System.String"
         }
       ],
+      "Placement": "Shared",
       "ReturnType": "global::System.String",
       "ReturnTypeFullName": "System.String",
       "WebApiRequestType": "Post"
+    },
+    {
+      "Name": "CreateProfileList",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "box",
+          "ParameterType": "global::micros.MultibankSolution.IBusinessUnitBox",
+          "ParameterTypeFullName": "micros.MultibankSolution.IBusinessUnitBox, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
     },
     {
       "Name": "FillInvoiceV2",
@@ -151,11 +201,32 @@
       "ReturnTypeFullName": "System.String"
     },
     {
-      "Name": "GetIntegrationDataBookForCurrentUser",
+      "Name": "GetBuisnesUnitBoxForCompany",
       "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "company",
+          "ParameterType": "global::Sungero.Company.IBusinessUnit",
+          "ParameterTypeFullName": "Sungero.Company.IBusinessUnit, Sungero.Domain.Interfaces"
+        }
+      ],
       "Placement": "Shared",
-      "ReturnType": "global::micros.MultibankModule.IIntegrationDataBook",
-      "ReturnTypeFullName": "micros.MultibankModule.IIntegrationDataBook, Sungero.Domain.Interfaces"
+      "ReturnType": "global::micros.MultibankSolution.IBusinessUnitBox",
+      "ReturnTypeFullName": "micros.MultibankSolution.IBusinessUnitBox, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "GetDocumentStatusForMBKAssignment",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "assignment",
+          "ParameterType": "global::micros.MultibankModule.IMBKAssignment",
+          "ParameterTypeFullName": "micros.MultibankModule.IMBKAssignment, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Sungero.Core.Enumeration",
+      "ReturnTypeFullName": "Sungero.Core.Enumeration, Sungero.Domain.Shared"
     },
     {
       "Name": "GetJsonFromBody",
@@ -200,13 +271,13 @@
       "ReturnTypeFullName": "System.String"
     },
     {
-      "Name": "GetMultibankJsonFromID",
+      "Name": "GetMessageFromResponse",
       "IsRemote": true,
       "Parameters": [
         {
-          "Name": "document",
-          "ParameterType": "global::Sungero.Content.IElectronicDocument",
-          "ParameterTypeFullName": "Sungero.Content.IElectronicDocument, Sungero.Content.Shared"
+          "Name": "response",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
         }
       ],
       "Placement": "Shared",
@@ -214,13 +285,63 @@
       "ReturnTypeFullName": "System.String"
     },
     {
-      "Name": "GetMultibankSignData",
+      "Name": "GetMultibankJsonFromID",
       "IsRemote": true,
       "Parameters": [
         {
           "Name": "document",
-          "ParameterType": "global::Sungero.Content.IElectronicDocument",
-          "ParameterTypeFullName": "Sungero.Content.IElectronicDocument, Sungero.Content.Shared"
+          "ParameterType": "global::Sungero.Docflow.IOfficialDocument",
+          "ParameterTypeFullName": "Sungero.Docflow.IOfficialDocument, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetProfile",
+      "Parameters": [
+        {
+          "Name": "box",
+          "ParameterType": "global::micros.MultibankSolution.IBusinessUnitBox",
+          "ParameterTypeFullName": "micros.MultibankSolution.IBusinessUnitBox, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GNKString",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "databook",
+          "ParameterType": "global::micros.MultibankModule.IIntegrationDatabook",
+          "ParameterTypeFullName": "micros.MultibankModule.IIntegrationDatabook, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "action",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "opts",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "IfNeedRefreshTokens",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "box",
+          "ParameterType": "global::micros.MultibankSolution.IBusinessUnitBox",
+          "ParameterTypeFullName": "micros.MultibankSolution.IBusinessUnitBox, Sungero.Domain.Interfaces"
         }
       ],
       "Placement": "Shared",
@@ -228,42 +349,22 @@
       "ReturnTypeFullName": "System.Void"
     },
     {
-      "Name": "GetProfile",
+      "Name": "ImportSign",
       "Parameters": [
         {
-          "Name": "token",
+          "Name": "externalSign",
           "ParameterType": "global::System.String",
           "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "document_id",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
         }
       ],
       "ReturnType": "global::System.String",
-      "ReturnTypeFullName": "System.String"
-    },
-    {
-      "Name": "IsSignedInMultibank",
-      "IsRemote": true,
-      "Parameters": [
-        {
-          "Name": "document",
-          "ParameterType": "global::Sungero.Content.IElectronicDocument",
-          "ParameterTypeFullName": "Sungero.Content.IElectronicDocument, Sungero.Content.Shared"
-        }
-      ],
-      "Placement": "Shared",
-      "ReturnType": "global::System.Boolean",
-      "ReturnTypeFullName": "System.Boolean"
-    },
-    {
-      "Name": "isToken",
-      "Parameters": [
-        {
-          "Name": "refreshToken",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
-        }
-      ],
-      "ReturnType": "global::System.Boolean",
-      "ReturnTypeFullName": "System.Boolean"
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Post"
     },
     {
       "Name": "JoinProfile",
@@ -277,20 +378,32 @@
           "Name": "profileId",
           "ParameterType": "global::System.String",
           "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "company",
+          "ParameterType": "global::Sungero.Company.IBusinessUnit",
+          "ParameterTypeFullName": "Sungero.Company.IBusinessUnit, Sungero.Domain.Interfaces"
         }
       ],
       "ReturnType": "global::System.String",
       "ReturnTypeFullName": "System.String"
     },
     {
-      "Name": "RefreshToken",
+      "Name": "RejectDocumentInMultibank",
+      "IsRemote": true,
       "Parameters": [
         {
-          "Name": "refreshToken",
+          "Name": "databook",
+          "ParameterType": "global::micros.MultibankModule.IIntegrationDatabook",
+          "ParameterTypeFullName": "micros.MultibankModule.IIntegrationDatabook, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "opts",
           "ParameterType": "global::System.String",
           "ParameterTypeFullName": "System.String"
         }
       ],
+      "Placement": "Shared",
       "ReturnType": "global::System.String",
       "ReturnTypeFullName": "System.String"
     },
@@ -299,14 +412,14 @@
       "IsRemote": true,
       "Parameters": [
         {
-          "Name": "document",
-          "ParameterType": "global::Sungero.Content.IElectronicDocument",
-          "ParameterTypeFullName": "Sungero.Content.IElectronicDocument, Sungero.Content.Shared"
+          "Name": "databook",
+          "ParameterType": "global::micros.MultibankModule.IIntegrationDatabook",
+          "ParameterTypeFullName": "micros.MultibankModule.IIntegrationDatabook, Sungero.Domain.Interfaces"
         }
       ],
       "Placement": "Shared",
-      "ReturnType": "void",
-      "ReturnTypeFullName": "System.Void"
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
     },
     {
       "Name": "SendDocument",
@@ -326,7 +439,7 @@
       "ReturnTypeFullName": "System.String"
     },
     {
-      "Name": "UpdateInvoiceFromJson",
+      "Name": "UpdateContractFromJson",
       "IsRemote": true,
       "Parameters": [
         {
@@ -335,9 +448,76 @@
           "ParameterTypeFullName": "System.String"
         },
         {
-          "Name": "documentOld",
-          "ParameterType": "global::Sungero.Content.IElectronicDocument",
-          "ParameterTypeFullName": "Sungero.Content.IElectronicDocument, Sungero.Content.Shared"
+          "Name": "documentOLD",
+          "ParameterType": "global::Sungero.Docflow.IOfficialDocument",
+          "ParameterTypeFullName": "Sungero.Docflow.IOfficialDocument, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "isIncoming",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "UpdateContractStatementFromJson",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "jsonString",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "documentOLD",
+          "ParameterType": "global::Sungero.Docflow.IOfficialDocument",
+          "ParameterTypeFullName": "Sungero.Docflow.IOfficialDocument, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "isIncoming",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "UpdateTaxInvoice",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "jsonString",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "databook",
+          "ParameterType": "global::micros.MultibankModule.IIntegrationDatabook",
+          "ParameterTypeFullName": "micros.MultibankModule.IIntegrationDatabook, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "UpdateTokens",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "response",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "box",
+          "ParameterType": "global::micros.MultibankSolution.IBusinessUnitBox",
+          "ParameterTypeFullName": "micros.MultibankSolution.IBusinessUnitBox, Sungero.Domain.Interfaces"
         }
       ],
       "Placement": "Shared",
@@ -358,13 +538,35 @@
   "ServerNamespace": "micros.MultibankModule.Server",
   "SharedAssemblyName": "micros.MultibankModule.Shared",
   "SharedNamespace": "micros.MultibankModule.Shared",
-  "SpecialFolders": [],
-  "Version": "0.0.1.8",
+  "SpecialFolders": [
+    {
+      "NameGuid": "041c9ad6-a7bb-458a-96eb-2a2743e06eec",
+      "Name": "ExchangeService",
+      "DefaultContentType": "ea683a63-273e-43ae-bcf1-7a443698008a",
+      "DisplayType": "Inbox",
+      "FilterPanel": {
+        "NameGuid": "07eae0f1-ae15-4f51-812b-ac131aa33bc5",
+        "Name": "FilterPanel",
+        "Controls": []
+      },
+      "HandledEvents": [
+        "DataQueryServer"
+      ],
+      "IsShow": true,
+      "Kind": "Computable",
+      "NeedShowMarkedCount": true,
+      "ParentFolderId": "eb72a985-606c-4647-ba0c-1389928a4e17",
+      "SupportedDescendantsTypes": [
+        "bf5834b9-f7f9-46ce-991b-b5769e424085"
+      ]
+    }
+  ],
+  "Version": "0.0.1.15",
   "Widgets": [],
   "Versions": [
     {
       "Type": "ModuleMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "DomainApi",

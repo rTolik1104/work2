@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="GetPDF" xml:space="preserve">
+    <value>https://api.multibank.uz/api/v1/get_viewer_document</value>
+  </data>
+  <data name="GetPDFStaging" xml:space="preserve">
+    <value>https://api-staging.multibank.uz/api/v1/get_viewer_document</value>
+  </data>
+  <data name="GetProfile" xml:space="preserve">
+    <value>https://account.multibank.uz/api/profiles</value>
+  </data>
+  <data name="GetProfileStaging" xml:space="preserve">
+    <value>https://account-staging.multibank.uz/api/profiles</value>
+  </data>
+  <data name="GetPublicDoc" xml:space="preserve">
+    <value>https://api.multibank.uz/api/v1/document/</value>
+  </data>
+  <data name="GetPublicDocStaging" xml:space="preserve">
+    <value>https://api-staging.multibank.uz/api/v1/document/</value>
+  </data>
+  <data name="GetSignatures" xml:space="preserve">
+    <value>https://api.multibank.uz/api/public/get_public_signatures</value>
+  </data>
+  <data name="GetSignaturesStaging" xml:space="preserve">
+    <value>https://api-staging.multibank.uz/api/public/get_public_signatures</value>
+  </data>
+  <data name="GetToken" xml:space="preserve">
+    <value>https://account.multibank.uz/api/login</value>
+  </data>
+  <data name="GetTokenStaging" xml:space="preserve">
+    <value>https://account-staging.multibank.uz/api/login</value>
+  </data>
+  <data name="GetUpdatedToken" xml:space="preserve">
+    <value>https://account.multibank.uz/api/refresh_token
+</value>
+  </data>
+  <data name="GetUpdatedTokenStaging" xml:space="preserve">
+    <value>https://account-staging.multibank.uz/api/refresh_token</value>
+  </data>
+  <data name="GNKString" xml:space="preserve">
+    <value>https://api.multibank.uz/api/v1/document/data_for_signing</value>
+  </data>
+  <data name="GNKStringStaging" xml:space="preserve">
+    <value>https://api-staging.multibank.uz/api/v1/document/data_for_signing</value>
+  </data>
+  <data name="InvoiceURL" xml:space="preserve">
+    <value>https://app.multibank.uz/#edo/inbox|edo/documents/invoice_v2/{document_id}</value>
+  </data>
+  <data name="InvoiceURLStaging" xml:space="preserve">
+    <value>https://app-staging.multibank.uz/#edo/inbox|edo/documents/invoice_v2/{document_id}</value>
+  </data>
+  <data name="JoinProfile" xml:space="preserve">
+    <value>https://account.multibank.uz/api/join_profile</value>
+  </data>
+  <data name="JoinProfileStaging" xml:space="preserve">
+    <value>https://account-staging.multibank.uz/api/join_profile</value>
+  </data>
+  <data name="MultibankAccept" xml:space="preserve">
+    <value>https://api.multibank.uz/api/v1/document/accept</value>
+  </data>
+  <data name="MultibankAcceptStaging" xml:space="preserve">
+    <value>https://api-staging.multibank.uz/api/v1/document/accept</value>
+  </data>
+  <data name="RefreshToken" xml:space="preserve">
+    <value>https://account.multibank.uz/api/decrypt_refresh?refresh_token=</value>
+  </data>
+  <data name="RefreshTokenStaging" xml:space="preserve">
+    <value>https://account-staging.multibank.uz/api/decrypt_refresh?refresh_token=</value>
+  </data>
+  <data name="SendInvoiceV2" xml:space="preserve">
+    <value>https://api.multibank.uz/api/v1/document</value>
+  </data>
+  <data name="SendInvoiceV2Staging" xml:space="preserve">
+    <value>https://api-staging.multibank.uz/api/v1/document</value>
+  </data>
+  <data name="CancelStaging" xml:space="preserve">
+    <value>https://api-staging.multibank.uz/api/v1/document/cancel</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>https://api.multibank.uz/api/v1/document/cancel</value>
+  </data>
+  <data name="RejectStaging" xml:space="preserve">
+    <value>https://api-staging.multibank.uz/api/v1/document/reject</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>https://api.multibank.uz/api/v1/document/reject</value>
+  </data>
+</root>

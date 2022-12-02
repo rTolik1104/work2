@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -120,91 +61,34 @@
   <data name="Property_Name" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="Property_SendInvoiceV2" xml:space="preserve">
-    <value>SendInvoiceV2</value>
+  <data name="Property_Document" xml:space="preserve">
+    <value>Document</value>
   </data>
-  <data name="Property_GetPDF" xml:space="preserve">
-    <value>GetPDF</value>
+  <data name="Property_Guid" xml:space="preserve">
+    <value>Guid</value>
   </data>
-  <data name="Property_GetToken" xml:space="preserve">
-    <value>GetToken</value>
+  <data name="Property_JSon" xml:space="preserve">
+    <value>JSon</value>
   </data>
-  <data name="Property_GetUpdatedToken" xml:space="preserve">
-    <value>GetUpdatedToken</value>
+  <data name="Property_Sign" xml:space="preserve">
+    <value>Signatory</value>
   </data>
-  <data name="Property_RefreshToken" xml:space="preserve">
-    <value>RefreshToken</value>
+  <data name="Property_ActionData" xml:space="preserve">
+    <value>ActionData</value>
   </data>
-  <data name="Action_LoadProdactionDescription" xml:space="preserve">
-    <value>LoadProdaction</value>
+  <data name="Property_IsIncoming" xml:space="preserve">
+    <value>IsIncoming</value>
   </data>
-  <data name="Action_LoadProdaction" xml:space="preserve">
-    <value>LoadProdaction</value>
-  </data>
-  <data name="Property_GetProfile" xml:space="preserve">
-    <value>GetProfile</value>
-  </data>
-  <data name="Property_JoinProfile" xml:space="preserve">
-    <value>JoinProfile</value>
-  </data>
-  <data name="Property_GNKString" xml:space="preserve">
-    <value>GNKString</value>
-  </data>
-  <data name="Property_MultibankAccept" xml:space="preserve">
-    <value>MultibankAccept</value>
-  </data>
-  <data name="Action_LoadProdactionHint" xml:space="preserve">
-    <value>LoadProdaction</value>
-  </data>
-  <data name="Action_LoadProdactionConfirmationMessage" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Action_LoadProdactionConfirmationDescription" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Action_LoadStaging" xml:space="preserve">
-    <value>LoadStaging</value>
-  </data>
-  <data name="Action_LoadStagingDescription" xml:space="preserve">
-    <value>LoadStaging</value>
-  </data>
-  <data name="Action_LoadStagingHint" xml:space="preserve">
-    <value>LoadStaging</value>
-  </data>
-  <data name="Action_LoadStagingConfirmationMessage" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Action_LoadStagingConfirmationDescription" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Ribbon_Page_32cc2f33c5fd4d51bbf163684e260a0a" xml:space="preserve">
-    <value>Page</value>
-  </data>
-  <data name="Ribbon_ChooseDefaultMultibankAddresses_fff30542e61c4655823797bc2485bacb" xml:space="preserve">
-    <value>ChooseDefaultMultibankAddresses</value>
-  </data>
-  <data name="Property_GetPublicDoc" xml:space="preserve">
-    <value>GetPublicDoc</value>
-  </data>
-  <data name="Property_Account" xml:space="preserve">
-    <value>Account</value>
+  <data name="Property_OutgoingData" xml:space="preserve">
+    <value>OutgoingData</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>IntegrationDataBook</value>
+    <value>Integration Databook</value>
   </data>
   <data name="AccusativeDisplayName" xml:space="preserve">
-    <value>IntegrationDataBook</value>
+    <value>Integration Databook</value>
   </data>
   <data name="CollectionDisplayName" xml:space="preserve">
-    <value>IntegrationDataBook</value>
-  </data>
-  <data name="ControlGroup_c0c7e81ae387405289e8cfb6e7d0bcd8" xml:space="preserve">
-    <value>Addresses</value>
-  </data>
-  <data name="Property_InvoiceURL" xml:space="preserve">
-    <value>InvoiceURL</value>
-  </data>
-  <data name="Property_GetSignatures" xml:space="preserve">
-    <value>GetSignatures</value>
+    <value>Integration Databook</value>
   </data>
 </root>
