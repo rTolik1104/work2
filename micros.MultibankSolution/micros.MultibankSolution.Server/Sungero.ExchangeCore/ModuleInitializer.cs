@@ -59,8 +59,9 @@ namespace micros.MultibankSolution.Module.ExchangeCore.Server
         system.Rejectmicros = r.RejectStaging;
         system.ActURLmicros = r.ActURLStaging;
         system.ContractURLmicros = r.ContractURLStaging;
-          
-          system.Save();
+        system.Signingmicros = r.SigningStaging;
+        
+        system.Save();
       }
       else
       {
@@ -80,8 +81,9 @@ namespace micros.MultibankSolution.Module.ExchangeCore.Server
         system.Rejectmicros = r.Reject;
         system.ActURLmicros = r.ActURL;
         system.ContractURLmicros = r.ContractURL;
-          
-          system.Save();
+        system.Signingmicros = r.Signing;
+        
+        system.Save();
       }
 
       system.Save();

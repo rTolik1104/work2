@@ -59,7 +59,6 @@ namespace micros.MultibankSolution.Client
               if (_obj.ExchangeService.ExchangeProvider == micros.MultibankSolution.ExchangeService.ExchangeProvider.MultibankSTGmicros) isSTG = true;
               var respond = MultibankModule.PublicFunctions.Module.AuthWithLogin(_obj.ClientIdmicros.ToString(), _obj.ClientSecretmicros, _obj.Login, _obj.Password, isSTG);  // Запрос на получение токена
               micros.MultibankModule.PublicFunctions.Module.Remote.UpdateTokens(respond, _obj);  // Вызов метода для сохранение токенов в БД.
-              micros.MultibankModule.PublicFunctions.Module.Remote.CreateProfileList(_obj);
               if (respond.Contains("\"success\":true")) _obj.ConnectionStatus = MultibankSolution.BusinessUnitBox.ConnectionStatus.Connected;
               _obj.Save();
             }

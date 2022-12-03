@@ -30,14 +30,21 @@
         "NameGuid": "2970efa6-f945-4473-b949-994ae087c174",
         "Name": "ServiceDatabooks",
         "BackgroundPosition": "Stretch",
-        "IconName": "GroupIconServiceDatabooks_2970efa6f9454473b949994ae087c174.png"
+        "IconName": "GroupIconServiceDatabooks_2970efa6f9454473b949994ae087c174.png",
+        "TabId": "cd3b3902-2e32-402e-941b-8ff6c01eae4b"
       }
     ],
     "Header": {
       "NameGuid": "87f5ce7b-2e0d-4c75-9e95-44fb9b215f75",
       "BackgroundPosition": "Stretch",
       "IconName": "HeaderIcon_87f5ce7b2e0d4c759e9544fb9b215f75.png"
-    }
+    },
+    "Tabs": [
+      {
+        "NameGuid": "cd3b3902-2e32-402e-941b-8ff6c01eae4b",
+        "Name": "ServiceDatabooks"
+      }
+    ]
   },
   "Dependencies": [
     {
@@ -71,6 +78,10 @@
     {
       "ItemId": "a2080b5e-090b-4df7-bed9-bb65aed036ae",
       "PreviousItemId": "041c9ad6-a7bb-458a-96eb-2a2743e06eec"
+    },
+    {
+      "ItemId": "13cfcbe9-22c8-4094-b292-f8f4a30eba5e",
+      "PreviousItemId": "a2080b5e-090b-4df7-bed9-bb65aed036ae"
     }
   ],
   "HandledEvents": [
@@ -150,6 +161,30 @@
       "ReturnType": "global::System.String",
       "ReturnTypeFullName": "System.String",
       "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "CreateDatabook",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "document",
+          "ParameterType": "global::Sungero.Docflow.IOfficialDocument",
+          "ParameterTypeFullName": "Sungero.Docflow.IOfficialDocument, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "json",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "response",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::micros.MultibankModule.IIntegrationDatabook",
+      "ReturnTypeFullName": "micros.MultibankModule.IIntegrationDatabook, Sungero.Domain.Interfaces"
     },
     {
       "Name": "CreateDocument",
@@ -488,6 +523,20 @@
       "ReturnTypeFullName": "System.String"
     },
     {
+      "Name": "SendByMultibank",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "databook",
+          "ParameterType": "global::micros.MultibankModule.IIntegrationDatabook",
+          "ParameterTypeFullName": "micros.MultibankModule.IIntegrationDatabook, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
       "Name": "SendDocument",
       "IsRemote": true,
       "Parameters": [
@@ -512,6 +561,20 @@
       "ReturnTypeFullName": "System.String"
     },
     {
+      "Name": "SignInMultibank",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "databook",
+          "ParameterType": "global::micros.MultibankModule.IIntegrationDatabook",
+          "ParameterTypeFullName": "micros.MultibankModule.IIntegrationDatabook, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
       "Name": "UpdateContractFromJson",
       "IsRemote": true,
       "Parameters": [
@@ -521,14 +584,9 @@
           "ParameterTypeFullName": "System.String"
         },
         {
-          "Name": "documentOLD",
-          "ParameterType": "global::Sungero.Docflow.IOfficialDocument",
-          "ParameterTypeFullName": "Sungero.Docflow.IOfficialDocument, Sungero.Domain.Interfaces"
-        },
-        {
-          "Name": "isIncoming",
-          "ParameterType": "global::System.Boolean",
-          "ParameterTypeFullName": "System.Boolean"
+          "Name": "databook",
+          "ParameterType": "global::micros.MultibankModule.IIntegrationDatabook",
+          "ParameterTypeFullName": "micros.MultibankModule.IIntegrationDatabook, Sungero.Domain.Interfaces"
         }
       ],
       "Placement": "Shared",
@@ -715,7 +773,7 @@
         },
         {
           "Name": "qty",
-          "TypeFullName": "global::System.Int32"
+          "TypeFullName": "global::System.Double"
         },
         {
           "Name": "price",
@@ -949,12 +1007,12 @@
       "ParentFolderId": "eb72a985-606c-4647-ba0c-1389928a4e17"
     }
   ],
-  "Version": "0.0.1.33",
+  "Version": "0.0.1.34",
   "Widgets": [],
   "Versions": [
     {
       "Type": "ModuleMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "DomainApi",

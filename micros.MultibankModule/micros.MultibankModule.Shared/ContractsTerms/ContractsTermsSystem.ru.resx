@@ -59,42 +59,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Property_Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="Property_CatalogCode" xml:space="preserve">
-    <value>Catalog code</value>
-  </data>
-  <data name="Property_CatalogName" xml:space="preserve">
-    <value>Catalog name</value>
-  </data>
-  <data name="Property_Unit" xml:space="preserve">
-    <value>Unit</value>
-  </data>
-  <data name="Property_Qty" xml:space="preserve">
-    <value>Qty</value>
-  </data>
-  <data name="Property_Price" xml:space="preserve">
-    <value>Price</value>
-  </data>
-  <data name="Property_VatPercent" xml:space="preserve">
-    <value>Vat percent</value>
-  </data>
-  <data name="Property_VatSum" xml:space="preserve">
-    <value>Vat sum</value>
-  </data>
-  <data name="Property_VatTotalSum" xml:space="preserve">
-    <value>VatTotalSum</value>
-  </data>
-  <data name="Property_No" xml:space="preserve">
-    <value>#</value>
-  </data>
-  <data name="Property_TotalSum" xml:space="preserve">
-    <value>TotalSum</value>
-  </data>
-  <data name="Property_WithoutVat" xml:space="preserve">
-    <value>Without VAT</value>
-  </data>
-  <data name="Property_Amount" xml:space="preserve">
-    <value>Amount</value>
+    <value>Имя</value>
   </data>
 </root>

@@ -154,4 +154,7 @@
   <data name="Property_ContractURLmicros" xml:space="preserve">
     <value>ContractURL</value>
   </data>
+  <data name="Property_Signingmicros" xml:space="preserve">
+    <value>Signing</value>
+  </data>
 </root>

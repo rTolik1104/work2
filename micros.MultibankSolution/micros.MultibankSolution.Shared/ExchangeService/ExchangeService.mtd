@@ -180,6 +180,14 @@
       "Code": "ContractURLmic",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "84ac8961-52c6-4fe0-878b-c129b52de2da"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "683bf931-284f-4448-9311-8535c5ef501c",
+      "Name": "Signingmicros",
+      "Code": "Signingmicros",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "c347e783-ab66-4a15-8c4f-8f2fbc8f4842"
     }
   ],
   "PublicStructures": [],
@@ -215,7 +223,9 @@
     "ContractURL",
     "ContractURLStaging",
     "ActURL",
-    "ActURLStaging"
+    "ActURLStaging",
+    "Signing",
+    "SigningStaging"
   ],
   "RibbonCardMetadata": {
     "NameGuid": "6a2e9103-1a16-4582-805d-b0c46af69b8b",

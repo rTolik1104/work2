@@ -35,7 +35,7 @@ namespace micros.MultibankSolution.Client
       var databook = MultibankModule.IntegrationDatabooks.GetAll().Where(x => x.Document == _obj).FirstOrDefault();
       string jsonString = micros.MultibankModule.PublicFunctions.Module.Remote.GetMultibankJsonFromID(_obj).ToLower();
       //Logger.Debug("Contract Update" + jsonString);
-      micros.MultibankModule.PublicFunctions.Module.Remote.UpdateContractFromJson(jsonString, _obj, databook.IsIncoming.Value);
+      micros.MultibankModule.PublicFunctions.Module.Remote.UpdateContractFromJson(jsonString, databook);
       _obj.Save();
     }
 

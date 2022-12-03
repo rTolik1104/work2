@@ -155,4 +155,10 @@
   <data name="ActURLStaging" xml:space="preserve">
     <value>https://app-staging.multibank.uz/#edo/all/all_documents|edo/documents/act/{document_id}</value>
   </data>
+  <data name="Signing" xml:space="preserve">
+    <value>https://api.multibank.uz/api/v1/signing</value>
+  </data>
+  <data name="SigningStaging" xml:space="preserve">
+    <value>https://api-staging.multibank.uz/api/v1/signing</value>
+  </data>
 </root>

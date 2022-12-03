@@ -10,10 +10,10 @@ namespace micros.MultibankModule.Server
   public partial class ModuleInitializer
   {
 
-//    public override bool IsModuleVisible()
-//    {
-//      return Users.Current.IncludedIn(Roles.Administrators);
-//    }
+    public override bool IsModuleVisible()
+    {
+      return Users.Current.IncludedIn(Roles.Administrators);
+    }
 
     public override void Initializing(Sungero.Domain.ModuleInitializingEventArgs e)
     {

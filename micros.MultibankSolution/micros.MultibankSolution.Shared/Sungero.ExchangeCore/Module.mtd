@@ -44,16 +44,16 @@
   "ResourceInterfaceNamespace": "micros.MultibankSolution.Module.ExchangeCore",
   "ResourcesKeys": [],
   "SpecialFolders": [],
-  "Version": "4.3.25.0",
+  "Version": "4.4.32.0",
   "Widgets": [],
   "Versions": [
     {
       "Type": "LayerModuleMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "ModuleMetadata",
-      "Number": 6
+      "Number": 8
     }
   ]
 }

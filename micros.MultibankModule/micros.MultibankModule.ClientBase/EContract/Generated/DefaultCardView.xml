@@ -29,7 +29,7 @@
             <property name="FieldName">Number</property>
             <property name="Name">EContract_Terms_Number</property>
             <property name="VisibleIndex">0</property>
-            <property name="Width">48</property>
+            <property name="Width">50</property>
             <property name="ActualWidth">7*</property>
           </property>
           <property name="Item2" isnull="true" iskey="true">
@@ -37,7 +37,7 @@
             <property name="FieldName">TermTitle</property>
             <property name="Name">EContract_Terms_TermTitle</property>
             <property name="VisibleIndex">1</property>
-            <property name="Width">122</property>
+            <property name="Width">129</property>
             <property name="ActualWidth">18*</property>
           </property>
           <property name="Item3" isnull="true" iskey="true">
@@ -45,7 +45,7 @@
             <property name="FieldName">TermText</property>
             <property name="Name">EContract_Terms_TermText</property>
             <property name="VisibleIndex">2</property>
-            <property name="Width">102</property>
+            <property name="Width">107</property>
             <property name="ActualWidth">15*</property>
           </property>
         </property>
@@ -168,6 +168,7 @@
             <property name="Name">EContract_Goods_No</property>
             <property name="ExtendedVisibleIndex">0</property>
             <property name="VisibleIndex">0</property>
+            <property name="Width">36</property>
             <property name="ActualWidth">5*</property>
           </property>
           <property name="Item12" isnull="true" iskey="true">
