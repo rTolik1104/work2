@@ -5,10 +5,10 @@ using System.Linq;
 using Sungero.Core;
 using Sungero.CoreEntities;
 using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using RestSharp;
 using RestSharp.Authenticators;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.Cms;
 using Org.BouncyCastle.Asn1.X509;
@@ -507,11 +507,9 @@ namespace micros.MultibankModule.Server
         databook.Guid = json.SelectToken("document.document_id").ToString();
         databook.IsIncoming = isIncoming;
         var document = Sungero.Contracts.Contracts.Create();
-        document.Save();
         databook.Document = document;
-        databook.Save();
         this.UpdateContractFromJson(json.ToString(), document, isIncoming);
-
+        
         databook.Name = document.Name;
         databook.Save();
 
