@@ -15,24 +15,11 @@ namespace micros.DrxUzbekistan.Server
   {
     public string GetInnGNK()
     {
-      string login=string.Empty;
-      string password=string.Empty;
+      // var AccessesList = GetAllAccesses();
+      // var accesses = AccessesList.Where(b => b.Index == 1).FirstOrDefault();
       
-      using(var command=SQL.GetCurrentConnection().CreateCommand())
-      {
-        command.CommandText=Queries.Company.SelectMultibakData;
-        var data=command.ExecuteReader();
-        
-        while(data.Read())
-        {
-          login=data.GetValue(1).ToString();
-          password=data.GetValue(2).ToString();
-        }
-      }
-        
       var client = new RestClient("https://api.multibank.uz/api/check_contragent/v1/external/gnk/" + _obj.TIN + "?refresh=1");
-      //client.Authenticator = new HttpBasicAuthenticator("Micros24", "~AGJcw@Fxwvh");
-      client.Authenticator = new HttpBasicAuthenticator(login, password);
+      client.Authenticator = new HttpBasicAuthenticator("Micros24", "~AGJcw@Fxwvh");
       var request = new RestRequest(Method.GET);
       IRestResponse response = client.Execute(request);
       return (int)response.StatusCode == 200 ? response.Content : null;
@@ -40,48 +27,32 @@ namespace micros.DrxUzbekistan.Server
     
     public string GetInnGoscomstat()
     {
-      string login=string.Empty;
-      string password=string.Empty;
+      // var AccessesList = GetAllAccesses();
+      //  var accesses = AccessesList.Where(b => b.Index == 1).FirstOrDefault();
       
-      using(var command=SQL.GetCurrentConnection().CreateCommand())
-      {
-        command.CommandText=Queries.Company.SelectMultibakData;
-        var data=command.ExecuteReader();
-        
-        while(data.Read())
-        {
-          login=data.GetValue(1).ToString();
-          password=data.GetValue(2).ToString();
-        }
-      }
       var client = new RestClient("https://api.multibank.uz/api/check_contragent/v1/external/stat/" + _obj.TIN + "?refresh=1");
-      client.Authenticator = new HttpBasicAuthenticator(login, password);
+      client.Authenticator = new HttpBasicAuthenticator("Micros24", "~AGJcw@Fxwvh");
       var request = new RestRequest(Method.GET);
       IRestResponse response = client.Execute(request);
       return (int)response.StatusCode == 200 ? response.Content : null;
     }
     
+    
     [Public]
     public bool FillFromServicemicrosServer()
     {
-      JObject jsonGnk=new JObject();
-      try{
-        jsonGnk = JObject.Parse(GetInnGNK());
-      }
-      catch{
-        return false;
-      }
-      
+      JObject jsonGnk = JObject.Parse(GetInnGNK());
       JObject jsonStat;
       string strStat = GetInnGoscomstat();
+      
       
       try
       {
         if(jsonGnk != null)
         {
           _obj.Name = jsonGnk.SelectToken("data.gnk_company_name").ToString();
-          _obj.LegalName = jsonGnk.SelectToken("data.gnk_company_name").ToString();
-          _obj.OKEDmicros = jsonGnk.SelectToken("data.gnk_company_oked").ToString();
+          _obj.LegalName = jsonGnk.SelectToken("data.gnk_company_name_full").ToString();
+          _obj.NCEA = jsonGnk.SelectToken("data.gnk_company_oked").ToString();
           _obj.LegalAddress = jsonGnk.SelectToken("data.gnk_company_address").ToString();
           _obj.RegCodeNDSmicros = jsonGnk.SelectToken("data.gnk_reg_code").ToString();
           _obj.BICmicros = jsonGnk.SelectToken("data.gnk_company_mfo").ToString();
@@ -114,6 +85,37 @@ namespace micros.DrxUzbekistan.Server
       catch { return false; }
 
       return true;
+    }
+    
+    /// <summary>
+    /// Получить все доступы к API Micros24
+    /// </summary>
+    [Remote]
+    public static List<micros.MicrosSetting.IAuthInfo> GetAllAccesses()
+    {
+      if (!micros.MicrosSetting.AuthInfos.Get().Equals(null))
+        return micros.MicrosSetting.AuthInfos.GetAll().ToList();
+      else
+        return null;
+    }
+    
+    /// <summary>
+    /// -- Get all companies --
+    /// </summary>
+    /// <returns>-- List of companies --</returns>
+    [Remote, Public]
+    public static List<ICompany> GetAllCompany()
+    {
+      if(!micros.DrxUzbekistan.Companies.GetAll().Equals(null))
+        return micros.DrxUzbekistan.Companies.GetAll().ToList();
+      else
+        return null;
+    }
+    
+    [Remote, Public]
+    public static ICompany CreateCompany()
+    {
+      return Companies.Create();
     }
   }
 }

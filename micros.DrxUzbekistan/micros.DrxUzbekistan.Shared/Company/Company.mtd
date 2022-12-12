@@ -602,6 +602,13 @@
   ],
   "PublicFunctions": [
     {
+      "Name": "CreateCompany",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::micros.DrxUzbekistan.ICompany",
+      "ReturnTypeFullName": "micros.DrxUzbekistan.ICompany, Sungero.Domain.Interfaces"
+    },
+    {
       "Name": "FillFromServicemicrosServer",
       "Parameters": [
         {
@@ -612,6 +619,13 @@
       ],
       "ReturnType": "global::System.Boolean",
       "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "GetAllCompany",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::System.Collections.Generic.List<global::micros.DrxUzbekistan.ICompany>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
     }
   ],
   "PublicStructures": [],
