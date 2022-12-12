@@ -5,10 +5,10 @@ using System.Linq;
 using Sungero.Core;
 using Sungero.CoreEntities;
 using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using RestSharp;
 using RestSharp.Authenticators;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.Cms;
 using Org.BouncyCastle.Asn1.X509;
@@ -555,6 +555,7 @@ namespace micros.MultibankModule.Server
       document.ValidFrom = DateTime.Parse(json.SelectToken("document.document_date").ToString());
       document.ValidTill = DateTime.Parse(json.SelectToken("document.contract.expire_date").ToString());
       document.Counterparty = this.GetOrCreatCounterpartyeByTin(json, isIncoming);
+      if (document.Department == null) document.Department = Sungero.Company.Departments.GetAll().FirstOrDefault();
       if (micros.DrxUzbekistan.Companies.Is(document.Counterparty))
         document.CounterpartySignatory = this.Get_Signer(json, isIncoming, micros.DrxUzbekistan.Companies.As(document.Counterparty));
       

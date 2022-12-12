@@ -14,51 +14,26 @@ CREATE TABLE micros_report_aloqabank(
   department_id INT)]]></mssql>
     <postgres><![CDATA[CREATE TABLE IF NOT EXISTS micros_report_aloqabank(
   id SERIAL PRIMARY KEY,
-  emolyee_name VARCHAR,
-  emolyee_department VARCHAR,
-  completed INT,
+  department_name VARCHAR,
+  all_tasks INT,
   overdue INT,
   well_done INT,
   bad_done INT,
   in_process INT,
-  department_id INT)]]></postgres>
-  </query>
-  <query key="CreateTableForDepartmentsTasksCount">
-    <mssql><![CDATA[if not exists (select * from sysobjects where name='department_tasks_count' and xtype='U')
-CREATE TABLE department_tasks_count(
-  id INT IDENTITY(1,1) PRIMARY KEY,
-  department VARCHAR,
-  tasksCount INT,
-  department_id INT)]]></mssql>
-    <postgres><![CDATA[CREATE TABLE IF NOT EXISTS department_tasks_count(
-  id SERIAL PRIMARY KEY,
-  department VARCHAR,
-  tasksCount INT,
-  department_id INT)]]></postgres>
+  stoped INT)]]></postgres>
   </query>
   <query key="SetDataToTasksTable">
     <postgres><![CDATA[INSERT INTO micros_report_aloqabank(
-	emolyee_name,
-	emolyee_department,
-  completed,
+	department_name,
+	all_tasks,
   overdue,
   well_done,
   bad_done ,
   in_process,
-  department_id)
-	VALUES ('{0}', '{1}', {2}, {3}, {4}, {5},{6},{7});]]></postgres>
-  </query>
-  <query key="SetDataToDepartmentTable">
-    <postgres><![CDATA[INSERT INTO department_tasks_count(
-	department,
-  tasksCount,
-  department_id)
-	VALUES ('{0}', {1}, {2});]]></postgres>
+  stoped)
+	VALUES ('{0}', {1}, {2}, {3}, {4}, {5}, {6});]]></postgres>
   </query>
   <query key="ClearTasksTable">
     <postgres><![CDATA[DELETE FROM micros_report_aloqabank]]></postgres>
-  </query>
-  <query key="ClearDepartmentsTable">
-    <postgres><![CDATA[DELETE FROM department_tasks_count]]></postgres>
   </query>
 </queries>

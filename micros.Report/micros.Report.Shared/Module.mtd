@@ -73,72 +73,33 @@
   "InterfaceNamespace": "micros.Report",
   "PublicFunctions": [
     {
-      "Name": "SetDataToDepartment",
+      "Name": "SetDataInTasks",
       "IsRemote": true,
       "Parameters": [
         {
-          "Name": "department",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
+          "Name": "departments",
+          "ParameterType": "global::System.Collections.Generic.List<global::Sungero.Company.IDepartment>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
         },
         {
-          "Name": "tasksCount",
-          "ParameterType": "global::System.Int32",
-          "ParameterTypeFullName": "System.Int32"
+          "Name": "registrJournal",
+          "ParameterType": "global::micros.Report.IGroups",
+          "ParameterTypeFullName": "micros.Report.IGroups, Sungero.Domain.Interfaces"
         },
         {
-          "Name": "department_id",
-          "ParameterType": "global::System.Int32",
-          "ParameterTypeFullName": "System.Int32"
-        }
-      ],
-      "Placement": "Shared",
-      "ReturnType": "void",
-      "ReturnTypeFullName": "System.Void"
-    },
-    {
-      "Name": "SetDataToTasks",
-      "IsRemote": true,
-      "Parameters": [
-        {
-          "Name": "emolyee_name",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
+          "Name": "startDate",
+          "ParameterType": "global::System.Nullable<global::System.DateTime>",
+          "ParameterTypeFullName": "System.Nullable"
         },
         {
-          "Name": "department",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
+          "Name": "endDate",
+          "ParameterType": "global::System.Nullable<global::System.DateTime>",
+          "ParameterTypeFullName": "System.Nullable"
         },
         {
-          "Name": "completed",
-          "ParameterType": "global::System.Int32",
-          "ParameterTypeFullName": "System.Int32"
-        },
-        {
-          "Name": "overdue",
-          "ParameterType": "global::System.Int32",
-          "ParameterTypeFullName": "System.Int32"
-        },
-        {
-          "Name": "well_done",
-          "ParameterType": "global::System.Int32",
-          "ParameterTypeFullName": "System.Int32"
-        },
-        {
-          "Name": "bad_done",
-          "ParameterType": "global::System.Int32",
-          "ParameterTypeFullName": "System.Int32"
-        },
-        {
-          "Name": "in_process",
-          "ParameterType": "global::System.Int32",
-          "ParameterTypeFullName": "System.Int32"
-        },
-        {
-          "Name": "department_id",
-          "ParameterType": "global::System.Int32",
-          "ParameterTypeFullName": "System.Int32"
+          "Name": "bussnesUnit",
+          "ParameterType": "global::Sungero.Company.IBusinessUnit",
+          "ParameterTypeFullName": "Sungero.Company.IBusinessUnit, Sungero.Domain.Interfaces"
         }
       ],
       "Placement": "Shared",
@@ -155,7 +116,7 @@
   "SharedAssemblyName": "micros.Report.Shared",
   "SharedNamespace": "micros.Report.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.8",
+  "Version": "0.0.1.17",
   "Widgets": [],
   "Versions": [
     {

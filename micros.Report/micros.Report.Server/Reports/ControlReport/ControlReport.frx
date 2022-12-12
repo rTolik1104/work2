@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Core.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;Sungero.Domain.Shared&#13;&#10;Sungero.CoreEntities.Shared&#13;&#10;Sungero.Reporting.Shared&#13;&#10;CommonLibrary&#13;&#10;Sungero.Company.Shared&#13;&#10;Sungero.Company.Server&#13;&#10;Sungero.Domain.Interfaces&#13;&#10;micros.Report.Shared&#13;&#10;micros.Report.Server" ReportInfo.CreatorVersion="2020.2.12.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Core.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;Sungero.Domain.Shared&#13;&#10;Sungero.CoreEntities.Shared&#13;&#10;Sungero.Reporting.Shared&#13;&#10;CommonLibrary&#13;&#10;Sungero.Domain.Interfaces&#13;&#10;micros.Report.Shared&#13;&#10;micros.Report.Server&#13;&#10;Sungero.Company.Shared&#13;&#10;Sungero.Company.Server" ReportInfo.CreatorVersion="2020.2.12.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,8 +15,8 @@ using FastReport.Dialog;
 using FastReport.Barcode;
 using FastReport.Table;
 using FastReport.Utils;
-using Sungero.Company;
 using micros.Report;
+using Sungero.Company;
 using Sungero.Domain.Shared;
 using Sungero.CoreEntities;
 using Sungero.Core;
@@ -32,61 +32,51 @@ namespace FastReport
   </ScriptText>
   <Dictionary>
     <SungeroSqlDataConnection Name="Sungero_Connection" Restrictions="DontModify, DontEdit, DontDelete, HideAllProperties" ConnectionStringExpression="[SungeroConnectionString]">
-      <TableDataSource Name="Table2" Alias="SourceTable" DataType="System.Int32" Enabled="true" CanEdit="true" SelectCommand="${GetData}">
-        <Column Name="emolyee_name" DataType="System.String" PropName="Column"/>
-        <Column Name="emolyee_department" DataType="System.String" PropName="Column"/>
-        <Column Name="completed" DataType="System.Int32" PropName="Column"/>
+      <TableDataSource Name="Table" Alias="DataTable" DataType="System.Int32" Enabled="true" CanEdit="true" SelectCommand="${GetTasksForReport}">
+        <Column Name="department_name" DataType="System.String" PropName="Column"/>
+        <Column Name="all_tasks" DataType="System.Int32" PropName="Column"/>
         <Column Name="overdue" DataType="System.Int32" PropName="Column"/>
         <Column Name="well_done" DataType="System.Int32" PropName="Column"/>
         <Column Name="bad_done" DataType="System.Int32" PropName="Column"/>
         <Column Name="in_process" DataType="System.Int32" PropName="Column"/>
-        <Column Name="taskscount" DataType="System.Int32" PropName="Column"/>
+        <Column Name="stoped" DataType="System.Int32" PropName="Column"/>
       </TableDataSource>
     </SungeroSqlDataConnection>
     <SungeroParameter Name="SungeroConnectionString" Restrictions="DontModify, DontEdit, DontDelete, HideAllProperties, DontShow" Id="8be43593-3617-4db3-9588-7a2bb7bbc65a" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
     <SungeroParameter Name="StartDate" Id="67272b8e-dbca-4884-92fa-919af5bedee0" IsRequired="true" IsCollection="false" InternalDataType="System.DateTime" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
     <SungeroParameter Name="EndDate" Id="7af7cd8f-6e6b-404a-8175-20ac8e15c6e2" IsRequired="true" IsCollection="false" InternalDataType="System.DateTime" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
-    <SungeroParameter Name="Departments" Id="238ef54f-7fa5-4a26-93d6-977ab7ef6398" IsRequired="false" IsCollection="true" InternalDataType="Sungero.Company.IDepartment, Sungero.Domain.Interfaces" IsSimpleDataType="false" EntityTypeId="61b1c19f-26e2-49a5-b3d3-0d3618151e12"/>
     <SungeroParameter Name="RegistrJournal" Id="145cfb67-8777-48dc-84fd-3e880ff02fd8" IsRequired="false" IsCollection="false" InternalDataType="micros.Report.IGroups, Sungero.Domain.Interfaces" IsSimpleDataType="false" EntityTypeId="b52bec2d-20a3-4d64-801a-56246308feae"/>
-    <SungeroParameter Name="InProcess" Id="fe5d4bf9-fc84-4420-9e63-2f1169dc430f" IsRequired="false" IsCollection="true" InternalDataType="System.Int32" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
-    <SungeroParameter Name="Completed" Id="e2193054-63a0-4711-818a-8d03752bfda3" IsRequired="false" IsCollection="true" InternalDataType="System.Int32" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
-    <SungeroParameter Name="WellDone" Id="62245a9d-8529-4ba2-be72-70dde5280fbe" IsRequired="false" IsCollection="true" InternalDataType="System.Int32" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
-    <SungeroParameter Name="BadDone" Id="22772461-bfaa-4a2b-b783-64213e8103c8" IsRequired="false" IsCollection="true" InternalDataType="System.Int32" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
-    <SungeroParameter Name="Overdue" Id="d1a67df9-8279-48df-9027-d792c0044013" IsRequired="false" IsCollection="true" InternalDataType="System.Int32" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
-    <SungeroParameter Name="AssigmentsCount" Id="39dab8b3-a054-4f13-81e0-25b382a7c78d" IsRequired="false" IsCollection="false" InternalDataType="System.Int32" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
-    <SungeroParameter Name="Employees" Id="e9ca5b87-985d-4064-a6cc-df95f7bb47af" IsRequired="false" IsCollection="true" InternalDataType="Sungero.Company.IEmployee, Sungero.Domain.Interfaces" IsSimpleDataType="false" EntityTypeId="b7905516-2be5-4931-961c-cb38d5677565"/>
+    <SungeroParameter Name="BussnetUnit" Id="7bead6c4-f74a-4094-a4d7-4f7a44309650" IsRequired="false" IsCollection="false" InternalDataType="Sungero.Company.IBusinessUnit, Sungero.Domain.Interfaces" IsSimpleDataType="false" EntityTypeId="eff95720-181f-4f7d-892d-dec034c7b2ab"/>
   </Dictionary>
-  <ReportPage Name="Page1" Guides="670.95,623.7,718.2,699.3,708.75" Watermark.Font="Arial, 60pt">
-    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
-      <TextObject Name="Text1" Left="9.45" Top="9.45" Width="623.7" Height="18.9" Text="Анализ исполнительской дисциплины сотрудников с [StartDate] по [EndDate]" Font="Arial, 10pt">
+  <ReportPage Name="Page1" Guides="670.95,623.7,699.3,708.75,708.75" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="47.25">
+      <TextObject Name="Text1" Left="9.45" Top="9.45" Width="642.6" Height="18.9" Text="Анализ исполнительской дисциплины сотрудников с [StartDate] по [EndDate]." Font="Arial, 10pt">
         <Formats>
           <DateFormat Format="dd.MM.yyyy"/>
           <DateFormat Format="dd.MM.yyyy"/>
           <GeneralFormat/>
         </Formats>
       </TextObject>
+      <TextObject Name="Text15" Left="9.45" Top="28.35" Width="481.95" Height="18.9" Text="Организация : [BussnetUnit]" Font="Arial, 10pt"/>
     </ReportTitleBand>
-    <ColumnHeaderBand Name="ColumnHeader1" Top="41.8" Width="718.2" Height="66.15">
-      <TextObject Name="Text2" Left="9.45" Width="113.4" Height="66.15" Border.Lines="All" Fill.Color="Silver" Text="Структурное подразделение" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text3" Left="122.85" Width="94.5" Height="66.15" Border.Lines="All" Fill.Color="Silver" Text="Общие поступившие задания" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text4" Left="217.35" Width="94.5" Height="66.15" Border.Lines="All" Fill.Color="Silver" Text="Список сотрудников" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text6" Left="311.85" Top="18.9" Width="85.05" Height="47.25" Border.Lines="All" Fill.Color="Silver" Text="Задачи в работе" HorzAlign="Center" Font="Arial, 9pt"/>
-      <TextObject Name="Text7" Left="396.9" Top="18.9" Width="94.5" Height="47.25" Border.Lines="All" Fill.Color="Silver" Text="Выполненные задания в срок" HorzAlign="Center" Font="Arial, 9pt"/>
-      <TextObject Name="Text8" Left="491.4" Top="18.9" Width="113.4" Height="47.25" Border.Lines="All" Fill.Color="Silver" Text="Несвоевременно выполненные задания" HorzAlign="Center" Font="Arial, 9pt"/>
-      <TextObject Name="Text9" Left="604.8" Top="18.9" Width="94.5" Height="47.25" Border.Lines="All" Fill.Color="Silver" Text="Просроченные задания" HorzAlign="Center" Font="Arial, 9pt"/>
-      <TextObject Name="Text5" Left="311.85" Width="387.45" Height="18.9" Border.Lines="All" Fill.Color="Silver" Text="[RegistrJournal]" HorzAlign="Center" Font="Arial, 10pt"/>
-    </ColumnHeaderBand>
-    <DataBand Name="Data1" Top="111.95" Width="718.2" Height="160.65" CanGrow="true" CanShrink="true" DataSource="Table2">
-      <TextObject Name="Text11" Left="217.35" Width="94.5" Height="37.8" Border.Lines="All" GrowToBottom="true" Text="[SourceTable.emolyee_name]" VertAlign="Center" Font="Arial, 9pt"/>
-      <TextObject Name="Text12" Left="311.85" Width="85.05" Height="37.8" Border.Lines="All" GrowToBottom="true" Text="[SourceTable.in_process]" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
-      <TextObject Name="Text13" Left="396.9" Width="94.5" Height="37.8" Border.Lines="All" GrowToBottom="true" Text="[SourceTable.well_done]" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
-      <TextObject Name="Text14" Left="491.4" Width="113.4" Height="37.8" Border.Lines="All" GrowToBottom="true" Text="[SourceTable.bad_done]" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
-      <TextObject Name="Text15" Left="604.8" Width="94.5" Height="37.8" Border.Lines="All" GrowToBottom="true" Text="[SourceTable.overdue]" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
-      <TextObject Name="Text16" Left="122.85" Width="94.5" Height="37.8" Border.Lines="All" Fill.Color="Gold" GrowToBottom="true" Text="[SourceTable.taskscount]" Duplicates="Merge" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text10" Left="9.45" Width="113.4" Height="37.8" Border.Lines="All" Fill.Color="Silver" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[SourceTable.emolyee_department]" Duplicates="Merge" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
-      <Sort>
-        <Sort Expression="[SourceTable.emolyee_department]"/>
-      </Sort>
+    <PageHeaderBand Name="PageHeader1" Top="51.25" Width="718.2" Height="66.15">
+      <TextObject Name="Text16" Left="9.45" Width="160.65" Height="66.15" Border.Lines="All" Fill.Color="Silver" Text="Структурное подразделение" HorzAlign="Center" Font="Arial, 9pt"/>
+      <TextObject Name="Text17" Left="170.1" Width="85.05" Height="66.15" Border.Lines="All" Fill.Color="Silver" Text="Общие поступившие задания" HorzAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text18" Left="255.15" Top="18.9" Width="85.05" Height="47.25" Border.Lines="All" Fill.Color="Silver" Text="Задачи в работе" HorzAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text19" Left="340.2" Top="18.9" Width="94.5" Height="47.25" Border.Lines="All" Fill.Color="Silver" Text="Выполненные задания в срок" HorzAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text20" Left="434.7" Top="18.9" Width="103.95" Height="47.25" Border.Lines="All" Fill.Color="Silver" Text="Несвоевременно выполненные задания" HorzAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text21" Left="538.65" Top="18.9" Width="75.6" Height="47.25" Border.Lines="All" Fill.Color="Silver" Text="Просроченные задания" HorzAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text22" Left="255.15" Width="453.6" Height="18.9" Border.Lines="All" Fill.Color="Silver" Text="[RegistrJournal]" HorzAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text2" Left="614.25" Top="18.9" Width="94.5" Height="47.25" Border.Lines="All" Fill.Color="Silver" Text="Приастановлено/ Прекращено" HorzAlign="Center" Font="Arial, 8pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="121.4" Width="718.2" Height="302.4" CanGrow="true" CanShrink="true" DataSource="Table" KeepTogether="true">
+      <TextObject Name="Text4" Left="9.45" Width="160.65" Height="28.35" Border.Lines="All" Fill.Color="Gold" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[DataTable.department_name]" Font="Arial, 10pt"/>
+      <TextObject Name="Text10" Left="170.1" Width="85.05" Height="28.35" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[DataTable.all_tasks]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text11" Left="255.15" Width="85.05" Height="28.35" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[DataTable.in_process]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text12" Left="340.2" Width="94.5" Height="28.35" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[DataTable.well_done]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text13" Left="434.7" Width="103.95" Height="28.35" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[DataTable.bad_done]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text14" Left="538.65" Width="75.6" Height="28.35" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[DataTable.overdue]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text3" Left="614.25" Width="94.5" Height="28.35" Border.Lines="All" Text="[DataTable.stoped]" HorzAlign="Center" Font="Arial, 10pt"/>
     </DataBand>
   </ReportPage>
 </Report>

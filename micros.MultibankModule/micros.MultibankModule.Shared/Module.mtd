@@ -30,21 +30,14 @@
         "NameGuid": "2970efa6-f945-4473-b949-994ae087c174",
         "Name": "ServiceDatabooks",
         "BackgroundPosition": "Stretch",
-        "IconName": "GroupIconServiceDatabooks_2970efa6f9454473b949994ae087c174.png",
-        "TabId": "cd3b3902-2e32-402e-941b-8ff6c01eae4b"
+        "IconName": "GroupIconServiceDatabooks_2970efa6f9454473b949994ae087c174.png"
       }
     ],
     "Header": {
       "NameGuid": "87f5ce7b-2e0d-4c75-9e95-44fb9b215f75",
       "BackgroundPosition": "Stretch",
       "IconName": "HeaderIcon_87f5ce7b2e0d4c759e9544fb9b215f75.png"
-    },
-    "Tabs": [
-      {
-        "NameGuid": "cd3b3902-2e32-402e-941b-8ff6c01eae4b",
-        "Name": "ServiceDatabooks"
-      }
-    ]
+    }
   },
   "Dependencies": [
     {
@@ -1012,7 +1005,7 @@
   "Versions": [
     {
       "Type": "ModuleMetadata",
-      "Number": 8
+      "Number": 6
     },
     {
       "Type": "DomainApi",

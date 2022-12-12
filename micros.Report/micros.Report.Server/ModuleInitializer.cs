@@ -13,7 +13,6 @@ namespace micros.Report.Server
     public override void Initializing(Sungero.Domain.ModuleInitializingEventArgs e)
     {
       CreateTableForTasks();
-      CreateTableForDepartments();
     }
     
     public static void CreateTableForTasks(){
@@ -21,15 +20,6 @@ namespace micros.Report.Server
       using(var command=SQL.GetCurrentConnection().CreateCommand())
       {
         command.CommandText=string.Format(Queries.Module.CreateReportTableForTasksCount);
-        command.ExecuteNonQuery();
-      }
-    }
-    
-    public static void CreateTableForDepartments(){
-      InitializationLogger.DebugFormat("Init: Create table department_tasks_count");
-      using(var command=SQL.GetCurrentConnection().CreateCommand())
-      {
-        command.CommandText=string.Format(Queries.Module.CreateTableForDepartmentsTasksCount);
         command.ExecuteNonQuery();
       }
     }
