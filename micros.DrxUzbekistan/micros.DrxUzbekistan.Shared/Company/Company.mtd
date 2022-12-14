@@ -313,6 +313,20 @@
         },
         {
           "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "ecde6d29-83f1-44e3-9d87-ad6fcf2bc170",
+          "Name": "TRRCmicros",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "149a02cc-c0af-4bec-8a1b-8d6c0bab1d81",
+          "PropertyGuid": "097187c8-c19a-4327-83dc-7f30e5f11e9e",
+          "RowNumber": 7,
+          "RowSpan": 1,
+          "Settings": [],
+          "Versions": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
           "NameGuid": "2e356dc0-5ad9-4695-8703-d2d84f01c2bf",
           "Name": "Settlementmicros",
           "ColumnNumber": 0,
@@ -437,7 +451,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
           "ParentGuid": "149a02cc-c0af-4bec-8a1b-8d6c0bab1d81",
           "PropertyGuid": "dbec1fc7-045d-4790-9452-1939eb678e89",
-          "RowNumber": 7,
+          "RowNumber": 11,
           "RowSpan": 1,
           "Settings": [],
           "Versions": []
@@ -484,8 +498,7 @@
       ],
       "IsAncestorMetadata": true,
       "Overridden": [
-        "UseAncestorControls",
-        "SettingsResourceKey"
+        "UseAncestorControls"
       ],
       "Versions": []
     }

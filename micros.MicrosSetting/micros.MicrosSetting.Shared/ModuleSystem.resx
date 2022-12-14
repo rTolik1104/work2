@@ -124,13 +124,4 @@
   <data name="CoverDescription_Measurenment" xml:space="preserve">
     <value>Dictionary of measurements for work with Micros24.uz</value>
   </data>
-  <data name="CoverGroup_QRCode" xml:space="preserve">
-    <value>Настройки QR-кода</value>
-  </data>
-  <data name="CoverAction_ConfigureQrCode" xml:space="preserve">
-    <value>Configure QR-code</value>
-  </data>
-  <data name="CoverDescription_ConfigureQrCode" xml:space="preserve">
-    <value>Config QR-code parametrs for worh with them</value>
-  </data>
 </root>

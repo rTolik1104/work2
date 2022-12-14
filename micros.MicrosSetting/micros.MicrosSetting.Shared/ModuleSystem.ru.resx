@@ -59,10 +59,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CoverDescription" xml:space="preserve">
-    <value>Модуль предназначен для настройки интеграции DirectumRX с другими системами</value>
+    <value>Модуль локализации разработан компаний Micros, предназначен для локализации системы под республику Узбекистан, содержит необходимые справочники, поддерживает интеграцию с ЭЦП E-IMZO, поддерживает интеграцию с оператором электронного документооборота Multibank (заполнения карточек контрагентов по ИНН), и иные функции.</value>
   </data>
   <data name="CoverTitle" xml:space="preserve">
-    <value>Micros настройки</value>
+    <value>Локализация под Узбекистан</value>
   </data>
   <data name="CoverGroup_AddingInformation" xml:space="preserve">
     <value>Справочники Республики Узбекистан</value>
@@ -80,7 +80,7 @@
     <value>Импортировать справочник банков РУз.</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>Micros настройки</value>
+    <value>Локализация под Узбекистан</value>
   </data>
   <data name="CoverDescription_MultibankAuthorization" xml:space="preserve">
     <value>Заполнения юридической информации о контрагентах по ИНН.</value>
@@ -117,11 +117,5 @@
   </data>
   <data name="CoverDescription_ShowAllCerificates" xml:space="preserve">
     <value>Сертификаты предназначенные для установки электронной подписи на документы.</value>
-  </data>
-  <data name="CoverAction_ConfigureQrCode" xml:space="preserve">
-    <value>Настройка параметров QR-кода</value>
-  </data>
-  <data name="CoverDescription_ConfigureQrCode" xml:space="preserve">
-    <value>Настройте параметры QR - кода</value>
   </data>
 </root>

@@ -59,10 +59,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CoverDescription" xml:space="preserve">
-    <value>Modul DirectumRX integratsiyasini boshqa tizimlar bilan sozlash uchun mo'ljallangan</value>
+    <value>Lokalizatsiya moduli Micros kompaniyasi tomonidan ishlab chiqilgan boʻlib, tizimni Oʻzbekiston Respublikasi uchun mahalliylashtirish uchun moʻljallangan, kerakli maʼlumotnomalarni oʻz ichiga oladi, E-IMZO ERI bilan integratsiyani qoʻllab-quvvatlaydi, Multibank elektron hujjat aylanishi operatori bilan integratsiyani qoʻllab-quvvatlaydi (TIN boʻyicha kontragent kartalarini toʻldirish) ) va boshqa funktsiyalar.</value>
   </data>
   <data name="CoverTitle" xml:space="preserve">
-    <value>Micros sozlamalar</value>
+    <value>O'zbekiston uchun mahalliylashtirish</value>
   </data>
   <data name="CoverGroup_AddingInformation" xml:space="preserve">
     <value>Ozbekiston Respublikasi malumotnomasi</value>
@@ -96,7 +96,7 @@ O'zbekiston Respublikasi banklari ma'lumotnomasini yuklab olish.</value>
     <value>Dictionary of measurements for work with Micros24.uz</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>Micros sozlamalar</value>
+    <value>O'zbekiston uchun mahalliylashtirish</value>
   </data>
   <data name="CoverAction_ShowAuthInfo" xml:space="preserve">
     <value>Integration with the service for obtaining information about counterparties of the RUz</value>
@@ -136,11 +136,5 @@ O'zbekiston Respublikasi banklari ma'lumotnomasini yuklab olish.</value>
   </data>
   <data name="CoverDescription_ShowAllCerificates" xml:space="preserve">
     <value>Hujjatlarga elektron imzo o'rnatish uchun mo'ljallangan sertifikatlar.</value>
-  </data>
-  <data name="CoverAction_ConfigureQrCode" xml:space="preserve">
-    <value>QR-kod sozlamalari</value>
-  </data>
-  <data name="CoverDescription_ConfigureQrCode" xml:space="preserve">
-    <value>QR - kod paramtrlarini sozlang</value>
   </data>
 </root>

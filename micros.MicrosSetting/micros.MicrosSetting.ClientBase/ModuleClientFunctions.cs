@@ -21,13 +21,6 @@ namespace micros.MicrosSetting.Client
     /// <summary>
     /// 
     /// </summary>
-    public virtual void Function1()
-    {
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
     public virtual void ConfigureMultibankAuthorization()
     {
       var dialog=Dialogs.CreateInputDialog("Авторизуйтесь в Multibank.");
@@ -233,28 +226,5 @@ namespace micros.MicrosSetting.Client
       asyncCheckCity.ExecuteAsync();
       Dialogs.NotifyMessage("Города добавлены.");
     }
-    
-    #region QR-code
-    //Вызывания окна изменения параметров QR кода 
-    public virtual void ConfigureQrCode()
-    {
-      var dialog = Dialogs.CreateInputDialog("Настроить параметры QR кода");
-      
-      var publicHost = dialog.AddString("Укажите адрес развернутого веб приложения:", false);
-      var localHost = dialog.AddString("Укажите адрес развернутого сервера директума:", false);
-      var storagePath=dialog.AddString("Укажите путь до папки развернутого веб приложения: ",false);
-      var isActive=dialog.AddBoolean("Активировать Qr код");
-      
-      if (dialog.Show() == DialogButtons.Ok){
-        try{
-          MicrosSetting.Functions.Module.Remote.UpdateQRCodeData(publicHost.Value,storagePath.Value,isActive.Value, localHost.Value);
-          Dialogs.ShowMessage("Изменеия сохранены", MessageType.Information);
-        }
-        catch(Exception ex){
-          Dialogs.ShowMessage(ex.Message, MessageType.Error);
-        }
-      }
-    }
-    #endregion
   }
 }
