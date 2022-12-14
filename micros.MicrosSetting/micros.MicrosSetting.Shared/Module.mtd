@@ -2,7 +2,16 @@
   "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
   "NameGuid": "f076e72a-b5c7-47bd-b4ac-a0aba7b2f22b",
   "Name": "MicrosSetting",
-  "AsyncHandlers": [],
+  "AsyncHandlers": [
+    {
+      "NameGuid": "4556d0c2-c2bc-4616-8967-e878f33ad4f1",
+      "Name": "CheckCities",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsHandlerGenerated": true,
+      "Parameters": []
+    }
+  ],
   "ClientAssemblyName": "micros.MicrosSetting.Client",
   "ClientBaseAssemblyName": "micros.MicrosSetting.ClientBase",
   "ClientBaseNamespace": "micros.MicrosSetting.ClientBase",
@@ -13,13 +22,6 @@
     "NameGuid": "4306063a-1c65-42bb-9de9-e205863ee155",
     "Actions": [
       {
-        "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
-        "NameGuid": "099911ae-f5bc-4c23-86cc-0729620eeabc",
-        "Name": "ShowAuthInfo",
-        "EntityTypeId": "4763245b-f4c0-4cc4-9ed2-4370cbb35639",
-        "GroupId": "c389b937-fa9d-4070-8030-751b35fa9d70"
-      },
-      {
         "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
         "NameGuid": "0ec95c9a-3985-4dc6-aed7-0ba48514a24b",
         "Name": "AddUzSettlements",
@@ -28,25 +30,33 @@
       },
       {
         "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
-        "NameGuid": "0fb6a623-7d88-446a-9fb6-25763b523706",
-        "Name": "AddMeasurment",
-        "FunctionName": "AddMeasurements",
-        "GroupId": "4b101514-44b6-4acb-8457-4577bbb5d974"
-      },
-      {
-        "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
-        "NameGuid": "338d7a86-9a69-492b-bc40-eac0de5a5739",
-        "Name": "Measurement",
-        "EntityTypeId": "e4ff7c6d-10bd-4f1c-851b-e375dd6d3101",
-        "GroupId": "4b101514-44b6-4acb-8457-4577bbb5d974",
-        "PreviousItemGuid": "0fb6a623-7d88-446a-9fb6-25763b523706"
+        "NameGuid": "1e8c3a6f-83c4-472a-9877-941c90a75578",
+        "Name": "MultibankAuthorization",
+        "FunctionName": "ConfigureMultibankAuthorization",
+        "GroupId": "c389b937-fa9d-4070-8030-751b35fa9d70"
       },
       {
         "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
-        "NameGuid": "6a1f27ab-df15-4eb6-afa3-04faf02dce1e",
-        "Name": "UpdateQrCodeParametr",
-        "FunctionName": "ConfigureQrCode",
-        "GroupId": "0c92baec-2b3b-46f5-828e-635f2725b0fa"
+        "NameGuid": "25c7533f-1220-4546-842a-b4768b78c747",
+        "Name": "ShowAllCerificates",
+        "FunctionName": "ShowAllCertificates",
+        "GroupId": "9d663917-b58a-46ff-952a-4a4b9482fc57",
+        "PreviousItemGuid": "882d57ea-56ec-4b7f-a0b5-4d964fe988dd"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "882d57ea-56ec-4b7f-a0b5-4d964fe988dd",
+        "Name": "CreateCertificate",
+        "FunctionName": "CreateCertificate",
+        "GroupId": "9d663917-b58a-46ff-952a-4a4b9482fc57"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "88d5b84c-8b46-4618-971e-fdf05967e0c8",
+        "Name": "AddMeasurentment",
+        "FunctionName": "AddMeasurements",
+        "GroupId": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510",
+        "PreviousItemGuid": "9d511501-f229-48f8-b24a-67526e75bda9"
       },
       {
         "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
@@ -55,6 +65,14 @@
         "FunctionName": "AddUzBanks",
         "GroupId": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510",
         "PreviousItemGuid": "0ec95c9a-3985-4dc6-aed7-0ba48514a24b"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverEntityListActionMetadata, Sungero.Metadata",
+        "NameGuid": "d3d44ffc-7f58-498c-814e-108814f40058",
+        "Name": "Measurenment",
+        "EntityTypeId": "e4ff7c6d-10bd-4f1c-851b-e375dd6d3101",
+        "GroupId": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510",
+        "PreviousItemGuid": "88d5b84c-8b46-4618-971e-fdf05967e0c8"
       }
     ],
     "Background": null,
@@ -67,34 +85,36 @@
         "NameGuid": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510",
         "Name": "AddingInformation",
         "BackgroundPosition": "Stretch",
-        "IconName": "GroupIconAddingInformation_ec6c0d3305fd4f5daa8da2908c5ea510.png"
-      },
-      {
-        "NameGuid": "4b101514-44b6-4acb-8457-4577bbb5d974",
-        "Name": "Import",
-        "BackgroundPosition": "Stretch",
-        "IconName": "GroupIconImport_4b10151444b64acb84574577bbb5d974.png",
-        "PreviousItemGuid": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510"
+        "IconName": "GroupIconAddingInformation_ec6c0d3305fd4f5daa8da2908c5ea510.png",
+        "TabId": "a4c0befd-5ac4-4ff1-b515-990cc24ec271"
       },
       {
         "NameGuid": "c389b937-fa9d-4070-8030-751b35fa9d70",
         "Name": "Micros24IntegrationSettings",
         "BackgroundPosition": "Stretch",
         "IconName": "GroupIconMicros24IntegrationSettings_c389b937fa9d40708030751b35fa9d70.png",
-        "PreviousItemGuid": "4b101514-44b6-4acb-8457-4577bbb5d974"
+        "PreviousItemGuid": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510",
+        "TabId": "a4c0befd-5ac4-4ff1-b515-990cc24ec271"
       },
       {
-        "NameGuid": "0c92baec-2b3b-46f5-828e-635f2725b0fa",
-        "Name": "QRCode",
+        "NameGuid": "9d663917-b58a-46ff-952a-4a4b9482fc57",
+        "Name": "Eimzo",
         "BackgroundPosition": "Stretch",
-        "IconName": "GroupIconGroup_0c92baec2b3b46f5828e635f2725b0fa.png",
-        "PreviousItemGuid": "c389b937-fa9d-4070-8030-751b35fa9d70"
+        "IconName": "GroupIconEimzo_9d663917b58a46ff952a4a4b9482fc57.png",
+        "PreviousItemGuid": "c389b937-fa9d-4070-8030-751b35fa9d70",
+        "TabId": "a4c0befd-5ac4-4ff1-b515-990cc24ec271"
       }
     ],
     "Header": {
       "NameGuid": "3feaafd4-b653-4222-8fa1-52069f2962b9",
       "BackgroundPosition": "Stretch"
-    }
+    },
+    "Tabs": [
+      {
+        "NameGuid": "a4c0befd-5ac4-4ff1-b515-990cc24ec271",
+        "Name": "Tab"
+      }
+    ]
   },
   "Dependencies": [
     {
@@ -123,7 +143,14 @@
     {
       "ItemId": "4763245b-f4c0-4cc4-9ed2-4370cbb35639",
       "PreviousItemId": "f65e5d60-870e-49a6-a9dd-f17c1b167fd2"
+    },
+    {
+      "ItemId": "fea53565-634c-42fa-9e28-9f8c272fd6d0",
+      "PreviousItemId": "4763245b-f4c0-4cc4-9ed2-4370cbb35639"
     }
+  ],
+  "HandledEvents": [
+    "InitializingServer"
   ],
   "IconResourcesKeys": [],
   "Importance": "Medium",
@@ -144,6 +171,11 @@
       "NameGuid": "c23f1ba5-cdda-4154-99ff-b777f3be5207",
       "Name": "NewtonJson",
       "Scope": "Both"
+    },
+    {
+      "NameGuid": "2d9ef008-76ef-473e-ab37-b4cf72a215f5",
+      "Name": "Restsharp",
+      "Scope": "Both"
     }
   ],
   "PublicFunctions": [
@@ -155,33 +187,42 @@
       "ReturnTypeFullName": "System.Boolean"
     },
     {
-      "Name": "GetQRCodeData",
+      "Name": "CheckAuthorization",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "login",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "password",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "GetMultibankAuthorizationData",
       "IsRemote": true,
       "Placement": "Shared",
       "ReturnType": "global::System.Collections.Generic.List<global::System.String>",
       "ReturnTypeFullName": "System.Collections.Generic.List"
     },
     {
-      "Name": "UpdateQRCodeData",
+      "Name": "UpdateMultibankAuthorization",
       "IsRemote": true,
       "Parameters": [
         {
-          "Name": "publicHost",
+          "Name": "login",
           "ParameterType": "global::System.String",
           "ParameterTypeFullName": "System.String"
         },
         {
-          "Name": "storagePath",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
-        },
-        {
-          "Name": "isActive",
-          "ParameterType": "global::System.Nullable<global::System.Boolean>",
-          "ParameterTypeFullName": "System.Nullable"
-        },
-        {
-          "Name": "localHost",
+          "Name": "password",
           "ParameterType": "global::System.String",
           "ParameterTypeFullName": "System.String"
         }
@@ -200,12 +241,12 @@
   "SharedAssemblyName": "micros.MicrosSetting.Shared",
   "SharedNamespace": "micros.MicrosSetting.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.5",
+  "Version": "0.0.1.7",
   "Widgets": [],
   "Versions": [
     {
       "Type": "ModuleMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "DomainApi",

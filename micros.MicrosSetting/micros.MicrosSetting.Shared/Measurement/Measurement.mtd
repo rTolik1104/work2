@@ -69,10 +69,12 @@
   "HideFromCreationArea": true,
   "HideFromNavigationEditorCreationArea": true,
   "IconResourcesKeys": [],
+  "IsVisible": false,
   "OperationsClass": "",
   "Overridden": [
     "HideFromCreationArea",
-    "HideFromNavigationEditorCreationArea"
+    "HideFromNavigationEditorCreationArea",
+    "IsVisible"
   ],
   "Properties": [
     {
