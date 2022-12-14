@@ -29,4 +29,9 @@ WHERE id=1;]]></postgres>
   <query key="SelectMultibankData">
     <default><![CDATA[SELECT * FROM multibank_authorization;]]></default>
   </query>
+  <query key="UpdateQRCodeData">
+    <postgres><![CDATA[update qr_code_data
+set public_host_address = '{0}', storage_path='{1}', active={2}, local_host_address='{3}'
+where id=1]]></postgres>
+  </query>
 </queries>

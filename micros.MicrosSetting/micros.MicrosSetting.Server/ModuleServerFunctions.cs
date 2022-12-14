@@ -202,5 +202,16 @@ namespace micros.MicrosSetting.Server
       }
       return false;
     }
+    
+    //Обновления параметров QR кода
+    [Remote, Public]
+    public void UpdateQRCodeData(string publicHost, string storagePath, bool? isActive,string localHost)
+    {
+      using (var command = SQL.GetCurrentConnection().CreateCommand())
+      {
+        command.CommandText = string.Format(Queries.Module.UpdateQRCodeData, publicHost, storagePath, isActive, localHost);
+        command.ExecuteNonQuery();
+      }
+    }
   }
 }  

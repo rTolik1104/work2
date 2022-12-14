@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
 using Sungero.CoreEntities;
-using micros.DrxUzbekistan.Company;
+using Sungero.Workflow;
 
-namespace micros.DrxUzbekistan
+namespace micros.MicrosSetting.Server.MicrosSettingBlocks
 {
-
-
-
-
 }

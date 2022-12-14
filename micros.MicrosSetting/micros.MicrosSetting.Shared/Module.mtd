@@ -45,6 +45,13 @@
       },
       {
         "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "467bd219-5c7d-4149-b40e-55c8f084482c",
+        "Name": "ConfigureQrCode",
+        "FunctionName": "ConfigureQrCode",
+        "GroupId": "0945c329-b4ea-426d-9dee-85384ebe6f3d"
+      },
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
         "NameGuid": "882d57ea-56ec-4b7f-a0b5-4d964fe988dd",
         "Name": "CreateCertificate",
         "FunctionName": "CreateCertificate",
@@ -85,27 +92,44 @@
         "NameGuid": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510",
         "Name": "AddingInformation",
         "BackgroundPosition": "Stretch",
-        "IconName": "GroupIconAddingInformation_ec6c0d3305fd4f5daa8da2908c5ea510.png"
+        "IconName": "GroupIconAddingInformation_ec6c0d3305fd4f5daa8da2908c5ea510.png",
+        "TabId": "a4c0befd-5ac4-4ff1-b515-990cc24ec271"
       },
       {
         "NameGuid": "c389b937-fa9d-4070-8030-751b35fa9d70",
         "Name": "Micros24IntegrationSettings",
         "BackgroundPosition": "Stretch",
         "IconName": "GroupIconMicros24IntegrationSettings_c389b937fa9d40708030751b35fa9d70.png",
-        "PreviousItemGuid": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510"
+        "PreviousItemGuid": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510",
+        "TabId": "a4c0befd-5ac4-4ff1-b515-990cc24ec271"
       },
       {
         "NameGuid": "9d663917-b58a-46ff-952a-4a4b9482fc57",
         "Name": "Eimzo",
         "BackgroundPosition": "Stretch",
         "IconName": "GroupIconEimzo_9d663917b58a46ff952a4a4b9482fc57.png",
-        "PreviousItemGuid": "c389b937-fa9d-4070-8030-751b35fa9d70"
+        "PreviousItemGuid": "c389b937-fa9d-4070-8030-751b35fa9d70",
+        "TabId": "a4c0befd-5ac4-4ff1-b515-990cc24ec271"
+      },
+      {
+        "NameGuid": "0945c329-b4ea-426d-9dee-85384ebe6f3d",
+        "Name": "QRCode",
+        "BackgroundPosition": "Stretch",
+        "IconName": "GroupIconQRCode_0945c329b4ea426d9dee85384ebe6f3d.png",
+        "PreviousItemGuid": "9d663917-b58a-46ff-952a-4a4b9482fc57",
+        "TabId": "a4c0befd-5ac4-4ff1-b515-990cc24ec271"
       }
     ],
     "Header": {
       "NameGuid": "3feaafd4-b653-4222-8fa1-52069f2962b9",
       "BackgroundPosition": "Stretch"
-    }
+    },
+    "Tabs": [
+      {
+        "NameGuid": "a4c0befd-5ac4-4ff1-b515-990cc24ec271",
+        "Name": "Tab"
+      }
+    ]
   },
   "Dependencies": [
     {
@@ -221,6 +245,35 @@
       "Placement": "Shared",
       "ReturnType": "void",
       "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "UpdateQRCodeData",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "publicHost",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "storagePath",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isActive",
+          "ParameterType": "global::System.Nullable<global::System.Boolean>",
+          "ParameterTypeFullName": "System.Nullable"
+        },
+        {
+          "Name": "localHost",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
     }
   ],
   "PublicStructures": [],
@@ -237,7 +290,7 @@
   "Versions": [
     {
       "Type": "ModuleMetadata",
-      "Number": 6
+      "Number": 8
     },
     {
       "Type": "DomainApi",
