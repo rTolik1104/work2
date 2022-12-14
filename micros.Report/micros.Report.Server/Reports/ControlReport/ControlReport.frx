@@ -70,13 +70,13 @@ namespace FastReport
       <TextObject Name="Text2" Left="614.25" Top="18.9" Width="94.5" Height="47.25" Border.Lines="All" Fill.Color="Silver" Text="Приастановлено/ Прекращено" HorzAlign="Center" Font="Arial, 8pt"/>
     </PageHeaderBand>
     <DataBand Name="Data1" Top="121.4" Width="718.2" Height="302.4" CanGrow="true" CanShrink="true" DataSource="Table" KeepTogether="true">
-      <TextObject Name="Text4" Left="9.45" Width="160.65" Height="28.35" Border.Lines="All" Fill.Color="Gold" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[DataTable.department_name]" Font="Arial, 10pt"/>
-      <TextObject Name="Text10" Left="170.1" Width="85.05" Height="28.35" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[DataTable.all_tasks]" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text11" Left="255.15" Width="85.05" Height="28.35" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[DataTable.in_process]" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text12" Left="340.2" Width="94.5" Height="28.35" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[DataTable.well_done]" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text13" Left="434.7" Width="103.95" Height="28.35" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[DataTable.bad_done]" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text14" Left="538.65" Width="75.6" Height="28.35" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[DataTable.overdue]" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text3" Left="614.25" Width="94.5" Height="28.35" Border.Lines="All" Text="[DataTable.stoped]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text10" Left="170.1" Width="85.05" Height="28.35" Border.Lines="All" GrowToBottom="true" CanBreak="false" Text="[DataTable.all_tasks]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text11" Left="255.15" Width="85.05" Height="28.35" Border.Lines="All" GrowToBottom="true" CanBreak="false" Text="[DataTable.in_process]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text12" Left="340.2" Width="94.5" Height="28.35" Border.Lines="All" GrowToBottom="true" CanBreak="false" Text="[DataTable.well_done]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text13" Left="434.7" Width="103.95" Height="28.35" Border.Lines="All" GrowToBottom="true" CanBreak="false" Text="[DataTable.bad_done]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text14" Left="538.65" Width="75.6" Height="28.35" Border.Lines="All" GrowToBottom="true" CanBreak="false" Text="[DataTable.overdue]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text3" Left="614.25" Width="94.5" Height="28.35" Border.Lines="All" GrowToBottom="true" CanBreak="false" Text="[DataTable.stoped]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text4" Left="9.45" Width="160.65" Height="28.35" Border.Lines="All" Fill.Color="Gold" GrowToBottom="true" CanBreak="false" Text="[DataTable.department_name]" Font="Arial, 10pt"/>
     </DataBand>
   </ReportPage>
 </Report>

@@ -67,44 +67,34 @@
         "NameGuid": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510",
         "Name": "AddingInformation",
         "BackgroundPosition": "Stretch",
-        "IconName": "GroupIconAddingInformation_ec6c0d3305fd4f5daa8da2908c5ea510.png",
-        "TabId": "6fd4e651-1aa6-40a4-a5a0-fd561e7f5e07"
+        "IconName": "GroupIconAddingInformation_ec6c0d3305fd4f5daa8da2908c5ea510.png"
       },
       {
         "NameGuid": "4b101514-44b6-4acb-8457-4577bbb5d974",
         "Name": "Import",
         "BackgroundPosition": "Stretch",
         "IconName": "GroupIconImport_4b10151444b64acb84574577bbb5d974.png",
-        "PreviousItemGuid": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510",
-        "TabId": "6fd4e651-1aa6-40a4-a5a0-fd561e7f5e07"
+        "PreviousItemGuid": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510"
       },
       {
         "NameGuid": "c389b937-fa9d-4070-8030-751b35fa9d70",
         "Name": "Micros24IntegrationSettings",
         "BackgroundPosition": "Stretch",
         "IconName": "GroupIconMicros24IntegrationSettings_c389b937fa9d40708030751b35fa9d70.png",
-        "PreviousItemGuid": "4b101514-44b6-4acb-8457-4577bbb5d974",
-        "TabId": "6fd4e651-1aa6-40a4-a5a0-fd561e7f5e07"
+        "PreviousItemGuid": "4b101514-44b6-4acb-8457-4577bbb5d974"
       },
       {
         "NameGuid": "0c92baec-2b3b-46f5-828e-635f2725b0fa",
         "Name": "QRCode",
         "BackgroundPosition": "Stretch",
         "IconName": "GroupIconGroup_0c92baec2b3b46f5828e635f2725b0fa.png",
-        "PreviousItemGuid": "c389b937-fa9d-4070-8030-751b35fa9d70",
-        "TabId": "6fd4e651-1aa6-40a4-a5a0-fd561e7f5e07"
+        "PreviousItemGuid": "c389b937-fa9d-4070-8030-751b35fa9d70"
       }
     ],
     "Header": {
       "NameGuid": "3feaafd4-b653-4222-8fa1-52069f2962b9",
       "BackgroundPosition": "Stretch"
-    },
-    "Tabs": [
-      {
-        "NameGuid": "6fd4e651-1aa6-40a4-a5a0-fd561e7f5e07",
-        "Name": "Tab"
-      }
-    ]
+    }
   },
   "Dependencies": [
     {
@@ -215,7 +205,7 @@
   "Versions": [
     {
       "Type": "ModuleMetadata",
-      "Number": 8
+      "Number": 6
     },
     {
       "Type": "DomainApi",
