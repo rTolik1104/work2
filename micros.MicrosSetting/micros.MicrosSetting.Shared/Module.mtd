@@ -85,36 +85,27 @@
         "NameGuid": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510",
         "Name": "AddingInformation",
         "BackgroundPosition": "Stretch",
-        "IconName": "GroupIconAddingInformation_ec6c0d3305fd4f5daa8da2908c5ea510.png",
-        "TabId": "a4c0befd-5ac4-4ff1-b515-990cc24ec271"
+        "IconName": "GroupIconAddingInformation_ec6c0d3305fd4f5daa8da2908c5ea510.png"
       },
       {
         "NameGuid": "c389b937-fa9d-4070-8030-751b35fa9d70",
         "Name": "Micros24IntegrationSettings",
         "BackgroundPosition": "Stretch",
         "IconName": "GroupIconMicros24IntegrationSettings_c389b937fa9d40708030751b35fa9d70.png",
-        "PreviousItemGuid": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510",
-        "TabId": "a4c0befd-5ac4-4ff1-b515-990cc24ec271"
+        "PreviousItemGuid": "ec6c0d33-05fd-4f5d-aa8d-a2908c5ea510"
       },
       {
         "NameGuid": "9d663917-b58a-46ff-952a-4a4b9482fc57",
         "Name": "Eimzo",
         "BackgroundPosition": "Stretch",
         "IconName": "GroupIconEimzo_9d663917b58a46ff952a4a4b9482fc57.png",
-        "PreviousItemGuid": "c389b937-fa9d-4070-8030-751b35fa9d70",
-        "TabId": "a4c0befd-5ac4-4ff1-b515-990cc24ec271"
+        "PreviousItemGuid": "c389b937-fa9d-4070-8030-751b35fa9d70"
       }
     ],
     "Header": {
       "NameGuid": "3feaafd4-b653-4222-8fa1-52069f2962b9",
       "BackgroundPosition": "Stretch"
-    },
-    "Tabs": [
-      {
-        "NameGuid": "a4c0befd-5ac4-4ff1-b515-990cc24ec271",
-        "Name": "Tab"
-      }
-    ]
+    }
   },
   "Dependencies": [
     {
@@ -241,12 +232,12 @@
   "SharedAssemblyName": "micros.MicrosSetting.Shared",
   "SharedNamespace": "micros.MicrosSetting.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.7",
+  "Version": "0.0.1.8",
   "Widgets": [],
   "Versions": [
     {
       "Type": "ModuleMetadata",
-      "Number": 8
+      "Number": 6
     },
     {
       "Type": "DomainApi",
