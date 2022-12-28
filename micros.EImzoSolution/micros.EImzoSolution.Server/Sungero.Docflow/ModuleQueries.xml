@@ -1,3 +1,27 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <queries>
+  <query key="SetPassword">
+    <postgres><![CDATA[update sungero_content_edocversion
+set public_password = '{0}'
+where edoc={1}]]></postgres>
+  </query>
+  <query key="SelectHashCode">
+    <postgres><![CDATA[select body_hash
+from  sungero_content_edocversion
+where edoc = {0}]]></postgres>
+  </query>
+  <query key="InsertEimzoData">
+    <postgres><![CDATA[INSERT INTO eimzo_data(
+	edoc_id, signer_name, thumbprint, sign_date)
+	VALUES ({0}, '{1}', '{2}', '{3}');]]></postgres>
+  </query>
+  <query key="CheckActive">
+    <postgres><![CDATA[SELECT active FROM qr_code_data WHERE id=1;]]></postgres>
+  </query>
+  <query key="GetPath">
+    <postgres><![CDATA[SELECT storage_path FROM qr_code_data WHERE id=1;]]></postgres>
+  </query>
+  <query key="GetPublicBodyId">
+    <postgres><![CDATA[SELECT publicbody_id from sungero_content_edocversion where edoc={0}]]></postgres>
+  </query>
 </queries>

@@ -59,10 +59,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CoverDescription" xml:space="preserve">
-    <value>Модуль локализации разработан компаний Micros, предназначен для локализации системы под республику Узбекистан, содержит необходимые справочники, поддерживает интеграцию с ЭЦП E-IMZO, поддерживает интеграцию с оператором электронного документооборота Multibank (заполнения карточек контрагентов по ИНН), и иные функции.</value>
+    <value>Модуль предназначен для настройки интеграции DirectumRX с другими системами</value>
   </data>
   <data name="CoverTitle" xml:space="preserve">
-    <value>Локализация под Узбекистан</value>
+    <value>Micros настройки</value>
   </data>
   <data name="CoverGroup_AddingInformation" xml:space="preserve">
     <value>Справочники Республики Узбекистан</value>
@@ -76,46 +76,37 @@
   <data name="CoverDescription_AddUzBanks" xml:space="preserve">
     <value>Загрузка справочника банков РУз.</value>
   </data>
+  <data name="CoverGroup_Import" xml:space="preserve">
+    <value>Импорт данных</value>
+  </data>
   <data name="CoverAction_AddUzBanks" xml:space="preserve">
     <value>Импортировать справочник банков РУз.</value>
   </data>
-  <data name="DisplayName" xml:space="preserve">
-    <value>Локализация под Узбекистан</value>
+  <data name="CoverAction_AddMeasurment" xml:space="preserve">
+    <value>Импортировать справочник единиц измерения ГНК</value>
   </data>
-  <data name="CoverDescription_MultibankAuthorization" xml:space="preserve">
-    <value>Заполнения юридической информации о контрагентах по ИНН.</value>
+  <data name="CoverDescription_AddMeasurment" xml:space="preserve">
+    <value>Загрузка справочника единиц измерения ГНК.</value>
+  </data>
+  <data name="CoverAction_Measurement" xml:space="preserve">
+    <value>Единицы измерения</value>
+  </data>
+  <data name="CoverDescription_Measurement" xml:space="preserve">
+    <value>Справочник единиц измерения для работы с оператором электронного документоборота Micros24.uz</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Micros настройки</value>
+  </data>
+  <data name="CoverAction_ShowAuthInfo" xml:space="preserve">
+    <value>Интеграция с сервисом получения информации о контрагентах РУз</value>
   </data>
   <data name="CoverGroup_Micros24IntegrationSettings" xml:space="preserve">
     <value>Интеграция с сервисом Multibank </value>
   </data>
-  <data name="CoverAction_MultibankAuthorization" xml:space="preserve">
-    <value>Интеграция с сервисом получения информации о крнтрагентах РУз.</value>
+  <data name="CoverDescription_ShowAuthInfo" xml:space="preserve">
+    <value>Заполнение юридической информации о контрагентах по ИНН.</value>
   </data>
-  <data name="AsyncHandler_Description_4556d0c2c2bc46168967e878f33ad4f1" xml:space="preserve">
+  <data name="AsyncHandler_Description_2ced027a9c144571b04bd401a329fc5c" xml:space="preserve">
     <value>AsyncHandler</value>
-  </data>
-  <data name="CoverAction_CreateCertificate" xml:space="preserve">
-    <value>Создать цифровой сертификат</value>
-  </data>
-  <data name="CoverAction_ShowAllCerificates" xml:space="preserve">
-    <value>Цифровые сертификаты</value>
-  </data>
-  <data name="CoverAction_AddMeasurentment" xml:space="preserve">
-    <value>Импортировать справочник единиц измерения ГНК</value>
-  </data>
-  <data name="CoverDescription_AddMeasurentment" xml:space="preserve">
-    <value>Загрузка справочника единиц измерения ГНК.</value>
-  </data>
-  <data name="CoverAction_Measurenment" xml:space="preserve">
-    <value>Единицы измерения</value>
-  </data>
-  <data name="CoverDescription_Measurenment" xml:space="preserve">
-    <value>Справочник единиц измерения для работы с оператором электронного документоборота Micros24.uz</value>
-  </data>
-  <data name="CoverDescription_CreateCertificate" xml:space="preserve">
-    <value>Утилита предназначена для извлечения открытого сертификата из PKCS#12 контейнера (файл .pfx).</value>
-  </data>
-  <data name="CoverDescription_ShowAllCerificates" xml:space="preserve">
-    <value>Сертификаты предназначенные для установки электронной подписи на документы.</value>
   </data>
 </root>

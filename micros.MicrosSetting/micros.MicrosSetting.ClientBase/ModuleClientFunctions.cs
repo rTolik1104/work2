@@ -21,35 +21,16 @@ namespace micros.MicrosSetting.Client
     /// <summary>
     /// 
     /// </summary>
-    public virtual void ConfigureMultibankAuthorization()
+    public virtual void Function2()
     {
-      var dialog=Dialogs.CreateInputDialog("Авторизуйтесь в Multibank.");
-      
-      var login=dialog.AddString("Введите логин:",true);
-      var password=dialog.AddString("Введите пароль:",true);
-      
-      if(dialog.Show()==DialogButtons.Ok)
-      {
-        try
-        {
-          var result = MicrosSetting.Functions.Module.Remote.CheckAuthorization(login.Value,password.Value);
-          if(result)
-          {
-            MicrosSetting.Functions.Module.Remote.UpdateMultibankAuthorization(login.Value, password.Value);
-            Dialogs.NotifyMessage("Авторизация прошла успешно!");
-            Dialogs.ShowMessage("Изменения сохранены",MessageType.Information);
-          }
-          else{
-            Dialogs.ShowMessage("Логин или пароль заданы не коректно!", MessageType.Error);
-          }
-        }
-        catch(Exception ex)
-        {
-          Dialogs.ShowMessage(ex.Message,MessageType.Error);
-        }
-      }
     }
-    
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public virtual void Function1()
+    {
+    }
     public virtual void ShowAllCertificates()
     {
       var listAllCertificates = Functions.Module.Remote.GetAllCertificates();
@@ -217,14 +198,36 @@ namespace micros.MicrosSetting.Client
           newRegion.Save();
         }
       }
-      Dialogs.NotifyMessage("Регионы добавлены.");
+      Dialogs.NotifyMessage("Регионны добавлены.");
     }
     
     public virtual void AddUzCities()
     {
-      var asyncCheckCity=MicrosSetting.AsyncHandlers.CheckCities.Create();
-      asyncCheckCity.ExecuteAsync();
+      var asynvHandler=MicrosSetting.AsyncHandlers.CheckCity.Create();
+      asynvHandler.ExecuteAsync();
       Dialogs.NotifyMessage("Города добавлены.");
+    }
+    
+    public virtual void ConfigureQrCode()
+    {
+      var dialog = Dialogs.CreateInputDialog("Настроить параметры QR кода");
+      
+      //var data=MicrosSetting.Functions.Module.Remote.GetQRCodeData();
+      
+      var publicHost = dialog.AddString("Укажите адрес развернутого веб приложения:", false);
+      var localHost = dialog.AddString("Укажите адрес развернутого сервера директума:", false);
+      var storagePath=dialog.AddString("Укажите путь до папки развернутого веб приложения: ",false);
+      var isActive=dialog.AddBoolean("Активировать Qr код");
+      
+      if (dialog.Show() == DialogButtons.Ok){
+        try{
+          MicrosSetting.Functions.Module.Remote.UpdateQRCodeData(publicHost.Value,storagePath.Value,isActive.Value, localHost.Value);
+          Dialogs.ShowMessage("Изменеия сохранены", MessageType.Information);
+        }
+        catch(Exception ex){
+          Dialogs.ShowMessage(ex.Message, MessageType.Error);
+        }
+      }
     }
   }
 }

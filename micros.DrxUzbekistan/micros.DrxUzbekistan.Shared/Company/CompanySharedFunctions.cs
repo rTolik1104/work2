@@ -22,9 +22,9 @@ namespace micros.DrxUzbekistan.Shared
         return Sungero.Parties.Counterparties.Resources.NotOnlyDigitsTin;
       
       // Проверить длину ИНН. Для компаний допустимы ИНН длиной 10 или 12 символов, для персон - только 12.
-      if(tin.Length < 9 || tin.Length > 9)
+      if(tin.Length < 9 || tin.Length > 12)
       {
-        return "ИНН должен состоять из 9 цифр.";
+        return "ИНН должен состоять от 9 до 12 цифр.";
       }
       
       return string.Empty;

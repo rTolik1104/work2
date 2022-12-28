@@ -82,46 +82,43 @@
   <data name="CoverDescription_AddUzBanks" xml:space="preserve">
     <value>Loading the directory of banks of the Republic of Uzbekistan.</value>
   </data>
+  <data name="CoverGroup_Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="CoverAction_AddMeasurment" xml:space="preserve">
+    <value>Import reference book of units of measurement of GNC</value>
+  </data>
+  <data name="CoverDescription_AddMeasurment" xml:space="preserve">
+    <value>Loading the reference book of units of measurement of GNK.</value>
+  </data>
+  <data name="CoverDescription_Measurement" xml:space="preserve">
+    <value>Dictionary of measurements for work with Micros24.uz</value>
+  </data>
+  <data name="CoverAction_Measurement" xml:space="preserve">
+    <value>Measurement</value>
+  </data>
   <data name="CoverGroup_Micros24IntegrationSettings" xml:space="preserve">
     <value>Integration With Multibank Service</value>
+  </data>
+  <data name="CoverDescription_ShowAuthInfo" xml:space="preserve">
+    <value>Filling in legal information about counterparties by TIN.</value>
+  </data>
+  <data name="CoverAction_ShowAuthInfo" xml:space="preserve">
+    <value>Integration with the service for obtaining information about counterparties of the RUz</value>
   </data>
   <data name="CoverTab_Tab" xml:space="preserve">
     <value>Tab</value>
   </data>
-  <data name="AsyncHandler_Description_4556d0c2c2bc46168967e878f33ad4f1" xml:space="preserve">
-    <value>Function for create cities of Republic Uzbekistan</value>
+  <data name="CoverGroup_Group" xml:space="preserve">
+    <value>Настройки QR кода</value>
   </data>
-  <data name="CoverGroup_Eimzo" xml:space="preserve">
-    <value>E-IMZO</value>
+  <data name="CoverAction_Action" xml:space="preserve">
+    <value>Настроить параметры QR кода</value>
   </data>
-  <data name="CoverAction_CreateCertificate" xml:space="preserve">
-    <value>Create certificate</value>
+  <data name="CoverDescription_Action" xml:space="preserve">
+    <value>Настройт парамтры для работы с QR кодом</value>
   </data>
-  <data name="CoverDescription_CreateCertificate" xml:space="preserve">
-    <value>Утилита предназначена для извлечения открытого сертификата из PKCS#12 контейнера (файл .pfx).</value>
-  </data>
-  <data name="CoverAction_ShowAllCerificates" xml:space="preserve">
-    <value>Show All Cerificates</value>
-  </data>
-  <data name="CoverDescription_ShowAllCerificates" xml:space="preserve">
-    <value>Сертификаты предназначенные для установки электронной подписи на документы.</value>
-  </data>
-  <data name="CoverAction_MultibankAuthorization" xml:space="preserve">
-    <value>Integration with the service for obtaining information about counterparties of the RUz</value>
-  </data>
-  <data name="CoverDescription_MultibankAuthorization" xml:space="preserve">
-    <value>Filling in legal information about counterparties by TIN.</value>
-  </data>
-  <data name="CoverAction_AddMeasurentment" xml:space="preserve">
-    <value>Import reference book of units of measurement of GNC</value>
-  </data>
-  <data name="CoverDescription_AddMeasurentment" xml:space="preserve">
-    <value>Loading the reference book of units of measurement of GNK.</value>
-  </data>
-  <data name="CoverAction_Measurenment" xml:space="preserve">
-    <value>Measurement</value>
-  </data>
-  <data name="CoverDescription_Measurenment" xml:space="preserve">
-    <value>Dictionary of measurements for work with Micros24.uz</value>
+  <data name="AsyncHandler_Description_2ced027a9c144571b04bd401a329fc5c" xml:space="preserve">
+    <value>CheckCity</value>
   </data>
 </root>

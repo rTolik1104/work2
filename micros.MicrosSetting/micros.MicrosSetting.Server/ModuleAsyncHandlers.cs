@@ -1,14 +1,17 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
 using Sungero.CoreEntities;
+using DirectoryCity;
+using micros.DrxUzbekistan.City;
 
 namespace micros.MicrosSetting.Server
 {
   public class ModuleAsyncHandlers
   {
-    public virtual void CheckCities(micros.MicrosSetting.Server.AsyncHandlerInvokeArgs.CheckCitiesInvokeArgs args)
+
+    public virtual void CheckCity(micros.MicrosSetting.Server.AsyncHandlerInvokeArgs.CheckCityInvokeArgs args )
     {
       var cityDataList = DirectoryCity.City.GetCityDataList();
       var cityExist = micros.DrxUzbekistan.PublicFunctions.City.Remote.GetAllCities();

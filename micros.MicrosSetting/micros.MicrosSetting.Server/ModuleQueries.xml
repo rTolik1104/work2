@@ -1,32 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <queries>
-  <query key="CreateTableMultibankAuthorization">
-    <default><![CDATA[CREATE TABLE IF NOT EXISTS multibank_authorization(
- id SERIAL PRIMARY KEY,
- login VARCHAR(100),
- password VARCHAR(100))]]></default>
-    <postgres><![CDATA[CREATE TABLE IF NOT EXISTS multibank_authorization(
- id SERIAL PRIMARY KEY,
- login VARCHAR(100),
- password VARCHAR(100))]]></postgres>
+  <query key="UpdateQRCodeData">
+    <postgres><![CDATA[update qr_code_data
+set public_host_address = '{0}', storage_path='{1}', active={2}, local_host_address='{3}'
+where id=1]]></postgres>
   </query>
-  <query key="InsertDataToMultibank">
-    <default><![CDATA[INSERT INTO multibank_authorization(login,password) VALUES('none','none')]]></default>
-    <postgres><![CDATA[INSERT INTO multibank_authorization(login,password) VALUES('none','none')]]></postgres>
-  </query>
-  <query key="CheckTable">
-    <default><![CDATA[SELECT COUNT(*) FROM multibank_authorization;]]></default>
-    <postgres><![CDATA[SELECT COUNT(*) FROM multibank_authorization;]]></postgres>
-  </query>
-  <query key="UpdateMultibankData">
-    <default><![CDATA[UPDATE multibank_authorization
-SET login='{0}', password='{1}'
-WHERE id=1;]]></default>
-    <postgres><![CDATA[UPDATE multibank_authorization
-SET login='{0}', password='{1}'
-WHERE id=1;]]></postgres>
-  </query>
-  <query key="SelectMultibankData">
-    <default><![CDATA[SELECT * FROM multibank_authorization;]]></default>
+  <query key="GetQrCodeData">
+    <postgres><![CDATA[SELECT * FROM qr_code_data]]></postgres>
   </query>
 </queries>

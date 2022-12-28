@@ -81,11 +81,9 @@
   ],
   "IconResourcesKeys": [],
   "IsAutoCreated": true,
-  "IsVisible": false,
   "OperationsClass": "",
   "Overridden": [
-    "IsAutoCreated",
-    "IsVisible"
+    "IsAutoCreated"
   ],
   "Properties": [
     {
